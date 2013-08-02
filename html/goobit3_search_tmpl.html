@@ -1,0 +1,88 @@
+<!-- ###NOSEARCHINDEX### BEGIN-->
+	<span class="warning">###WARNMESSAGE###</span>
+<!-- ###NOSEARCHINDEX### END-->
+
+<!-- ###SSEARCH### BEGIN-->
+    <!-- ###SSEARCHFORM### BEGIN -->
+    <div id="tx-goobit3-search">
+        <h4>###SEARCHTITLE###</h4>
+        <span class="warning">###WARNMESSAGE###</span>
+        <form id="tx-goobit3-search_form" action="###FORM_ACTION###" method="post">
+            ###HIDDEN###
+            <input  id="searchforminput" size="25" name="formquery" value="###FORM_SQUERY_VALUE###" onKeyup="tx_goobit3_searchproposallist(xajax.getFormValues('tx-goobit3-search_form'))" />
+            <input id="send" type="submit" value="Suchen" />
+            <div id="tx-goobit3-search_proposal"></div>
+        </form>
+        <br />
+    </div>
+    ###HITMESSAGE###
+    <!-- ###SSEARCHFORM### END -->
+    
+    <div id="tx-goobit3-search">
+        <div align="center">
+            <!-- ###BROWSEBARTOP### START -->
+            <hr />
+                ###RESULTFIRSTPRE###&nbsp;###RESULTPREVPRE###&nbsp;<b>###RESULTLINK###</b>&nbsp;###RESULTNEXTPOST###&nbsp;###RESULTLASTPOST###
+            <!-- ###BROWSEBARTOP### END -->
+        </div>
+    
+        <table>
+    <!-- ###SSEARCHHIT### BEGIN-->
+            <tr><td colspan="3"><hr></td></tr>
+            <tr>
+                <td valign="top" width="31" align="right">
+                    <div class="shadow" id="###THUMBNAILDIVID###">###THUMBNAIL###</div>
+                    ###THUMBNAILSCRIPT###
+                    
+                </td>
+                <td valign="top"><b>###COUNT###&nbsp;</b><br /><a href="/informationen/subskription/" ><img class="lock" src="###LOCKBUTTON###" title="###LOCKTEXT###" /></a></td>
+                <td width="619" valign="top">
+                    <b>###TITLE###</b>
+                    <div>###CREATORSTRING###</div>
+                    <div>###ORDERFIELD###</div>
+                     ###FULLTEXTSCRIPT###
+                    <div id="###FULLTEXTID###"></div>
+                    <div>###STRUCTRUN###</div>
+                </td>
+            </tr>
+        <!-- ###SSEARCHHIT### END -->
+        </table>
+    
+        <div align="center">
+            <!-- ###BROWSEBARBOTTOM### BEGIN -->
+            <hr />
+            ###RESULTFIRSTPRE###&nbsp;###RESULTPREVPRE###&nbsp;<b>###RESULTLINK###</b>&nbsp;###RESULTNEXTPOST###&nbsp;###RESULTLASTPOST###
+            <!-- ###BROWSEBARBOTTOM### END -->
+        </div>
+    </div>
+</div>
+    <div id="sidebar">
+        <div id="sidebarbordertop"></div>
+        <div id="sidebarborderend"></div>
+        <h3>&nbsp;</h3>
+        <div id="sidebarlupe"></div>
+
+       <!-- ###SSEARCHRIGHT### BEGIN-->
+        <h4>###SEARCHFIELDCAPTION###</h4>
+        ###SEARCHFIELDFORM###
+
+        <h4>###SEARCHORDERCAPTION###</h4>
+        ###SEARCHORDERFORM###
+
+        <h4>###COLCAPTION###</h4>
+        <ul>
+            <!-- ###SSEARCHDC### BEGIN-->
+            <li><nobr>###DC###</nobr></li>
+            <!-- ###SSEARCHDC### END-->
+        </ul>
+        <br /><br />
+        <h4>###CATCAPTION###</h4>
+        <ul>
+            <!-- ###SSEARCHDOCSTRCT### BEGIN-->
+            <li><nobr>###DOCSTRCT###</nobr></li>
+            <!-- ###SSEARCHDOCSTRCT### END-->
+        </ul>
+        <!-- ###SSEARCHRIGHT### END-->
+
+
+<!-- ###SSEARCH### END-->

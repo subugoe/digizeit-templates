@@ -1,0 +1,397 @@
+/*
+
+CSS-Datei für die Gestaltung des Layouts der Seite.
+    - Zentriert die Seite
+    - legt Hintergrundbilder an
+    - positioniert die Hauptelemente (Navigation, Header, Fußbereich, etc.)
+    - Definiert erste HTML-Strukturelemente (Grundsätzliche Textoptik, Überschrift etc.)
+
+*/
+
+/* ----------------- [ allgemeine Definitionen ] -------------------------------------------- */
+
+
+body {
+    font-family:Verdana,Arial,Helvetica,Sans-Serif;
+    font-size:0.625em;
+    color:#222;
+	margin-left: 0.5cm;
+	margin-right: 0.5cm;
+	margin-top: 0.5cm;
+	margin-bottom: 1,5cm;
+    width: 21cm;
+}
+
+a {
+    color:#900;
+    text-decoration:none;
+    border-bottom:1px dotted #900;
+}
+
+a:visited {
+    color:#600;
+    text-decoration:none;
+    border-bottom:1px dotted #600;
+}
+
+a:hover {
+    color:#fff;
+    text-decoration:none;
+    border-bottom:1px solid #900;
+    background:#900;	
+}
+    
+ul {
+    list-style-type:none;
+}
+    
+strong {
+    font-weight:bold;
+}
+
+#header h2,
+#sitenav,
+#fastsearch label,
+#nav h3,
+#fastsearch h3,
+.hidden {
+    display:none;
+}
+
+.wrapper {
+    position:relative;
+    width:950px;
+    text-align:left;
+    margin:0 auto;
+}
+
+img {
+    border: none;
+}
+/* ----------------- [ / allgemeine Definitionen ] ------------------------------------------ */
+/* ----------------- [ Aufbau des Inhalts (Spalten etc.) ] ---------------------------------- */
+
+.content {
+    position:relative;
+    top:0;
+    left:0;
+    padding:0 27px 0 23px;
+    display:block;
+}
+
+#maincol,
+#maincol_full {
+    position:relative;
+    top:0;
+    left:0;
+/*    margin:20px 0 0px 65px */;
+    margin:0px 0 0px 65px;
+/*    margin:0px 0px 0px 0px; */
+    line-height:1.6em;
+    font-size:1.2em;
+    color:#222;
+    min-height:30px;
+}
+    
+#maincol { width:560px; float:left; padding:0 0 50px 0; }
+
+#maincol_full { width:800px; padding:0; }
+
+/* ----------------- [ / Aufbau des Inhalts (Spalten etc.) ] -------------------------------- */
+/*
+
+CSS-Datei für die Gestaltung der Inhaltselemente.
+	- Schriftarten, Abstände und Anordnungen diverser Inhaltselemente
+	- Spaltendefinition
+	
+*/
+
+
+/* ----------------- [ Textdefinitionen ] ----------------------------------- */
+
+ h3 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style:italic;
+	color:#900;
+	padding:0 0 5px 0;
+	border-bottom:1px dotted #ccc;
+}
+
+#maincol h3,
+#maincol_full h3 {
+	font-size:2em;
+	line-height:1.2em;
+	max-width:650px;
+}
+
+#maincol h4,
+#maincol_full h4 {
+	font-size:1.3em;
+	line-height:1.2em;
+	max-width:650px;
+	margin:0px 0 0px 0;
+	font-weight:normal;
+	color:#222;
+	font-style:italic;
+	margin:10px 0 0 0;
+}
+
+#maincol h5,
+#maincol_full h5 {
+	font-size:1em;
+	line-height:1.2em;
+	max-width:650px;
+	font-weight:bold;
+	margin:10px 0 0 0;
+}
+
+#maincol p,
+#maincol_full p { margin:20px 0 0 0; color: #222; }
+
+#sidebar h3 { font-size:1.6em; margin-bottom:10px; }
+
+#sidebar h4 { font-size:1.2em; color:#900; }
+
+#sidebar p { color: #222; }
+
+#sidebar { line-height:1.7em;}
+
+ul {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+li {
+    margin: 0px 0px 0px 0px;
+}
+
+.list li {
+	background:url(/fileadmin/layout/listelement.gif) no-repeat 0 5px;
+	padding:0 0 0 15px;
+	line-height:1.6em;
+}
+
+/* ----------------- [ / Textdefinitionen ] --------------------------------- */
+
+
+/*--------------------  goobit3 -----------------------------------------*/
+#tx-goobit3-search {
+    max-width:650px;
+}
+
+#tx-goobit3-search_form {
+    position:relative;
+    top:20px;
+    bottom: 20px;
+    right:0;
+    width:320px;
+    height:88px;
+    border-left:1px dotted #ccc;
+}
+#tx-goobit3-search_form #searchforminput {
+    position:absolute;
+    right:15px;
+    top:20px;
+    width:280px;
+    height:28px;
+    background:url(/fileadmin/layout/inpbg_fastsearch.gif) no-repeat 0 0;
+    border:none;
+    font-size:1.2em;
+    color:#fff;
+    padding:6px 0 0 10px;
+}
+#tx-goobit3-search_form #send {
+    position:absolute;
+    top:13px;
+    right:15px;
+    height:50px;
+    width:61px;
+    border:none;
+    background:transparent url(/fileadmin/layout/btn_fastsearch_ie6.gif) no-repeat 0 0;
+    text-indent:-2000px;
+    overflow:hidden;
+    display:block;
+    font-size:0em;
+    color:#ccc;
+}
+
+#tx-goobit3-search_prefix {
+    position:relative;
+    top: 2px;
+    width: 200px;
+    text-align: right;	    
+    float:left;
+}
+
+#tx-goobit3-search_input {
+    position:relative;
+    top: 0px;
+    width: 300px;
+    float:left;
+    margin: 2px 2px 2px 2px;
+    white-space:nowrap;
+}
+
+#tx-goobit3-search_proposal {
+    position:absolute;
+    right:70px;
+    top:48px;
+    width:225px;
+    background: #fff;
+    border:none;
+    font-size:1.2em;
+    overflow:hidden;
+    padding:6px 0 10px 10px;
+/*    border-left:1px dotted #ccc;
+    border-bottom:1px dotted #ccc; */
+    z-index:999;
+}
+
+#tx-goobit3-search_proposalline {
+    width: 100%;
+}
+#tx-goobit3-search_proposalline:hover{
+    color: #fff;
+    background-color: #900;
+}
+
+
+#tx-goobit3-search hr {
+    color: #fff;
+    background:#fff;	
+    border: 0px solid #fff;
+    border-bottom:1px dotted #ccc;
+}
+#tx-goobit3-search a {
+    border:none
+}
+#tx-goobit3-search img:hover {
+    border:none;
+    background:#fff;	
+}
+#tx-goobit3-search img {
+    border:none;
+    display:inline;
+    vertical-align: top;
+}
+
+#tx-goobit3-browse  ul ul {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+}
+#tx-goobit3-browse ul ul li.tx-goobit3-browse_browsecollection {
+}
+
+.tx-goobit3-toc {
+    position: relative;
+    width: 600px;
+    border: solid 1px #000;
+    margin-top: 30px;
+    margin-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: solid 1px #000;
+}
+
+#tx-goobit3-toc_toc_current {
+    font-weight: bold;
+    background-color: #f3ecd5;
+}
+#tx-goobit3-toc_toc {
+}
+#tx-goobit3-toc_toc .succeeding, .preceeding {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+#tx-goobit3-toc_toc .tx-goobit3-toc_space, #tx-goobit3-toc_toc_current .tx-goobit3-toc_space {
+    vertical-align: top;
+    float: left;
+}
+
+#tx-goobit3-met_head {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+#tx-goobit3-met_section {
+}
+
+#tx-goobit3-met_section .tx-goobit3-met {
+    position: relative;
+    width: 800px;
+    margin-top: 30px;
+    margin-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+/*    border: solid 1px #000; */
+}
+
+#tx-goobit3-met_section .tx-goobit3-met_hr {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+#tx-goobit3-met_section .comment {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+ .comment {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+#tx-goobit3-img_pageturn div {
+    text-align: center;
+    float:left;
+}
+
+#tx-goobit3-img_form {
+/*    margin-left: 75px; */
+}
+#tx-goobit3-img_form_bottom {
+    text-align: right;
+    margin-right: 75px;
+}
+
+#tx-goobit3-img_form .form_input {
+    display: block;
+    float:left;
+    margin: 3px;
+    padding: 0px;
+}
+
+#tx-goobit3-img_form .form_select {
+    display: block;
+    float:left;
+    height: 20px;
+    margin: 3px;
+    padding: 0px;
+    border: solid 1px #000000;
+}
+
+#tx-goobit3-img_image  {
+/*    margin-left: 75px; */
+}
+
+#tx-goobit3-img_image .image {
+    border: solid 1px #000;
+}
+
+#tx-goobi-img_head {
+/*    margin-left: 75px;
+    margin-right: 75px; */
+}
+#tx-goobi-img_head .struct {
+}
+#tx-goobi-img_head .maintitle {
+    font-weight: bold;
+}
+#tx-goobi-img_head .purl {
+    font-weight: bold;
+}
+#tx-goobi-img_head .comment {
+}
+

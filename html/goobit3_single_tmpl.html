@@ -1,0 +1,156 @@
+<!--- ###PDFTITLEPAGE### BEGIN --><?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdftitlepage PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://gdz.sub.uni-goettingen.de/fileadmin/cs_conf/pdftitlepage.dtd">
+<pdftitlepage>
+
+<!-- get all parents -->
+<parenttype>###PARENT###</parenttype>
+<!-- usually line1 contains the title of the selected document - this is the title of the chapter, the article or if the whole monograph was selected, the title of the monograph -->
+<line1 size="10" type="parent" maxtotallength="120">###TITLE###</line1>
+<!-- line 2 contains the creator of the document -->
+<line2 size="10" type="parent">###CREATOR###</line2>
+<!-- line 3 contains the title of the parent, in which the selected document is contained title of monograph, periodical etc... Besides just the title, volume and issues numbers can be display here-->
+<line3 size="10" maxlinelength="80"  maxtotallength="160">###STRUCTRUN###</line3>
+<!-- line4 contains the pages; from and until -->
+<line4 size="10">###PAGES###</line4>
+	<termsconditions title="Terms and Conditions">
+		<p> </p>
+		<p size="10">The Göttingen State and University Library provides access to digitized documents strictly for noncommercial educational, research and private purposes and makes no warranty with regard to their use for other purposes. Some of our collections are protected by copyright. Publication and/or broadcast in any form (including electronic) requires prior written permission from the Goettingen State- and University Library.</p>
+		<p size="10">Each copy of any part of this document must contain there Terms and Conditions. With the usage of the library's online system to access or download a digitized document you accept there Terms and Conditions.</p>
+		<p size="10">Reproductions of material on the web site may not be made for or donated to other repositories, nor may be further reproduced without written permission from the Goettingen State- and University Library</p>
+		<p>For reproduction requests and permissions, please contact us. If citing materials, please give proper attribution of the source.</p>
+		<p> </p>
+		<p style="bold">Contact:</p>
+		<p size="10">Niedersächsische Staats- und Universitätsbibliothek</p>
+		<p size="10">Digitalisierungszentrum</p>
+		<p size="10">37070 Goettingen</p>
+		<p size="10">Germany</p>
+		<p size="10">Email: gdz@sub.uni-goettingen.de</p>
+		<p> </p>
+		<p style="bold" size="12">Purchase a CD-ROM</p>
+		<p size="10">The Goettingen State and University Library offers CD-ROMs containing whole volumes / monographs in PDF for Adobe Acrobat. The PDF-version contains the table of contents as bookmarks, which allows easy navigation in the document. For availability and pricing, please contact:</p>
+		<p size="10">Niedersaechisische Staats- und Universitaetsbibliothek Goettingen - Digitalisierungszentrum</p>
+		<p size="10">37070 Goettingen, Germany, Email: gdz@www.sub.uni-goettingen.de</p>
+	</termsconditions>
+	<image x="14.5" y="27" scale="60">/srv/www/tomcat5/base/webapps/contentserver/head_logo.jpg</image>
+</pdftitlepage>
+<!--- ###PDFTITLEPAGE### END -->
+<!-- ################################################################################################### -->
+
+<!--- ###PPNXML### BEGIN --><?xml version="1.0" encoding="UTF-8"?>
+<response>
+	<header>
+		<version>0.1</version>
+	</header>
+	<resolvedLPIs>
+		<LPI>
+			<requestedLPI>###REQUESTLPI###</requestedLPI>
+			<service>GDZ Document Server</service>
+			<servicehome>http://gdz.sub.uni-goettingen.de</servicehome>
+			###URLTAG###
+			<version/>
+		</LPI>
+	</resolvedLPIs>
+</response>
+<!--- ###PPNXML### END -->
+<!-- ################################################################################################### -->
+
+
+<!-- ################################################################################################### -->
+<!-- ###PDFLINKPAGE### BEGIN-->
+	<div class="tx-goobit3-pi4_pdflinkpage">
+	<!-- ###STRUCTLINE### BEGIN-->
+		<img src="clear.gif" width="###SPACER###0" height="20" class="tx-goobit3-pi4_pdflinkpage_spacer"><img src="clear.gif" width="###SPACER###0" height="20" class="tx-goobit3-pi4_pdflinkpage_spacer">
+		<form class="tx-goobit3-pi4_pdflinkpage_form" action="###CONTENTSERVERURL###" method="get" name="###FORMNAME###">
+			###SUBMIT###
+			<input name="command" value="docconvert" type="hidden">
+			<input name="docid" value="D###IDDOC###" type="hidden">
+			<!--###IFPID###<input name="pid" value="###PPN###" type="hidden">###ENDIFPID###-->
+		</form>
+		<span class="tx-goobit3-pi4_pdflinkpage_struct"> ###FILESIZE### ###STRUCT### ###PAGES###</span>
+		###FILESIZEJS###
+		<br clear="all" />
+	<!--- ###STRUCTLINE### END-->
+	</div>
+<!-- ###PDFLINKPAGE### END-->
+<!-- ################################################################################################### -->
+
+
+<!-- ################################################################################################### -->
+<!-- ###NOSEARCHINDEX### BEGIN-->
+	<span class="warning">###WARNMESSAGE###</span>
+<!-- ###NOSEARCHINDEX### END-->
+<!-- ################################################################################################### -->
+
+
+<!-- ################################################################################################### -->
+<!-- ###IMAGEVIEW### BEGIN -->
+	<!-- ###NAVI### BEGIN-->
+
+		###JAVASCRIPT###
+		<form action="###NAVIACTION###" id="jk_goobit3_pi4_naviform" method="post">
+			<input type="hidden" name="search" value="">
+			###HIDDEN###
+			<table class="tx-goobit3-pi4_navi">
+				<tr class="tx-goobit3-pi4_navi">
+					<td class="tx-goobit3-pi4_navi_parentfirst">###NAVIPARENTFIRST###</td>
+					<td class="tx-goobit3-pi4_navi_prevdoc">###NAVIPREVDOC###</td>
+<!--					<td class="tx-goobit3-pi4_navi_first">###NAVIFIRST###</td> -->
+					<td class="tx-goobit3-pi4_navi_prev">###NAVIPREV###</td>
+					<td class="tx-goobit3-pi4_navi_page"><nobr>###STARTPAGE###&nbsp;&nbsp;###NAVIPAGE###&nbsp;&nbsp;###ENDPAGE###&nbsp;&nbsp;</nobr></td>
+					<td class="tx-goobit3-pi4_navi_search">###NAVISEARCH###</td>
+					<td class="tx-goobit3-pi4_navi_next">###NAVINEXT###</td>
+<!--					<td class="tx-goobit3-pi4_navi_last">###NAVILAST###</td> -->
+					<td class="tx-goobit3-pi4_navi_nextdoc">###NAVINEXTDOC###</td>
+					<td class="tx-goobit3-pi4_navi_parentlast">###NAVIPARENTLAST###</td>
+				</tr>
+			</table>
+	
+	<!-- ###ZOOMOPEN###
+	<div class="tx-goobit3-pi4_naviplus">
+	###ZOOMPLUS###
+	<br />###ZOOMMINUS###
+	<br />###ROTATELEFT###
+	<br />###ROTATERIGHT###
+	</div>
+	###ZOOMCLOSE### //-->
+
+	<script type="text/javascript">
+	<!--//
+	document.getElementById("tx-goobit3-pi4_metadata").innerHTML = '###METADATA###';
+	//tx_goobit3_pi4writeMetadata(xajax.getFormValues('jk_goobit3_pi4_naviform'));
+	//-->
+	</script>
+		</form>
+	<!-- ###NAVI### END-->
+
+	<!-- ###IMAGE### BEGIN-->
+		<div class="tx-goobit3-pi4_img">
+			<img src="###IMAGESRC###">
+	<!-- ###IMAGE### END-->
+	<!-- ###FULLTEXT### BEGIN-->
+		<div class="tx-goobit3-pi4_ful">
+			###STRFULLTEXT###
+	<!-- ###FULLTEXT### END-->
+		<div class="tx-goobit3-pi4_shadowright"><img class="tx-goobit3-pi3_topright" src="/fileadmin/layout/shadow_righttopright.jpg" alt="" title=""></div><div class="tx-goobit3-pi4_shadowbottom"><img class="tx-goobit3-pi4_bottomleft" src="/fileadmin/layout/shadow_leftbottomleft.jpg" alt="" title=""><img class="tx-goobit3-pi4_bottomright" src="/fileadmin/layout/shadow_leftbottomright.jpg" alt="" title=""></div>
+	</div>
+		<br /><br />
+<!-- ###IMAGEVIEW### END -->
+<!-- ################################################################################################### -->
+
+
+
+<!-- ################################################################################################### -->
+<!--- ###METADATAVIEW### BEGIN -->
+	<div class="tx-goobit3-pi4_met">
+		<table class="tx-goobit3-p14_metadataltable">
+		<!--- ###STRUCT### BEGIN -->
+			<tr class="tx-goobit3-pi4_metadataline"><td class= "tx-goobit3-pi4_metadatakey"><nobr>###STRUCTKEY###:</nobr></td><td class="tx-goobit3-pi4_metadataval">###STRUCTVAL###</td></tr>
+			<!-- ###STRUCTSPACERPRE### <tr><td colspan="2"><hr /></td></tr> ###STRUCSPACERPOST### //-->
+		<!--- ###STRUCT### END -->
+		</table>
+		<br />
+		<div class="tx-goobit3-pi4_shadowright"><img class="tx-goobit3-pi3_topright" src="/fileadmin/layout/shadow_righttopright.jpg" alt="" title=""></div><div class="tx-goobit3-pi4_shadowbottom"><img class="tx-goobit3-pi4_bottomleft" src="/fileadmin/layout/shadow_leftbottomleft.jpg" alt="" title=""><img class="tx-goobit3-pi4_bottomright" src="/fileadmin/layout/shadow_leftbottomright.jpg" alt="" title=""></div>
+	</div>
+<!--- ###METADATAVIEW### END -->
+<!-- ################################################################################################### -->
+

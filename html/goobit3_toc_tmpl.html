@@ -1,0 +1,362 @@
+<!-- ###NOSEARCHINDEX### BEGIN-->
+    </div>
+</div>
+<ul id="collection">
+    <li class="coll_object">
+        <div id="tx-goobit3-toc_toc">
+            <div class="objsep"></div>
+            <div class="tx-goobit3-toc_space"><img src="clear.gif" width="100" height="5" title="" alt="" /></div>
+            <span class="warning">###WARNMESSAGE###</span>
+        </div>
+    </li>
+</ul>
+<ul id="collection">
+    <li class="coll_object">
+        <div class="objsep"></div>
+    </li>
+</ul>
+<!-- ###NOSEARCHINDEX### END-->
+
+<!-- ###MODS### BEGIN-->
+        <a href="http://www.digizeitschriften.de/informationen/subskription/" ><img id="lock" src="###LOCKBUTTON###" title="###LOCKTEXT###" /></a>
+    </div>
+</div>
+<ul id="collection">
+    <li class="coll_object">
+        <div id="tx-goobit3-toc_toc">
+        <!-- ###MODSSEC### BEGIN-->
+        <?xml version="1.0" encoding="utf-8"?>
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mods="http://www.loc.gov/mods/v3">
+        
+            <xsl:output method="html"/>
+        
+            <xsl:template name="style">
+                <!-- Platz fuer StyleSheets -->
+                <xsl:call-template name='xmlstyle' />
+            </xsl:template>
+ 
+            <xsl:param name="YEARPUBLISH" value="0" />
+            <xsl:param name="Successor" value="0" />
+            <xsl:param name="Predecessor" value="0" />
+            <xsl:param name="basepurl" value="0" />
+            <xsl:param name="volumelist" value="0" />
+            <xsl:param name="pdflink" value="0" />
+            <xsl:param name="pdficon" value="0" />
+ 
+<!-- schnelle schmutzige Lösung für DigiZeit besser umbauen zu modsCollection siehe tx_goobi_img.php --> 
+            <xsl:template match="mods:note[@ID='MGH']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='destatis.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='diglit.ub.uni-heidelberg.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical' or $docstrct='multivolume_work'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='digi.ub.uni-heidelberg.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical' or $docstrct='multivolume_work'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='idb.ub.uni-tuebingen.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical' or $docstrct='multivolume_work'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='www.zbw.eu.digire']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical' or $docstrct='multivolume_work'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical' or $docstrct='multivolume_work'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+
+            <xsl:template match="mods:note[@ID='preImport']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschriftenband' or $docstrct='Periodical Volume'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+
+
+            <xsl:template match="mods:relatedItem[@type='succeeding']"  mode="succeeding">
+                <xsl:if test="$Successor" >
+                <xsl:for-each select=".">
+                    <div class="succeeding"><strong>
+                        <hr />
+                        <xsl:value-of select="$Successor" /><xsl:text>: </xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="mods:titleInfo[1]/mods:title and string-length(normalize-space(string(mods:titleInfo/mods:title))) &lt;= 80">
+                                <a>
+                                    <xsl:attribute name="href"><xsl:value-of select="$basepurl" /><xsl:value-of select="mods:recordInfo/mods:recordIdentifier" /></xsl:attribute> 
+                                    <xsl:value-of  select="normalize-space(string(mods:titleInfo/mods:title))"  />
+                                </a>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <a>
+                                    <xsl:attribute name="href"><xsl:value-of select="$basepurl" /><xsl:value-of select="mods:recordInfo/mods:recordIdentifier" /></xsl:attribute> 
+                                    <xsl:attribute name="title"><xsl:value-of select="mods:titleInfo/mods:title" /></xsl:attribute>
+                                    <xsl:value-of  select="concat(substring(normalize-space(string(mods:titleInfo/mods:title)),0,80),'...')"  />
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <hr />
+                    </strong></div>
+                </xsl:for-each>
+                </xsl:if>
+            </xsl:template>
+
+            <xsl:template match="mods:relatedItem[@type='preceding']"  mode="preceding">
+                <xsl:if test="$Predecessor" >
+                <xsl:for-each select=".">
+                    <div class="preceeding"><strong>
+                        <hr />
+                        <xsl:value-of select="$Predecessor" /><xsl:text>: </xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="mods:titleInfo[1]/mods:title and string-length(normalize-space(string(mods:titleInfo/mods:title))) &lt;= 80">
+                                <a>
+                                    <xsl:attribute name="href"><xsl:value-of select="$basepurl" /><xsl:value-of select="mods:recordInfo/mods:recordIdentifier" /></xsl:attribute> 
+                                    <xsl:value-of  select="normalize-space(string(mods:titleInfo/mods:title))"  />
+                                </a>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <a>
+                                    <xsl:attribute name="href"><xsl:value-of select="$basepurl" /><xsl:value-of select="mods:recordInfo/mods:recordIdentifier" /></xsl:attribute> 
+                                    <xsl:attribute name="title"><xsl:value-of select="mods:titleInfo/mods:title" /></xsl:attribute>
+                                    <xsl:value-of  select="concat(substring(normalize-space(string(mods:titleInfo/mods:title)),0,80),'...')"  />
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <hr />
+                    </strong></div>
+                </xsl:for-each>
+                </xsl:if>
+            </xsl:template>
+<!-- ############################################################################### --> 
+
+            <xsl:template match="/mods:mods">
+                <xsl:apply-templates select="mods:note[@ID='MGH']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='destatis.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='diglit.ub.uni-heidelberg.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='digi.ub.uni-heidelberg.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='idb.ub.uni-tuebingen.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='www.zbw.eu.digire']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='preImport']" mode="periodicalvolume" />
+
+                   <!-- Main title line -->
+                    <xsl:choose>
+
+                        <xsl:when test="$indention='0'">
+                            <div class="objsep"></div>
+                            <!-- Title -->
+                            <xsl:choose>
+                                <xsl:when test="mods:titleInfo[1]/mods:title and string-length(normalize-space(string(mods:titleInfo[1]/mods:title))) &lt;= 80">
+                                    <a href="{$link}" class="objecthead"><xsl:value-of select="mods:titleInfo[1]/mods:title" /></a>
+                                </xsl:when>
+                                <xsl:when test="mods:titleInfo[1]/mods:title and string-length(normalize-space(string(mods:titleInfo[1]/mods:title))) &gt;= 80">
+                                    <a href="{$link}" class="objecthead">
+                                        <xsl:attribute name="title"><xsl:value-of select="mods:titleInfo[1]/mods:title" /></xsl:attribute>
+                                        <xsl:value-of select="concat(substring(normalize-space(string(mods:titleInfo[1]/mods:title)),0,80),'...')" />
+                                    </a>
+                                </xsl:when>
+                                <xsl:when test="not(mods:titleInfo[1]/mods:title) and string-length($docstrct) &gt;= 80">
+                                    <a href="{$link}" class="objecthead">
+                                        <xsl:attribute name="title"><xsl:value-of select="$docstrct" /></xsl:attribute>
+                                        <xsl:value-of select="concat(substring($docstrct,0,80),'...')" />
+                                    </a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <a href="{$link}" class="objecthead"><xsl:value-of select="$docstrct" /></a>
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+                            <!-- Persons -->
+                            <xsl:for-each select="mods:name[not(@*)]" >
+
+                                <xsl:choose>
+                                    <xsl:when test="mods:displayForm">
+                                        <xsl:value-of select="mods:displayForm" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                            <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="position()!=last()">
+                                    <xsl:text>; </xsl:text>
+                                </xsl:if>
+                            </xsl:for-each>
+                            <xsl:for-each select="mods:name[@*]" >
+                                <xsl:choose>
+                                <xsl:when test="mods:displayForm">
+                                    <xsl:value-of select="mods:displayForm" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="position()!=last()">
+                                    <xsl:text>; </xsl:text>
+                                </xsl:if>
+                            </xsl:for-each>
+                            <!--  pagenumber  -->
+                            <div class="tx-goobit3-toc_page">
+                                <br/>
+<!--                                <a href="{$link}" class="objecthead"><xsl:value-of select="$page" /></a> //-->
+                            </div>
+
+                            <xsl:apply-templates select="mods:relatedItem[@type='succeeding']" mode="succeeding" />
+
+                            <xsl:if test="$publlink" >
+                                <div class="succeeding"><strong>
+                                    <hr />
+                                        <xsl:value-of select="$publlink"  disable-output-escaping="yes" />
+                                    <hr />
+                                </strong></div>
+                            </xsl:if>
+
+                        </xsl:when>
+
+                        <!-- other lines -->
+                        <xsl:otherwise>
+
+                        <ul><li id="{$current}">
+                            <!-- year of publication -->
+                            <xsl:choose>
+                                <xsl:when test="$YEARPUBLISH">
+                                    <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
+                                    <a href="{$link}"><span class="siteyear"><xsl:value-of select="$YEARPUBLISH" /></span></a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            
+                            <!-- title -->
+                            <xsl:choose>
+                                <xsl:when test="mods:titleInfo[1]/mods:title and string-length(normalize-space(string(mods:titleInfo[1]/mods:title))) &lt;= 80">
+                                    <a href="{$link}"><span class="sitetitle"><xsl:value-of select="mods:titleInfo[1]/mods:title" /></span></a>
+                                    <xsl:if test="mods:titleInfo[1]/mods:partName">
+                                        <a href="{$link}"><span class="sitetitle">
+                                            <xsl:text>  </xsl:text><xsl:value-of select="$docstrct" /><xsl:text>  </xsl:text>
+                                            <xsl:value-of select="mods:titleInfo[1]/mods:partName" /></span>
+                                        </a>
+                                    </xsl:if>
+                                </xsl:when>
+                                <xsl:when test="mods:titleInfo[1]/mods:title and string-length(normalize-space(string(mods:titleInfo[1]/mods:title))) &gt;= 80">
+                                    <a href="{$link}">
+                                    <span class="sitetitle">
+                                        <xsl:attribute name="title"><xsl:value-of select="mods:titleInfo[1]/mods:title" /></xsl:attribute>
+                                        <xsl:value-of select="concat(substring(normalize-space(string(mods:titleInfo[1]/mods:title)),0,80),'...')" />
+                                    </span>
+                                    </a>
+                                    <xsl:if test="mods:titleInfo[1]/mods:partName">
+                                        <a href="{$link}"><span class="sitetitle">
+                                            <xsl:text>  </xsl:text><xsl:value-of select="$docstrct" /><xsl:text>  </xsl:text>
+                                            <xsl:value-of select="mods:titleInfo[1]/mods:partName" /></span>
+                                        </a>
+                                    </xsl:if>
+                                </xsl:when>
+                                <xsl:when test="not(mods:titleInfo[1]/mods:title) and string-length($docstrct) &gt;= 80">
+                                    <a href="{$link}">
+                                    <span class="sitetitle">
+                                        <xsl:attribute name="title"><xsl:value-of select="$docstrct" /></xsl:attribute>
+                                        <xsl:value-of select="concat(substring($docstrct,0,80),'...')" />
+                                    </span>
+                                    </a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <a href="{$link}"><span class="sitetitle"><xsl:value-of select="$docstrct" /></span></a>
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+                            <!-- Persons -->
+                            <xsl:for-each select="mods:name[not(@*)]" >
+                                <br />
+                                <xsl:choose>
+                                    <xsl:when test="mods:displayForm">
+                                        <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
+                                        <xsl:value-of select="mods:displayForm" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                            <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
+                                            <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="position()!=last()">
+                                    <xsl:text>; </xsl:text>
+                                </xsl:if>
+                            </xsl:for-each>
+                            <xsl:for-each select="mods:name[@*]" >
+                                <br />
+                                <xsl:choose>
+                                    <xsl:when test="mods:displayForm">
+                                        <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
+                                        <xsl:value-of select="mods:displayForm" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
+                                        <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="position()!=last()">
+                                    <xsl:text>; </xsl:text>
+                                </xsl:if>
+                            </xsl:for-each>
+                            <!--  pagenumber  -->
+                            <xsl:choose>
+                                <xsl:when test="$pdflink">
+<form action="dms/gcs-wrapper" method="post" name="{$structid}" class="siteno"><input type="hidden" name="gcsurl" value="{$pdflink}" /><a href="{$link}"><xsl:value-of select="$page" /></a><a href="#" onClick="{$structid}.submit(); return false;" class="sitepdf"><img class="pdficon" src="{$pdficon}" alt="PDF" title="PDF" /></a></form>
+<!--	
+                                    <span class="siteno"><a href="{$link}"><xsl:value-of select="$page" /></a><a href="{$pdflink}" class="sitepdf"><img class="pdficon" src="{$pdficon}" alt="PDF" title="PDF" /></a></span>
+//-->
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <span class="siteno"><a href="{$link}"><xsl:value-of select="$page" /></a><img class="sitepdf" src="clear.gif" width="27" height="11" /></span>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </li></ul>
+
+                        <xsl:apply-templates select="mods:relatedItem[@type='preceding']" mode="preceding" />
+
+                        </xsl:otherwise>
+
+                    </xsl:choose>
+
+            </xsl:template>
+        
+        </xsl:stylesheet>
+    <!-- ###MODSSEC### END -->
+</div>
+    </li>
+</ul>
+<ul id="collection">
+    <li class="coll_object">
+        <div class="objsep"></div>
+    </li>
+</ul>
+<!-- ###MODS### END-->

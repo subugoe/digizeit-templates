@@ -1,0 +1,618 @@
+/*
+
+CSS-Datei für die Gestaltung des Layouts der Seite.
+    - Zentriert die Seite
+    - legt Hintergrundbilder an
+    - positioniert die Hauptelemente (Navigation, Header, Fußbereich, etc.)
+    - Definiert erste HTML-Strukturelemente (Grundsätzliche Textoptik, Überschrift etc.)
+
+*/
+
+/* ----------------- [ allgemeine Definitionen ] -------------------------------------------- */
+
+* {
+    margin:0px;
+    padding:0px;
+}
+
+body {
+    background:#7e756a url(/fileadmin/layout/bggrad.gif) repeat-x fixed;
+    font-family:Verdana,Arial,Helvetica,Sans-Serif;
+    font-size:0.625em;
+    color:#222;
+    text-align:center;
+}
+
+a {
+    color:#900;
+    text-decoration:none;
+    border-bottom:1px dotted #900;
+}
+
+a:visited {
+    color:#600;
+    text-decoration:none;
+    border-bottom:1px dotted #600;
+}
+
+a:hover {
+    color:#fff;
+    text-decoration:none;
+    border-bottom:1px solid #900;
+    background:#900;	
+}
+    
+ul {
+    list-style-type:none;
+}
+    
+strong {
+    font-weight:bold;
+}
+
+#header h2,
+#sitenav,
+#fastsearch label,
+#nav h3,
+#fastsearch h3,
+.hidden {
+    display:none;
+}
+
+.wrapper {
+    position:relative;
+    width:950px;
+    text-align:left;
+    margin:0 auto;
+}
+
+img {
+    border: none;
+}
+/* ----------------- [ / allgemeine Definitionen ] ------------------------------------------ */
+
+
+
+/* ----------------- [ Hintergrundgrafiken, Header & Breadcrumb ] --------------------------- */
+#bgicon {
+    position:absolute;
+    top:0;
+    left:-50px;
+    width:400px;
+    height:300px;
+    background:url(/fileadmin/layout/bgicon.gif) no-repeat top left;
+}
+/*
+#bgicon {
+    position:absolute;
+    top:0;
+    left:-50px;
+    width:350px;
+    height:135px;
+    background:url(/fileadmin/layout/bgicon.gif) no-repeat top left;
+}
+*/
+#linebook {
+    position:absolute;
+    top:163px;
+    right:-45px;
+    width:75px;
+    height:114px;
+    background:url(/fileadmin/layout/linebook.gif) no-repeat 0 0;
+}
+    
+#headborder {
+    position:relative;
+    top:0;
+    left:0;
+    width:950px;
+    height:110px;
+    background:url(/fileadmin/layout/headborder.png) no-repeat bottom center;
+}
+
+#header {
+    position:relative;
+    top:0;
+    left:0;
+    width:900px;
+    height:164px;
+    background:url(/fileadmin/layout/headerpic.jpg) no-repeat 0 0;
+}
+    
+#homelink {
+    position:absolute;
+    top:10px;
+    left:20px;
+    height:80px;
+    width:360px;
+    background:url(/fileadmin/layout/digizeit_logo.png) no-repeat 0 0;
+    text-indent:-2000px;
+    overflow:hidden;
+    border-bottom:none;
+}
+    
+#welcome,
+#breadcrumb {
+    position:relative;
+    width:100%;
+    background:#f3ecd5;
+    margin-bottom:10px;
+}
+    
+#breadcrumb {
+    height:30px;
+}
+    
+#welcome p strong {
+    color:#900;
+}
+    
+#cnose {
+    position:absolute;
+    bottom:-11px;
+    left:41px;
+    width:45px;
+    height:11px;
+    background:url(/fileadmin/layout/cnose.gif) no-repeat 0 0;
+    clear:left;
+}
+    
+#breadcrumb dl {
+    position:absolute;
+    top:7px;
+    left:60px;
+}
+    
+#breadcrumb dl dd,
+#breadcrumb dl dt {
+    float:left;
+    margin:0 2px 0 0;
+}
+    
+#breadcrumb dl dd .breadsep {
+    margin:0 0 0 2px;
+    color:#222;
+}
+    
+#breadcrumb a { border-bottom:none; font-weight:bold;color:#222; padding:1px 2px; }
+
+#breadcrumb a:hover { border-bottom:none; background:#222; font-weight:bold;color:#fff; padding:1px 2px; }
+
+#breadcrumb dd { color:#900; }
+
+/* ----------------- [ / Hintergrundgrafiken, Header & Breadcrumb ] ------------------------- */
+
+
+
+/* ----------------- [ Aufbau des Inhalts (Spalten etc.) ] ---------------------------------- */
+
+.content {
+    position:relative;
+    top:0;
+    left:0;
+    background:url(/fileadmin/layout/bgwrapper.png) repeat-y;
+    padding:0 27px 0 23px;
+    display:block;
+}
+
+#maincol,
+#maincol_full {
+    position:relative;
+    top:0;
+    left:0;
+/*    margin:20px 0 0px 65px */;
+    margin:0px 0 0px 65px;
+    line-height:1.6em;
+    font-size:1.2em;
+    color:#222;
+    min-height:30px;
+}
+    
+#maincol { width:560px; float:left; padding:0 0 50px 0; }
+
+#maincol_full { width:800px; padding:0; }
+
+/* ----------------- [ / Aufbau des Inhalts (Spalten etc.) ] -------------------------------- */
+
+/* ----------------- [ Sprachen Navigation ] ---------------------------- */
+
+#lang_nav {
+    position:absolute;
+    top:171px;
+    left:30px;
+    width:20px;
+    height:12px;
+    display:block;
+}
+#lang_nav img {
+    display:inline;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+#lang_nav {
+    position:absolute;
+    top:171px;
+    left:30px;
+    width:20px;
+    height:12px;
+    display:block;
+    z-index:1000;
+}
+#lang_nav img {
+    display:inline;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+#lang_nav a  { 
+    color:#900;
+    text-decoration:none;
+    padding-right: 4px;
+    border-right:1px dotted #900;
+    border-bottom: none;
+}
+#lang_nav a:visited {
+    color:#900;
+    text-decoration:none;
+    padding-right: 4px;
+    border-right:1px dotted #900;
+    border-bottom: none;
+}
+
+#lang_nav a:hover  {
+    color:#fff;
+    text-decoration:none;
+    border-right:1px dotted #900;
+    padding-right: 4px;
+    background:#900;	
+    border-bottom: none;
+}
+
+/* ----------------- [ /Sprachen Navigation ] ---------------------------- */
+
+/* ----------------- [ Design der Navigation incl. der Buttons ] ---------------------------- */
+
+#nav {
+    position:absolute;
+    top:129px;
+    left:23px;
+    width:900px;
+    height:35px;
+    display:block;
+}
+    
+#nav li {
+    position:relative;
+    top:0;
+    left:0;
+    float:left;
+    display:block;
+    height:35px;
+    width:auto;
+}
+    
+#nav li a {
+    position:relative;
+    top:0;
+    left:0;
+    width:auto;
+    height:25px;
+    border-bottom:none;
+    display:block;
+    color:#fff;
+    text-align:center;
+    font-weight:bold;
+    font-size:14px;
+    text-transform:uppercase;
+    font-family:'Lucida Grande',Verdana,Arial,Sans-Serif;
+    padding:5px 13px;
+    border-right:1px dotted #fff;
+}
+
+* html #nav li a { width:100px; height:35px; }
+
+#nav li a.act  { background:url(/fileadmin/layout/nav_act.gif) no-repeat bottom center; }
+#nav li a:hover  { background:#f3ecd5; color:#900; }
+
+/* ----------------- [ / Design der Navigation incl. der Buttons ] -------------------------- */
+
+/* ----------------- [ / SubMenu ] -------------------------- */
+#submenu {
+        position:relative;
+        top:0;
+        left:0;
+        width:auto;
+        height:30px;
+        overflow:hidden;
+        margin:20px 0 0 60px;
+        font-size:1.2em;
+}
+
+#submenu li {
+        position:relative;
+        top:0;
+        left:0;
+        float:left;
+        margin:0 5px 0 0;
+}
+
+#submenu li a { border-bottom:none; color:#222; float:left; }
+#submenu li a:hover { border-bottom:none; background:#900; color:#fff; float:left; }
+#submenu li a.sub_act { font-weight:bold; color:#900; }
+#submenu li a.sub_act:hover { font-weight:bold; background:#900; color:#fff; }
+
+#submenu li .subnavsep {
+        position:relative;
+        top:2px;
+        left:0;
+        width:5px;
+        height:14px;
+        border-right:1px solid #222;
+        display:block;
+        float:left;
+}
+
+/* ----------------- [ / SubMenu ] -------------------------- */
+
+/*------------ Jochen -------------------------------------------------------*/
+/*
+#subnav {
+    position:relative;
+    top:0;
+    left:0;
+    margin:20px 0 0px 65px;
+    line-height:1.6em;
+    font-size:1.2em;
+    color:#222;
+    min-height:30px;
+    color:#900;
+}
+#subnav .sep { width:1px; color:#fff; border-right:1px solid #222; margin-left: 3px; margin-right: 3px}
+#subnav a {
+    color:#222;
+    text-decoration:none;
+    border:none
+}
+#subnav a:visited {
+    color:#222;
+    text-decoration:none;
+    border:none
+}
+#subnav a:hover {
+    color:#fff;
+    text-decoration:none;
+    background:#900;	
+    border:none
+}
+*/
+/*------------ Jochen end-------------------------------------------------------*/
+
+/* ----------------- [ Fußzeile ] ----------------------------------------------------------- */
+
+#endborder {
+    position:relative;
+    top:0;
+    left:0;
+    width:950px;
+    clear:left;
+    height:200px;
+    background:url(/fileadmin/layout/endborder.png) no-repeat top center;
+}
+
+#totop {
+    position:absolute;
+    right:45px;
+    top:10px;
+    width:100px;
+    height:30px;
+    line-height: 30px;
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: right;
+    color: #a99;
+    border-bottom:none;
+    padding: 0 30px 0 0;
+/*    background:url(../images/totop.gif) no-repeat right center; */
+}
+    
+#endborder #sysnav {
+    position:absolute;
+    top:20px;
+    left:80px;
+    height:20px;
+    border-left:1px dotted #999;
+}
+    
+#endborder #sysnav li {
+    position:relative;
+    float:left;
+    top:0;
+    left:0;
+    height:20px;
+    padding:0 10px 0 10px;
+    border-right:1px dotted #999;
+    text-align:center;
+}
+    
+#endborder #sysnav li a {
+    font-weight:bold;
+    border-bottom:none;
+    color:#999;
+}
+    
+#endborder #sysnav li a:hover { color:#fff; }
+
+#endborder #dfglink {
+    position:absolute;
+    top:75px;
+    right:100px;
+    width:500px;
+    height:30px;
+    line-height: 30px;
+    background:url(/fileadmin/layout/bydfg.gif) no-repeat right center;
+    display:block;
+    overflow:hidden;
+    border-bottom: none;
+    text-align: right;
+    color: #fff;
+    padding: 0 73px 0 0;
+}
+
+/* ----------------- [ / Fußzeile ] --------------------------------------------------------- */
+
+
+
+/* ----------------- [ Direktsuche (oben rechts) ] ------------------------------------------ */
+#fastsearch {
+    position:absolute;
+    top:20px;
+    right:0;
+    width:320px;
+    height:68px;
+    border-left:1px dotted #ccc;
+}
+/*
+#fastsearch #introtxt {
+    position:absolute;
+    top:7px;
+    left:16px;
+    width:222px;
+    height:10px;
+    background:url(/fileadmin/layout/introtxt_fastsearch.gif) no-repeat 0 0;
+    text-indent:-2000px;
+    overflow:hidden;
+}
+*/
+#fastsearch #introtxt {
+	position:absolute;
+	top:7px;
+	left:16px;
+	width:222px;
+	height:12px;
+	font-size: 10px;
+	color: #baa;
+	overflow:hidden;
+}
+
+    
+#fastsearch #searchstring {
+    position:absolute;
+    right:15px;
+    top:20px;
+    width:280px;
+    height:28px;
+    background:url(/fileadmin/layout/inpbg_fastsearch.gif) no-repeat 0 0;
+    border:none;
+    font-size:1.2em;
+    color:#fff;
+    padding:6px 0 0 10px;
+}
+    
+#fastsearch #send {
+    position:absolute;
+    top:13px;
+    right:15px;
+    height:50px;
+    width:61px;
+    border:none;
+    background:transparent url(/fileadmin/layout/btn_fastsearch.png) no-repeat 0 0;
+    text-indent:-2000px;
+    overflow:hidden;
+    display:block;
+    font-size:0em;
+    color:#ccc;
+}
+/* ----------------- [ / Direktsuche (oben rechts) ] ---------------------------------------- */
+
+/* ----------------- [ login (oben) Jochen ] ------------------------------------------ */
+#login {
+    position:absolute;
+    top:20px;
+    right:330px;
+    width:220px;
+    height:68px;
+    border-left:1px dotted #ccc;
+    padding-left: 16px;
+    padding-top: 5px;
+}
+#login #logintable {
+    width: 170px;
+}
+
+#login label, p {
+    color:#b2aca6;
+}
+#login #pass,
+#login #user {
+    width:84px;
+    height:17px;
+    background:url(/fileadmin/layout/inpbg_login.gif) no-repeat right;
+    border:none;
+    font-size:1.1em;
+    color: #fff
+}
+#login #loginsubmit {
+    border:none;
+/*    width:33px;
+    height:14px; */
+    font-size:1.1em;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background:url(/fileadmin/layout/inpbg_login.gif) no-repeat right;
+    color:#fff;
+}
+#login #loginstatus {
+    width:180px;
+    max-width:180px;
+    min-width:180px;
+    color:#b2aca6;
+    overflow: hidden;
+    text-decoration:none;
+}
+#login #loginstatus a,
+#login #loginstatus a:hover,
+#login #loginstatus a:visited {
+    color:#b2aca6;
+    font-size:1.1em;
+    text-decoration:none;
+    background: transparent;
+}
+
+#login #logout {
+    text-align: right;
+}
+#login a, 
+#login a:visited {
+    color:#b2aca6;
+    text-decoration:none;
+}
+#login a:hover {
+    color:#fff;
+    text-decoration:none;
+    background:#900;	
+    border-bottom: none;
+}
+/* ----------------- [ / login (oben) ] ------------------------------------------ */
+
+
+
+
+/*-------------------- Sitemap ---------------------------------------------------*/
+
+.sitemap_level1 {
+    margin-left: 10px;
+}
+.sitemap_level2 {
+    margin-left: 20px;
+}
+.sitemap_level3 {
+    margin-left: 30px;
+}
+.sitemap_level4 {
+    margin-left: 40px;
+}
+
+/*-----------------------------------------------------------------------------------*/

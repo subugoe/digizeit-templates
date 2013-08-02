@@ -1,0 +1,68 @@
+/*
+
+CSS-Datei für die besondere Gestaltung im Inernet Explorer 6.
+	- behebt PNG-Problematik via Ersetzung durch GIF-Dateien
+	- Behebt Fehler durch die falsche Box-Model-Interpretation
+	
+*/
+
+#homelink {
+	background:url(/fileadmin/layout/digilogo_ie6.gif) no-repeat 0 0;
+}
+
+.content { height:30px; }
+
+.content,
+#collection .coll_object {
+	background:url(/fileadmin/layout/bgwrapper_ie6.gif) repeat-y;
+}
+
+#fastsearch #send {
+	background:transparent url(/fileadmin/layout/btn_fastsearch_ie6.gif) no-repeat 0 0;
+}
+
+#headborder {
+	background:url(/fileadmin/layout/headborder_ie6.gif) no-repeat bottom center;
+}
+#pageborder_end {
+	background:url(/fileadmin/layout/tempheadborder_ie6.gif) no-repeat bottom center;
+}
+
+#endborder {
+	background:url(/fileadmin/layout/endborder_ie6.gif) no-repeat top center;
+}
+
+#pagenav {
+	background:url(/fileadmin/layout/tempborder_ie6.gif) no-repeat top center;
+}
+
+#maincol {
+	margin:20px 20px 0px 44px;
+}
+
+#maincol,
+#maincol_full {
+	height:30px;
+}
+
+#welcome #cnose {
+	bottom:-13px;left:63px;
+}
+
+.objsep, .collectionend {
+	background:url(/fileadmin/layout/objsep_ie6.gif) no-repeat top center;
+}
+
+#hidebib,
+#showbib {
+	position:absolute; right:-17px
+}
+
+.coll_object ul li,
+.objecthead {
+	width:918px;
+}
+
+.list li {
+	height:1em;
+}

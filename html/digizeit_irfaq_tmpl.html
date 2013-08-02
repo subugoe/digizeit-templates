@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FAQ Example Template</title>
+</head>
+
+<body>
+<br />
+<br />
+<br />
+<h1>FAQ TEMPLATES</h1>
+<h2>EXAMPLE</h2>
+<br />
+<br />
+<br />
+<pre>
+<strong>Common markers:</strong>
+These are substituted in all news item displaying templates:
+
+<em>Markers:</em>
+FAQ_Q - Question
+FAQ_A - Answer
+FAQ_PM_IMG - the plus / minus icon
+FAQ_CATEGORY - FAQ item category
+TEXT_CATEGORY - Category
+TEXT_EXPERT - Expert
+FAQ_EXPERT - the Name of the Expert
+FAQ_EXPERT_URL - webpage of the expert
+TEXT_ASKED_BY
+ASKED_BY
+</pre>
+<br />
+<br />
+<br />
+<br />
+<hr />
+<br />
+<br />
+<br />
+<h3>TEMPLATE_STATIC</h3>
+<em>This is the template for static FAQ list. Use it when you don't like to have javascript.</em>
+
+<!-- ###TEMPLATE_STATIC### begin
+	This is the template for static FAQ list 
+-->
+<div class="tx-irfaq-pi1">
+	<ul class="tx-irfaq-questions-list">	
+	<!-- ###QUESTIONS### begin
+		  This is the part of the template substituted with the list of FAQ - questions: 
+	-->
+		<!-- ###FAQ### begin 
+			Template for a single question 
+		-->
+		<li><a href="#irfaq_###FAQ_ID###_###HASH###">###FAQ_Q###</a> ###TEXT_CATEGORY### ###FAQ_CATEGORY###</li>
+		<!-- ###FAQ### end-->
+	<!-- ###QUESTIONS###  end -->
+	</ul>	
+			
+	<!-- ###ANSWERS### begin
+		  This is the part of the template substituted with the list of faqs: 
+	-->
+	<!-- ###FAQ### begin 
+		Template for a single item 
+	-->
+	<div class="tx-irfaq-answer">
+		<a name="irfaq_###FAQ_ID###_###HASH###"></a>
+		<h4>###FAQ_Q###</h4> 
+		###FAQ_A###
+		<div class="additional-info">
+			###TEXT_CATEGORY### ###FAQ_CATEGORY###
+			###TEXT_EXPERT### ###FAQ_EXPERT### ###FAQ_EXPERT_URL###
+			###TEXT_ASKED_BY### ###ASKED_BY###
+		</div>
+	</div>
+	<!-- ###FAQ### end-->
+	<!-- ###ANSWERS###  end -->
+</div>
+<!-- ###TEMPLATE_STATIC### end -->
+
+<br />
+<br />
+<br />
+<br />
+<hr />
+<br />
+<br />
+<br />
+<h3>TEMPLATE_DYNAMIC</h3>
+<em>This is the template for dynamic FAQ list. This will use dhtml (javascript and html)</em>
+
+<!-- ###TEMPLATE_DYNAMIC### begin
+	This is the template for dynamic FAQ list. 
+-->
+<div class="tx-irfaq-pi1">
+	<p>
+		<a href="javascript:tx_irfaq_toggleAll(true, '###HASH###', ###COUNT###);">###TEXT_SHOW###</a> / <a href="javascript:tx_irfaq_toggleAll(false, '###HASH###', ###COUNT###);">###TEXT_HIDE###</a>
+        <br /><br />
+	</p>
+	
+	<dl>
+	<!-- ###CONTENT### begin
+		  This is the part of the template substituted with the list of FAQs: 
+	-->		
+		<!-- ###FAQ### begin 
+			Template for a single FAQ item 
+		-->
+		<dt onclick="tx_irfaq_toggleFaq('###FAQ_ID###', ###SINGLE_OPEN###, '###HASH###')" style="cursor: pointer;" class="tx-irfaq-dynheader">###FAQ_PM_IMG### ###FAQ_Q###</dt>
+		<dd id="irfaq_a_###FAQ_ID###_###HASH###" class="tx-irfaq-dynans-hidden">
+			###FAQ_A###
+			<div class="additional-info">
+				###TEXT_CATEGORY### ###FAQ_CATEGORY###
+				###TEXT_EXPERT### ###FAQ_EXPERT### ###FAQ_EXPERT_URL###
+				###TEXT_ASKED_BY### ###ASKED_BY###
+			</div>
+		</dd>	
+		<!-- ###FAQ### end-->
+	<!-- ###CONTENT###  end -->
+	</dl>
+</div>	
+<!-- ###TEMPLATE_DYNAMIC### end -->
+
+</body>
+</html>
+
+
+
+
+

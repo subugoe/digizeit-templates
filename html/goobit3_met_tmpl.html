@@ -1,0 +1,639 @@
+<!-- ###NOSEARCHINDEX### BEGIN-->
+    <span class="warning">###WARNMESSAGE###</span>
+<!-- ###NOSEARCHINDEX### END-->
+
+<!-- ###MODS### BEGIN-->
+        <a href="http://www.digizeitschriften.de/informationen/subskription/" ><img id="lock" src="###LOCKBUTTON###" title="###LOCKTEXT###" /></a>
+    </div>
+</div>
+
+
+
+<ul id="collection">
+    <li class="coll_object">
+        <div class="objsep"></div>
+         <div id="tx-goobit3-met_section">
+       <!-- ###MODSSEC### BEGIN-->
+        <?xml version="1.0" encoding="utf-8"?>
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mods="http://www.loc.gov/mods/v3">
+        
+            <xsl:output method="html"/>
+        
+            <!-- value only set here -->
+
+            <!-- default values - effective values come from class.goobi_mods.php  -->
+            <xsl:param name="docstrct" value="'Other'" />
+            <xsl:param name="scannedimages" select="0" />
+
+            <!-- default value - effective value comes from METS/MODS -->
+            <xsl:param name="ppnopac" select="0" />
+            <xsl:param name="urn-link" select="0" />
+            <xsl:param name="swb-link" select="0" />
+
+            <xsl:template name="style">
+                <!-- Platz fuer StyleSheets -->
+            </xsl:template>
+
+            <xsl:variable name="setPurl" value="1" />
+        
+            <xsl:template match="mods:role/mods:roleTerm" mode="modsRoleTerm">
+                <xsl:choose>
+                    <xsl:when test=".='ant'"><xsl:value-of select="$ant" /></xsl:when>
+                    <xsl:when test=".='atn'"><xsl:value-of select="$atn" /></xsl:when>
+                    <xsl:when test=".='aui'"><xsl:value-of select="$aui" /></xsl:when>
+                    <xsl:when test=".='aut'"><xsl:value-of select="$aut" /></xsl:when>
+                    <xsl:when test=".='clb'"><xsl:value-of select="$clb" /></xsl:when>
+                    <xsl:when test=".='cmp'"><xsl:value-of select="$cmp" /></xsl:when>
+                    <xsl:when test=".='cns'"><xsl:value-of select="$cns" /></xsl:when>
+                    <xsl:when test=".='col'"><xsl:value-of select="$col" /></xsl:when>
+                    <xsl:when test=".='com'"><xsl:value-of select="$com" /></xsl:when>
+                    <xsl:when test=".='cre'"><xsl:value-of select="$cre" /></xsl:when>
+                    <xsl:when test=".='ctb'"><xsl:value-of select="$ctb" /></xsl:when>
+                    <xsl:when test=".='cwt'"><xsl:value-of select="$cwt" /></xsl:when>
+                    <xsl:when test=".='dis'"><xsl:value-of select="$dis" /></xsl:when>
+                    <xsl:when test=".='dte'"><xsl:value-of select="$dte" /></xsl:when>
+                    <xsl:when test=".='dub'"><xsl:value-of select="$dub" /></xsl:when>
+                    <xsl:when test=".='edt'"><xsl:value-of select="$edt" /></xsl:when>
+                    <xsl:when test=".='egr'"><xsl:value-of select="$egr" /></xsl:when>
+                    <xsl:when test=".='hnr'"><xsl:value-of select="$hnr" /></xsl:when>
+                    <xsl:when test=".='ill'"><xsl:value-of select="$ill" /></xsl:when>
+                    <xsl:when test=".='oth'"><xsl:value-of select="$oth" /></xsl:when>
+                    <xsl:when test=".='pbl'"><xsl:value-of select="$pbl" /></xsl:when>
+                    <xsl:when test=".='prt'"><xsl:value-of select="$prt" /></xsl:when>
+                    <xsl:when test=".='rcp'"><xsl:value-of select="$rcp" /></xsl:when>
+                    <xsl:when test=".='ths'"><xsl:value-of select="$ths" /></xsl:when>
+                    <xsl:when test=".='trl'"><xsl:value-of select="$trl" /></xsl:when>
+                    <xsl:otherwise>Person</xsl:otherwise>
+                </xsl:choose>
+            </xsl:template>
+
+<!-- schnelle schmutzige Lösung für DigiZeit besser umbauen zu modsCollection siehe tx_goobi_img.php --> 
+            <xsl:template match="mods:note[@ID='MGH']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='destatis.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='diglit.ub.uni-heidelberg.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='digi.ub.uni-heidelberg.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+            <xsl:template match="mods:note[@ID='idb.ub.uni-tuebingen.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+       
+            <xsl:template match="mods:note[@ID='www.zbw.eu.digire']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+
+            <xsl:template match="mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+
+            <xsl:template match="/mods:mods">
+                <xsl:apply-templates select="mods:note[@ID='MGH']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='destatis.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='diglit.ub.uni-heidelberg.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='digi.ub.uni-heidelberg.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='idb.ub.uni-tuebingen.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='www.zbw.eu.digire']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="periodicalvolume" />
+<!--                <div id="tx-goobit3-met_met"> -->
+                <ul>
+                    <!-- Structurtyp -->
+                    <li>
+                        <span><strong><xsl:value-of select="$structure" /><xsl:text>: </xsl:text></strong></span>
+                        <span><xsl:value-of select="$docstrct" /></span>
+                    </li>
+
+                    <!-- Maintitle -->
+                    <xsl:if test="mods:titleInfo[not(@*)]/mods:title">
+                        <li> 
+                            <span><strong><xsl:value-of select="$title" /><xsl:text>: </xsl:text></strong></span>
+                            <span><xsl:value-of select="mods:titleInfo[not(@*)]/mods:title" /></span>
+                        </li>
+                    </xsl:if>
+
+                    <!-- Volume -->
+                    <xsl:if test="mods:titleInfo[not(@*)]/mods:partName">
+                        <li>
+                            <span><strong><xsl:value-of select="$volume" /><xsl:text>: </xsl:text></strong></span>
+                            <span><xsl:value-of select="mods:titleInfo[not(@*)]/mods:partName" /></span>
+                        </li>
+                    </xsl:if>
+                    <xsl:if test="mods:part[@type='host']/mods:detail/mods:number">
+                        <li>
+                            <span><strong><xsl:value-of select="$volume" /><xsl:text>: </xsl:text></strong></span>
+                            <span><xsl:value-of select="mods:part[@type='host']/mods:detail/mods:number" /></span>
+                        </li>
+                    </xsl:if>
+
+                    <!-- Titel -->
+                    <xsl:for-each select="mods:titleInfo[@*]/mods:title" >
+                        <xsl:sort select="../attribute::type" />
+                        <li>
+                            <span><strong>
+                                <xsl:value-of select="$title" /><xsl:text>: </xsl:text>
+                            </strong></span>
+                            <span>
+                                <xsl:value-of select="." />
+                            </span>
+                        </li>
+                    </xsl:for-each>
+            
+                    <!-- Persons -->
+                    <xsl:for-each select="mods:name[not(@*)]" >
+                        <li>
+                            <span><strong>
+                                <xsl:apply-templates select="mods:role/mods:roleTerm" mode="modsRoleTerm" />
+                                <xsl:text>: </xsl:text>
+                            </strong></span>
+                            <span>
+                                <xsl:choose>
+                                    <xsl:when test="mods:displayForm">
+                                        <xsl:value-of select="mods:displayForm" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                            <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </span>
+                        </li>
+                    </xsl:for-each>
+
+                    <xsl:for-each select="mods:name[@*]" >
+                        <xsl:sort select="attribute::type" />
+                        <li>
+                            <span><strong>
+                                <xsl:apply-templates select="mods:role/mods:roleTerm" mode="modsRoleTerm" />
+                                <xsl:text>: </xsl:text>
+                            </strong></span>
+                            <span>
+                                <xsl:choose>
+                                    <xsl:when test="mods:displayForm">
+                                        <xsl:value-of select="mods:displayForm" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </span>
+                        </li>
+                    </xsl:for-each>
+
+                    <!-- Origininfo -->
+                    <xsl:for-each select="mods:originInfo" >
+                        <xsl:choose>
+                            <xsl:when test="mods:dateIssued">
+                                <li>
+                                    <span><strong>
+                                        <xsl:value-of select="$publicationyear" /><xsl:text>: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <xsl:value-of select="mods:dateIssued" />
+                                    </span>
+                                </li>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:for-each select="mods:place" >
+                            <li>
+                                <span><strong>
+                                    <xsl:value-of select="$placeofpublication" /><xsl:text>: </xsl:text>
+                                </strong></span>
+                                <span>
+                                    <xsl:value-of select="mods:placeTerm" />
+                                </span>
+                            </li>
+                        </xsl:for-each>
+                        <xsl:for-each select="mods:publisher" >
+                            <li>
+                                <span><strong>
+                                    <xsl:value-of select="$publisher" /><xsl:text>: </xsl:text>
+                                </strong></span>
+                                <span>
+                                    <xsl:value-of select="." />
+                                </span>
+                            </li>
+                        </xsl:for-each>
+                    </xsl:for-each>
+            
+                    <!-- subject -->
+                    <xsl:for-each select="mods:subject" >
+                        <xsl:for-each select="mods:topic" >
+                            <li>
+                                <span><strong>
+                                    <xsl:value-of select="$keywords" /><xsl:text>: </xsl:text>
+                                </strong></span>
+                                <span>
+                                    <xsl:value-of select="." />
+                                </span>
+                            </li>
+                        </xsl:for-each>
+
+                        <!--  Subject Titel -->
+                        <xsl:for-each select="mods:titleInfo/mods:title" >
+                            <xsl:sort select="../attribute::type" />
+                            <li>
+                                <span><strong>
+                                    <xsl:value-of select="$title" /><xsl:text>: </xsl:text>
+                                </strong></span>
+                                <span>
+                                    <xsl:value-of select="." />
+                                </span>
+                            </li>
+                        </xsl:for-each>
+
+                        <!-- Subject Persons -->
+                        <xsl:for-each select="mods:name[not(@*)]" >
+                            <li>
+                                <span><strong>
+                                    <xsl:apply-templates select="mods:role/mods:roleTerm" mode="modsRoleTerm" />
+                                    <xsl:text>: </xsl:text>
+                                </strong></span>
+                                <span>
+                                    <xsl:choose>
+                                        <xsl:when test="mods:displayForm">
+                                            <xsl:value-of select="mods:displayForm" />
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                                <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </span>
+                            </li>
+                        </xsl:for-each>
+                        <xsl:for-each select="mods:name[@*]" >
+                            <xsl:sort select="attribute::type" />
+                            <li>
+                                <span><strong>
+                                    <xsl:apply-templates select="mods:role/mods:roleTerm" mode="modsRoleTerm" />
+                                    <xsl:text>: </xsl:text>
+                                </strong></span>
+                                <span>
+                                    <xsl:choose>
+                                        <xsl:when test="mods:displayForm">
+                                            <xsl:value-of select="mods:displayForm" />
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </span>
+                            </li>
+                        </xsl:for-each>
+
+                        <!-- Subject geographic -->
+                        <xsl:for-each select="mods:geographic" >
+                            <li>
+                                <span><strong>
+                                    <xsl:value-of select="$geographic" /><xsl:text>: </xsl:text>                           
+                                </strong></span>
+                                <span>
+                                    <xsl:value-of select="." />
+                                </span>
+                            </li>
+                        </xsl:for-each>
+
+                    </xsl:for-each>
+            
+                    <!-- classification -->
+                    <xsl:for-each select="mods:classification" >
+                        <xsl:sort select="attribute::*" />
+                        <li>
+                            <xsl:choose>
+                                <xsl:when test="attribute::displayLabel">
+                                    <span><strong>
+                                        <xsl:value-of select="attribute::displayLabel" /><xsl:text>: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <xsl:value-of select="." />
+                                    </span>
+                                </xsl:when>
+                                <xsl:when test="attribute::authority='GDZ' or attribute::authority='gdz' or attribute::authority='dz' or attribute::authority='DZ'">
+                                    <span><strong>
+                                        <xsl:value-of select="$collections" /><xsl:text>: </xsl:text> 
+                                    </strong></span>
+                                    <span>
+                                        <xsl:value-of select="translate(substring(.,5),'_',' ')" />
+                                    </span>
+                                </xsl:when>
+                                <xsl:when test="attribute::authority">
+                                    <span><strong>
+                                        <xsl:value-of select="attribute::authority" /><xsl:text>: </xsl:text> 
+                                    </strong></span>
+                                    <span>
+                                        <xsl:value-of select="." />
+                                    </span>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <span><strong>
+                                        <xsl:text>Klassifikation: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <xsl:value-of select="." />
+                                    </span>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </li>
+                    </xsl:for-each>
+    
+                    <!-- scanned Images -->
+                    <xsl:choose>
+                        <xsl:when test="$scannedimages!='0'">
+                            <li>
+                                <span><strong>
+                                    <xsl:value-of select="$scannedpages" /><xsl:text>: </xsl:text>
+                                </strong></span>
+                                <span>
+                                    <xsl:value-of select="$scannedimages" />
+                                </span>
+                            </li>
+                        </xsl:when>
+                    </xsl:choose>
+
+                    <!-- Identifier -->
+                    <xsl:for-each select="mods:identifier" >
+                        <li>
+                            <xsl:choose>
+                                <xsl:when test="attribute::type='PPN' or attribute::type='gbv-ppn'">
+                                    <xsl:variable name="ppn">
+                                        <xsl:value-of select="substring(.,4)" />
+                                    </xsl:variable>
+                                    <span><strong>
+                                        PPN (digital)<xsl:text>: </xsl:text>
+                                    </strong></span>
+                                    <xsl:choose>
+                                        <xsl:when test="not(contains(.,'_')) and not(starts-with(.,'GDZ'))">
+                                            <span>
+                                                <a href="{$opac-link}{$ppn}" target="_blank"><xsl:value-of select="." /></a>
+                                            </span>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <span>
+                                                <xsl:value-of select="." />
+                                            </span>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:when test="attribute::type='PPNanalog'">
+                                    <xsl:variable name="ppnopac">
+                                        <xsl:value-of select="substring(.,4)" />
+                                    </xsl:variable>
+                                    <span><strong>
+                                        PPN (original)<xsl:text>: </xsl:text>
+                                    </strong></span>
+                                    <xsl:choose>
+                                        <xsl:when test="not(contains(.,'_')) and not(starts-with(.,'GDZ'))">
+                                            <span>
+                                                <a href="{$opac-link}{$ppnopac}" target="_blank"><xsl:value-of select="." /></a>
+                                            </span>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <span>
+                                                <xsl:value-of select="." />
+                                            </span>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:when test="attribute::type='purl'">
+                                    <span><strong>
+                                        PURL<xsl:text>: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <a><xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute><xsl:value-of select="." /></a>
+                                    </span>
+                                </xsl:when>
+                                 <xsl:when test="attribute::type='urn'">
+                                    <xsl:choose>
+                                        <xsl:when test="starts-with(.,'urn:nbn:de')">
+                                            <xsl:variable name="urn">
+                                                <xsl:value-of select="." />
+                                            </xsl:variable>
+                                            <span>
+                                                <strong>
+                                                    <xsl:text>URN: </xsl:text>
+                                                </strong>
+                                                <a href="{$urn-link}{$urn}" target="_blank" title="URN-Resolver"><xsl:value-of select="." /></a>
+                                            </span>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <span>
+                                                <strong>
+                                                    <xsl:text>URN: </xsl:text>
+                                                </strong>
+                                                <xsl:value-of select="." />
+                                            </span>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:when test="attribute::type='ZDB-ID'">
+                                    <xsl:variable name="zdbid">
+                                        <xsl:choose>
+                                            <xsl:when test="contains(.,'-')">
+                                                    <xsl:value-of select="substring-before(.,'-')"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                    <xsl:value-of select="substring(.,0,8)"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:variable>
+                                    <span><strong>
+                                        <xsl:value-of select="attribute::type" /><xsl:text>: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <a href="http://rzblx1.uni-regensburg.de/ezeit/?{$zdbid}" target="_blank" title="ZDB"><xsl:value-of select="." /></a>
+                                    </span>
+                                </xsl:when>
+                                <xsl:when test="attribute::type">
+                                    <span><strong>
+                                        <xsl:value-of select="attribute::type" /><xsl:text>: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <xsl:value-of select="." />
+                                    </span>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <span><strong>
+                                        <xsl:text>Identifier: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <xsl:value-of select="." />
+                                    </span>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </li>
+                    </xsl:for-each>
+    
+                    <xsl:for-each select="mods:recordInfo/mods:recordIdentifier">
+                        <xsl:choose>
+                            <xsl:when test="attribute::source='gbv-ppn'">
+                                <li>
+                                    <xsl:variable name="ppn">
+                                        <xsl:value-of select="." />
+                                    </xsl:variable>
+                                    <span><strong>
+                                        <xsl:text>PURL: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <a href="{$ppnresolverurl}{$ppn}" target="_blank"><xsl:value-of select="$ppnresolverurl" /><xsl:value-of select="." /></a>
+                                    </span>
+                                </li>
+                            </xsl:when>
+                            <xsl:when test="attribute::source='swb-ppn'">
+                                <li>
+                                    <xsl:variable name="ppn">
+                                        <xsl:value-of select="." />
+                                    </xsl:variable>
+                                    <span><strong>
+                                        <xsl:text>Katalog: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <a href ="{$swb-link}{$ppn}"><xsl:value-of select="." /></a>
+                                    </span>
+                                </li>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:for-each>
+    
+                    <xsl:choose>
+                        <!-- Links GDZ Produktion-->
+                        <xsl:when test="starts-with($PPN,'PPN')">
+    
+                            <xsl:for-each select="mods:identifier" >
+                                <xsl:choose>
+                                    <xsl:when test="attribute::type='PPN'">
+                                        <li>
+                                            <xsl:if test="starts-with(.,'PPN')">
+                                                <xsl:variable name="ppn">
+                                                    <xsl:value-of select="." />
+                                                </xsl:variable>
+                                                <xsl:variable name="ppnopac">
+                                                    <xsl:value-of select="substring(.,4)" />
+                                                </xsl:variable>
+                                                <span><strong>
+                                                    <xsl:text>Links: </xsl:text>
+                                                </strong></span>
+                                                <span>
+                                                    <a href="{$metsresolverurl}{$ppn}" target="_blank" title="METS-Download"><img src="/fileadmin/layout/mets.png" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                    <xsl:choose>
+                                                        <xsl:when test="$dfgv-link!=''">
+                                                            <a href="{$dfgv-link}{$ppn}" target="_blank" title="DFG-Viewer"><img src="/fileadmin/layout/dfgv_icon1.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                        </xsl:when>
+                                                    </xsl:choose>
+                                                    <xsl:if test="not(contains(.,'_'))">
+                                                        <a href="{$opac-link}{$ppnopac}" target="_blank" title="SUB-OPAC"><img src="/fileadmin/layout/opac.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                    </xsl:if>
+                                                </span>
+                                            </xsl:if>
+                                        </li>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </xsl:for-each>
+        
+                            <xsl:for-each select="mods:recordInfo/mods:recordIdentifier">
+                                <xsl:choose>
+                                    <xsl:when test="attribute::source='gbv-ppn'">
+                                        <li>
+                                            <xsl:if test="starts-with(.,'PPN')">
+                                                <xsl:variable name="ppn">
+                                                    <xsl:value-of select="." />
+                                                </xsl:variable>
+                                                <xsl:variable name="ppnopac">
+                                                    <xsl:value-of select="substring(.,4)" />
+                                                </xsl:variable>
+                                                <span><strong>
+                                                    <xsl:text>Links: </xsl:text>
+                                                </strong></span>
+                                                <span>
+                                                    <a href="{$metsresolverurl}{$ppn}" target="_blank" title="METS-Download"><img src="/fileadmin/layout/mets.png" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                    <xsl:choose>
+                                                        <xsl:when test="$dfgv-link!=''">
+                                                            <a href="{$dfgv-link}{$ppn}" target="_blank" title="DFG-Viewer"><img src="/fileadmin/layout/dfgv_icon1.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                        </xsl:when>
+                                                    </xsl:choose>
+                                                    <xsl:if test="not(contains(.,'_'))">
+                                                        <a href="{$opac-link}{$ppnopac}" target="_blank" title="SUB-OPAC"><img src="/fileadmin/layout/opac.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                    </xsl:if>
+                                                </span>
+                                            </xsl:if>
+                                        </li>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </xsl:for-each>
+                        </xsl:when>
+    
+                        <!-- Links - URN as PI -->
+                        <xsl:when test="starts-with($PPN,'urn')">
+                            <xsl:for-each select="mods:identifier" >
+                                <xsl:choose>
+                                    <xsl:when test="attribute::type='urn'">
+                                        <li>
+                                            <span><strong>
+                                                <xsl:text>Links: </xsl:text>
+                                            </strong></span>
+                                            <span>
+                                                <a href="{$metsresolverurl}{$PPN}" target="_blank" title="METS-Download"><img src="/fileadmin/layout/mets.png" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                <xsl:choose>
+                                                    <xsl:when test="$dfgv-link!=''">
+                                                        <a href="{$dfgv-link}{$PPN}" target="_blank" title="DFG-Viewer"><img src="/fileadmin/layout/dfgv_icon1.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                    </xsl:when>
+                                                </xsl:choose>
+                                            </span>
+                                        </li>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </xsl:for-each>
+    
+                        </xsl:when>
+                    </xsl:choose>
+
+               </ul>
+                    <xsl:choose>
+                        <xsl:when test="not($current='last')">
+                            <div class="tx-goobit3-met_hr"><hr /></div>
+                        </xsl:when>
+                    </xsl:choose>
+            </xsl:template>
+
+
+        </xsl:stylesheet>
+    <!-- ###MODSSEC### END -->
+    </div>
+    </li>
+</ul>
+<ul id="collection">
+    <li class="coll_object">
+        <div class="objsep"></div>
+    </li>
+</ul>
+<!-- ###MODS### END-->

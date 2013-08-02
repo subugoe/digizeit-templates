@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>Template for the DR Wiki Typo3 Extension</title>
+</head>
+<body>
+
+<h1>Default Content Template</h1>
+<!--###DEFAULT_VIEW### start-->
+<div id="tx-drwiki">
+###GW1B### [Article: ###KEYWORD### ###DISCUSSION### ###DISCUSSIONACTIVE###] ###GW1E### <br>
+<div align="right"> ###ICON_HOME### ###ICON_RELOAD### ###ICON_EDIT### ###ICON_VERSIONS### ###ICON_GETHTML### ###ICON_LOCK###</div>
+<hr size="1" width="100%"> ###EDIT_PANEL###
+<p>###BODY###</p>
+<p>###CATEGORYLIST###</p>
+<p>###CATEGORY###</p>
+###RATINGS###
+<hr size="1" width="100%"><br>
+<div align="right" style="font-size:10pt;">###GW2B### Last changed: ###DATE### by ###AUTHOR### - ###ICON_HOME### ###ICON_RELOAD### ###ICON_EDIT### ###ICON_VERSIONS### ###ICON_GETHTML### ###ICON_LOCK### ###GW2E###</div>
+</div>
+<!--###DEFAULT_VIEW### stop-->
+
+
+<h1>Version Listview</h1>
+<!--###VERSION_LIST### start-->
+<div id="tx-drwiki">
+###GW1B### <strong>###KEYWORD###</strong> ###GW1E###
+<p>
+<div align="right">###ICON_BACK### ###ICON_HOME###</div>
+<table width="100%" border=0 cellpadding=2 cellspacing=2>
+<!--###VERSION_LIST_HEADER### start-->
+<tr bgcolor="###GC2###">
+<th>###GW1B### ###HEADER_UID### ###GW1E###</th>
+<th>###GW1B### ###HEADER_DIFF_SELECT### ###GW1E###</th>
+<th>###GW1B### ###HEADER_AUTHOR### ###GW1E###</th>
+<th>###GW1B### ###HEADER_TSTAMP### ###GW1E###</th>
+<th>###GW1B### ###HEADER_SUMMARY### ###GW1E###</th>
+</tr>
+<!--###VERSION_LIST_HEADER### stop-->
+<!--###VERSION_LIST_ROWS### start-->
+<!--###VERSION_LIST_ROW### start-->
+<tr bgcolor="###GC1###">
+<td>###GW2B### ###UID### ###GW2E### ###EDIT_PANEL###</td>
+<td>###GW2B### ###DIFF_SELECT### ###GW2E###</td>
+<td>###GW2B### ###AUTHOR### ###GW2E###</td>
+<td>###GW2B### ###TSTAMP### ###GW2E###</td>
+<td>###GW2B### ###SUMMARY### ###GW2E###</td>
+</tr>
+<!--###VERSION_LIST_ROW### stop-->
+<!--###VERSION_LIST_ROW_ODD### start-->
+<tr >
+<td>###GW2B### ###UID### ###GW2E### ###EDIT_PANEL###</td>
+<td>###GW2B### ###DIFF_SELECT### ###GW2E###</td>
+<td>###GW2B### ###AUTHOR### ###GW2E###</td>
+<td>###GW2B### ###TSTAMP### ###GW2E###</td>
+<td>###GW2B### ###SUMMARY### ###GW2E###</td>
+</tr>
+<!--###VERSION_LIST_ROW_ODD### stop-->
+<!--###VERSION_LIST_ROWS### stop-->
+<tr bgcolor="###GC2###">
+<td colspan=5>###BROWSER###</td>
+</tr>
+</table>
+<div align="right">###ICON_BACK### ###ICON_HOME###</div>
+</div>
+<!--###VERSION_LIST### stop-->
+
+<!--###DIFF_VIEW### start-->
+<div id="tx-drwiki">
+###GW1B### <strong>###KEYWORD###:</strong> 	&raquo;<span class="diff-r">###DIFF_DIFF_UID###</span>&laquo; &hArr; 	&raquo;<span class="diff-g">###DIFF_LATEST_UID###</span>&laquo; ###GW1E###
+<div align="right">###ICON_BACK### ###ICON_VERSIONS### ###ICON_HOME###</div>
+<hr size="1" width="100%">
+<p>###DIFF_RESULT###</p>
+<hr size="1" width="100%">
+<div align="right">###ICON_BACK### ###ICON_VERSIONS### ###ICON_HOME###</div>
+</div>
+<!--###DIFF_VIEW### stop-->
+
+<!--###EDIT_TOOLS### start-->
+<div id="tx-drwiki">
+<div id="editpage-specialchars" class="plainlinks" style="font-size:9pt; border: 1px solid rgb(170, 170, 170); padding: 2px; margin-top: 15px;">
+<b>Edit Tools:</b>
+<hr>
+<b>Wiki markups:</b>
+<a onclick="insertTags('{{','}}','');return false" href="#">{{}}</a> &nbsp;
+<a onclick="insertTags('|','','');return false" href="#">|</a> &nbsp;
+<a onclick="insertTags('[',']','');return false" href="#">[]</a> &nbsp;
+<a onclick="insertTags('[[',']]','');return false" href="#">[[]]</a> &nbsp;
+<a onclick="insertTags('[[Category:',']]','');return false" href="#">[[Category:]]</a> &nbsp;
+<a onclick="insertTags('#REDIRECT [[',']]','');return false" href="#">#REDIRECT [[]]</a> &nbsp;
+<a onclick="insertTags('&nbsp;','','');return false" href="#">&amp;nbsp;</a> &nbsp;
+<a onclick="insertTags('<s>','</s>','');return false" href="#">&lt;s&gt;&lt;/s&gt;</a> &nbsp;
+<a onclick="insertTags('<sup>','</sup>','');return false" href="#">&lt;sup&gt;&lt;/sup&gt;</a> &nbsp;
+<a onclick="insertTags('<sub>','</sub>','');return false" href="#">&lt;sub&gt;&lt;/sub&gt;</a> &nbsp;
+<a onclick="insertTags('<blockquote>','</blockquote>','');return false" href="#">&lt;blockquote&gt;&lt;/blockquote&gt;</a> &nbsp;
+<a onclick="insertTags('<ref>','</ref>','');return false" href="#">&lt;ref&gt;&lt;/ref&gt;</a> &nbsp;
+<a onclick="insertTags('<references/>','','');return false" href="#">&lt;references/&gt;</a> &nbsp;
+<a onclick="insertTags('<references-2col/>','','');return false" href="#">&lt;references-2col/&gt;</a> &nbsp;
+<a onclick="insertTags('<noinclude>','</noinclude>','');return false" href="#">&lt;noinclude&gt;&lt;/noinclude&gt;</a> &nbsp;
+<a onclick="insertTags('<nowiki>','</nowiki>','');return false" href="#">&lt;nowiki&gt;&lt;/nowiki&gt;</a> &nbsp;
+<a onclick="insertTags('<!-- ',' -->','');return false" href="#">&lt;!--  --&gt;</a>&nbsp;
+<br /><b>Wiki Plug-Ins:</b>
+<a onclick="insertTags('{###LASTCHANGED###}','{###LASTCHANGED###}','');return false" href="#">{###LASTCHANGED###}{###LASTCHANGED###}</a> &nbsp;
+<a onclick="insertTags('{###SEARCH###}','{###SEARCH###}','');return false" href="#">{###SEARCH###}{###SEARCH###}</a> &nbsp;
+<br /></div>
+</div>
+<!--###EDIT_TOOLS### stop-->
+</body>
+</html>

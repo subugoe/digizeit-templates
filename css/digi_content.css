@@ -1,0 +1,715 @@
+/*
+
+CSS-Datei für die Gestaltung der Inhaltselemente.
+	- Schriftarten, Abstände und Anordnungen diverser Inhaltselemente
+	- Spaltendefinition
+	
+*/
+
+
+
+/* ----------------- [ Seitenleiste ] --------------------------------------- */
+
+#sidebar {	
+	position:relative;
+	top:0;
+	right:0;
+	width:200px;
+	float:left;
+	background:url(/fileadmin/layout/sidebarborder.gif) repeat-y;
+	padding:30px 0 30px 40px;
+	margin:0 0 20px 20px;
+}
+	
+#sidebar #sidebarlupe { position:absolute; top:58px; right:10px;
+	width:26px;
+	height:21px;
+	background:url(/fileadmin/layout/sidebarlupe.gif) no-repeat 0 0;
+}
+	
+#sidebarbordertop,
+#sidebarborderend {
+	position:absolute;
+	left:0;
+	width:20px;
+	height:50px;
+}
+	
+#sidebarbordertop {	top:0; background:url(/fileadmin/layout/sidebarborder_top.gif) no-repeat 0 0; }
+
+#sidebarborderend {	bottom:0; background:url(/fileadmin/layout/sidebarborder_end.gif) no-repeat 0 0; }
+
+#liner {
+	position:relative;
+	top:0;
+	left:0;
+	width:900px;
+	height:1px;
+	border-top:1px dotted #999;
+	clear:left;
+}
+
+/* ----------------- [ / Seitenleiste ] ------------------------------------- */
+
+
+
+/* ----------------- [ Textdefinitionen ] ----------------------------------- */
+
+
+h3 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style:italic;
+	color:#900;
+	padding:0 0 5px 0;
+	border-bottom:1px dotted #ccc;
+}
+
+#maincol h3,
+#maincol_full h3 {
+	font-size:2em;
+	line-height:1.2em;
+	max-width:650px;
+}
+
+#maincol h4,
+#maincol_full h4 {
+	font-size:1.3em;
+	line-height:1.2em;
+	max-width:650px;
+	margin:0px 0 0px 0;
+	font-weight:normal;
+	color:#222;
+	font-style:italic;
+	margin:10px 0 0 0;
+}
+
+#maincol h5,
+#maincol_full h5 {
+	font-size:1em;
+	line-height:1.2em;
+	max-width:650px;
+	font-weight:bold;
+	margin:10px 0 0 0;
+}
+
+#welcome p {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight:normal;
+	font-size:1.5em;
+	line-height:1.5em;
+	font-style:italic;
+	padding:15px 100px 20px 80px;
+	color:#222;
+	margin:0;
+}
+
+#maincol p,
+#maincol_full p { margin:20px 0 0 0; color: #222; }
+
+ #sidebar h3 { font-size:1.6em; margin-bottom:10px; } 
+
+#sidebar h4 { font-size:1.2em; color:#900; }
+
+#sidebar p { color: #222; }
+
+#sidebar { line-height:1.7em;}
+
+.list li {
+	background:url(/fileadmin/layout/listelement.gif) no-repeat 0 5px;
+	padding:0 0 0 15px;
+	line-height:1.6em;
+}
+
+/* ----------------- [ / Textdefinitionen ] --------------------------------- */
+
+
+
+/* ----------------- [ News bzw. Blogdesign (Startseite) ] ------------------ */
+
+#blog .entry { border-bottom:1px dotted #ccc; padding:10px 0 10px 0; }
+
+#blog p { margin:0; }
+
+#blog .entry h4 {
+	font-size:1.1em;
+	line-height:1.2em;
+	max-width:650px;
+	margin:0px 0 0px 0;
+	font-weight:bold;
+	color:#900;
+	font-style:normal; }
+
+#blog .entry h4 .date { font-weight:normal; color:#222; }
+
+#blog .entry h4 .date .datesep { width:1px; color:#fff; border-right:1px solid #222; }
+
+#newsicon {
+	position:absolute;
+	top:10px;
+	right:10px;
+	width:35px;
+	height:40px;
+	background:url(/fileadmin/layout/newsicon.gif) no-repeat 0 0;
+}
+
+/* ----------------- [ / News bzw. Blogdesign (Startseite) ] ---------------- */
+
+
+
+/* ----------------- [ Icons & Buttons ] ------------------------------------ */
+
+#hidebib,
+#showbib {
+	position:absolute;
+	right:-30px;
+	text-indent:-2000px;
+	overflow:hidden;
+	border-bottom:none;
+}
+	
+#hidebib { right:-30px; bottom:10px; width:180px; height:10px; background:url(/fileadmin/layout/hidebib.gif) no-repeat 0 0; }
+#showbib { right:-30px;  bottom:10px; width:180px; height:10px; background:url(/fileadmin/layout/showbib.gif) no-repeat 0 0; }
+	
+/*#lockclosed,
+#lockfree */
+#lock {
+	position:absolute;
+/*	top:-23px; */
+    top:-43px; 
+	left:-40px;
+	width:30px;
+	height:30px;
+/*	text-indent:-2000px;  */
+	overflow:hidden;
+	display:block;
+}
+/*
+#lockclosed {
+	background:url(/fileadmin/layout/lockclosed_big.gif) no-repeat 0 0; 
+}
+
+#lockfree {
+	background:url(/fileadmin/layout/lockfree_big.gif) no-repeat 0 0; 
+}
+*/
+
+/* ----------------- [ / Icons & Buttons ] ---------------------------------- */
+
+
+
+/* ----------------- [ Gestaltung der Bändeübersicht ] ---------------------- */
+
+#collection .coll_object {
+	position:relative;
+	top:0;
+	left:0;
+	width:950px;
+	clear:left;
+	margin:20px 0 0 0;
+	padding:0 0 6px 12px;
+	background:url(/fileadmin/layout/bgwrapper.png) repeat-y;
+}
+
+.objsep {
+	position:absolute;
+	top:-20px;
+	left:0;
+	width:950px;
+	height:20px;
+	background:url(/fileadmin/layout/objsep.png) no-repeat top center;
+}
+
+
+.coll_object ul li,
+.objecthead {
+	max-width:824px;
+	border-bottom:1px dotted #ccc;
+	padding:4px 20px 3px 75px;
+	margin:0 0 0 2px;
+}
+
+
+.objecthead { font-weight:bold; }
+
+a.objecthead:hover { background:none; color:#C00; }
+
+.coll_object a { border-bottom:none !important; }
+
+
+#collection .closebook,
+
+#collection .openbook {
+	position:absolute;
+	top:0;
+	right:40px;
+	width:22px;
+	height:22px;
+	text-indent:-2000px;
+	overflow:hidden;
+	border-bottom:none;
+}
+
+#collection .closebook { background:url(/fileadmin/layout/closebook.gif) no-repeat 0 0; }
+
+#collection .openbook { background:url(/fileadmin/layout/openbook.gif) no-repeat 0 0; }
+
+#collection .siteno { position:absolute;right:200px;display:inline; }
+#collection .siteyear { position:relative;left:0px;margin-right: 20px; }
+#collection .sitepdf { position:relative;left:0px;display:inline; margin-left: 10px; margin-top: 2px; margin-right: 10px;}
+#collection a.sitepdf:hover {background: transparent; }
+#collection img.pdficon {vertical-align:middle; padding-bottom:2px; }
+
+.collectionend {
+	position:relative;
+	width:950px;
+	height:20px;
+	background:url(/fileadmin/layout/objsep.png) no-repeat top center;
+}
+
+/* ----------------- [ / Gestaltung der Bändeübersicht ] -------------------- */
+
+/* ------Jochen ------------------------------------------------------------------- */
+dt.tx-irfaq-pi1 {
+	color:#900;
+	text-decoration:none;
+}
+
+#address img {
+    display: inline;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#address p.description {
+	border-bottom:1px dotted #999;
+}
+
+#address li {
+/*	background:url(/fileadmin/layout/listelement.gif) no-repeat 0 5px; */
+	padding:0px 0px 7px 0px ;
+	line-height:1.6em;
+}
+
+
+/*--------------------  goobit3 -----------------------------------------*/
+#tx-goobit3-search {
+    max-width:650px;
+}
+#tx-goobit3-search img.lock{
+    margin-top: 1px;
+}
+
+#tx-goobit3-search_form {
+    position:relative;
+    top:20px;
+    bottom: 20px;
+    right:0;
+    width:420px;
+    height:90px;
+    border-left:1px dotted #ccc;
+}
+#tx-goobit3-search_form #searchforminput {
+    position:absolute;
+    right:15px;
+    top:20px;
+    width:390px;
+    height:28px;
+/*    background:url(/fileadmin/layout/inpbg_fastsearch.gif) no-repeat 0 0; */
+    background: #8f8471;
+    border-top: 1px solid #6b6355;
+    border-left: 1px solid #6b6355;
+    border-bottom: 1px solid #b4aea3;
+    border-right: 1px solid #b4aea3;    
+    font-size:1.2em;
+    color:#fff;
+/*    padding:6px 0px 0px 10px; */
+}
+#tx-goobit3-search_form #send {
+    position:absolute;
+    top:13px;
+    right:15px;
+    height:50px;
+    width:61px;
+    border:none;
+    background:transparent url(/fileadmin/layout/btn_fastsearch_ie6.gif) no-repeat 0 0;
+    text-indent:-2000px;
+    overflow:hidden;
+    display:block;
+    font-size:0em;
+    color:#ccc;
+}
+
+#tx-goobit3-search_proposal {
+    position:absolute;
+    right:70px;
+    top:50px;
+    width:335px;
+    background: #fff;
+    border:none;
+    font-size:1.2em;
+    overflow:hidden;
+    padding:6px 0 10px 10px;
+/*    border-left:1px dotted #ccc;
+    border-bottom:1px dotted #ccc; */
+    z-index:999;
+}
+
+#tx-goobit3-search_prefix {
+    position:relative;
+    top: 2px;
+    width: 200px;
+    text-align: right;	    
+    float:left;
+}
+
+#tx-goobit3-search_input {
+    position:relative;
+    top: 0px;
+    width: 300px;
+    float:left;
+    margin: 2px 2px 2px 2px;
+    white-space:nowrap;
+}
+
+
+#tx-goobit3-search_proposalline {
+    width: 100%;
+}
+#tx-goobit3-search_proposalline:hover{
+    color: #fff;
+    background-color: #900;
+}
+
+#mydigizeit_filter hr,
+#tx-goobit3-search hr {
+    color: #fff;
+    background:#fff;	
+    border: 0px solid #fff;
+    border-bottom:1px dotted #ccc;
+}
+#tx-goobit3-search a {
+    border:none;
+    white-space:normal;
+    
+}
+#tx-goobit3-search img:hover {
+    border:none;
+    background:#fff;	
+}
+#tx-goobit3-search img {
+    border:none;
+    display:inline;
+    vertical-align: top;
+}
+
+#tx-goobit3-search div.shadow {
+   float: left;
+   background-color: #ddd;
+   padding: 0;
+   margin: 0.7em 1em;
+}
+
+#tx-goobit3-search div.shadow IMG {
+   display:block;
+   border: 1px solid #999;
+   position: relative;
+   top: -3px;
+   left: -3px;
+}
+
+
+#tx-goobit3-browse  ul ul {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+}
+#tx-goobit3-browse ul li.tx-goobit3-browse_browsecollection {
+    padding-bottom: 5px;
+}
+#tx-goobit3-browse a {
+    border: none;
+}
+
+.tx-goobit3-toc {
+    position: relative;
+    width: 600px;
+    border: solid 1px #000;
+    margin-top: 30px;
+    margin-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: solid 1px #000;
+}
+
+#tx-goobit3-toc_toc_current {
+    font-weight: bold;
+    background-color: #f3ecd5;
+}
+#tx-goobit3-toc_toc {
+}
+#tx-goobit3-toc_toc .succeeding, .preceeding {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+#tx-goobit3-toc_toc .tx-goobit3-toc_space, #tx-goobit3-toc_toc_current .tx-goobit3-toc_space {
+    vertical-align: top;
+    float: left;
+}
+
+#tx-goobit3-met_head {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+#tx-goobit3-met_section {
+}
+
+#tx-goobit3-met_section .tx-goobit3-met {
+    position: relative;
+    width: 800px;
+    margin-top: 30px;
+    margin-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+/*    border: solid 1px #000; */
+}
+
+#tx-goobit3-met_section .tx-goobit3-met_hr {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+#tx-goobit3-met_section .comment {
+    font-size: 1.1em;
+    color: #222;
+    margin-left: 75px;
+    margin-right: 75px;
+}
+#tx-goobit3-toc_toc .comment {
+    font-size: 1.1em;
+    color: #222;
+    margin-left: 75px;
+    margin-right: 75px;
+}
+#tx-goobi-img_head .comment {
+    font-size: 1.1em;
+    color: #222;
+}
+#tx-goobi-img_head hr,
+#tx-goobit3-toc_toc .comment hr,
+#tx-goobit3-met_section hr {
+    color: #222;
+    background-color: #000;
+    height: 1px;   
+    border: 0px; 
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#tx-goobit3-img_pageturn div {
+    text-align: center;
+    float:left;
+}
+
+#tx-goobit3-img_form {
+    margin-left: 75px;
+}
+#tx-goobit3-img_form_bottom {
+    text-align: right;
+    margin-right: 75px;
+}
+
+#tx-goobit3-img_form .form_input {
+    display: block;
+    float:left;
+    margin: 3px;
+    padding: 0px;
+}
+
+#tx-goobit3-img_form .form_select {
+    display: block;
+    float:left;
+    height: 20px;
+    margin: 3px;
+    padding: 0px;
+    border: solid 1px #000000;
+}
+
+#tx-goobit3-img_image  {
+    margin-left: 75px;
+}
+
+#tx-goobit3-img_image .image {
+    border: solid 1px #000;
+}
+
+#tx-goobi-img_head {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+#tx-goobi-img_head  a.maintitle_pdf:hover {
+    background:none;	
+}
+
+#tx-goobi-img_head .struct {
+}
+#tx-goobi-img_head .maintitle {
+    font-weight: bold;
+}
+#tx-goobi-img_head .maintitle_pdf {
+    float: left;
+}
+#tx-goobi-img_head .purl {
+    font-weight: bold;
+}
+#tx-goobi-img_head .comment {
+}
+
+/*##### felogin ######*/
+
+.tx_felogin_pi1-inputtext {
+    width:390px;
+    height:22px;
+    background: #8f8471;
+    border-top: 1px solid #6b6355;
+    border-left: 1px solid #6b6355;
+    border-bottom: 1px solid #b4aea3;
+    border-right: 1px solid #b4aea3;    
+    font-size:1.2em;
+    color:#fff;
+}
+
+
+
+/* ##### irfaq ##### */
+.tx-irfaq-pi1 ul.tx-irfaq-questions-list { margin-bottom: 75px; }
+.tx-irfaq-pi1 ul li a p.bodytext { margin: 0px; display: inline; font-weight: bold; }
+.tx-irfaq-pi1 ul li a { color: #000; text-decoration: none; }
+.tx-irfaq-pi1 ul li a:hover { color: #000; text-decoration: underline; }
+.tx-irfaq-pi1 .tx-irfaq-answer { margin-bottom: 10px; }
+.tx-irfaq-pi1 .tx-irfaq-answer h4 p.bodytext { margin: 0px; display: inline; font-weight: bold; }
+.tx-irfaq-pi1 dt p { font-weight: bold; margin: 0px; display: inline; }
+.tx-irfaq-pi1 dd { margin-left: 0px; }
+.tx-irfaq-pi1 dd p { margin-top: 0px;	}
+.tx-irfaq-pi1 .additional-info { border-top: 2px solid #e6e6e6; margin-bottom: 10px; }
+.tx-irfaq-pi1 .irfaq-related-faq, .tx-irfaq-pi1 .irfaq-related-links { padding-top: 0px; padding-bottom: 0px; margin-top: 3px; margin-bottom: 15px; }
+
+.tx-irfaq-cleaner { clear: left; height: 1px; }
+.tx-irfaq-dynheader { cursor: pointer; color:#900; }
+.tx-irfaq-dynans-hidden { display: none; }
+.tx-irfaq-dynans-visible { display: inline; }
+
+
+
+
+/*
+h3 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style:italic;
+	color:#900;
+	padding:0 0 5px 0;
+	border-bottom:1px dotted #ccc;
+}
+
+#maincol h3,
+#maincol_full h3 {
+	font-size:2em;
+	line-height:1.2em;
+	max-width:650px;
+}
+
+#maincol h4,
+#maincol_full h4 {
+	font-size:1.3em;
+	line-height:1.2em;
+	max-width:650px;
+	margin:0px 0 0px 0;
+	font-weight:normal;
+	color:#222;
+	font-style:italic;
+	margin:10px 0 0 0;
+}
+
+#maincol h5,
+#maincol_full h5 {
+	font-size:1em;
+	line-height:1.2em;
+	max-width:650px;
+	font-weight:bold;
+	margin:10px 0 0 0;
+}
+
+*/
+
+
+/* ##### dr-wiki #####*/
+#tx-drwiki {width:640px; border-left: 1px dotted #ccc; border-right: 1px dotted #ccc; padding: 5px;}
+#tx-drwiki td { padding:3px; }
+#tx-drwiki a { text-decoration: none; }
+#tx-drwiki a:hover { TEXT-DECORATION: underline; }
+#tx-drwiki a,img { border:none; }
+#tx-drwiki .notCreated { color:red; }
+#tx-drwiki ul {list-style-type:disc; }
+#tx-drwiki li { }
+#tx-drwiki ol.references > li:target {background-color: #DEF;}
+#tx-drwiki sup.reference:target { background-color: #DEF;}
+#tx-drwiki ol.references { font-size:9pt; }
+#tx-drwiki ol.references-2column {font-size:9pt; -moz-column-count: 2; -webkit-column-count: 2; column-count: 2;}
+#tx-drwiki .editsection {float: right; margin-left: 5px;}
+#tx-drwiki h1, #tx-drwiki h2, #tx-drwiki h3, #tx-drwiki h4, #tx-drwiki h5, #tx-drwiki h6  {
+    font-family:Verdana,Arial,Helvetica,Sans-Serif;
+    font-style: normal;
+    color: black; 
+    background: none; 
+    font-weight: bold; 
+    margin: 0;
+    padding: 0.5em 0 0.17em 0;
+    border-bottom: 1px solid #aaa;
+    }
+#tx-drwiki h1 { font-size: 188%; }
+#tx-drwiki h1 .editsection { font-size: 53%; font-weight: normal; }
+#tx-drwiki h2 { font-size: 150%; }
+#tx-drwiki h2 .editsection { font-size: 67%; font-weight: normal; }
+/* #tx-drwiki h3, #tx-drwiki h4, #tx-drwiki h5, #tx-drwiki h6 { border-bottom: none;} */
+#tx-drwiki h3 { font-size: 132%; }
+#tx-drwiki h3 .editsection { font-size: 76%; font-weight: normal; }
+#tx-drwiki h4 { font-size: 116%; }
+#tx-drwiki h4 .editsection { font-size: 86%; font-weight: normal; }
+#tx-drwiki h5 { font-size: 100%; }
+#tx-drwiki h5 .editsection { font-weight: normal; }
+#tx-drwiki h6 { font-size: 80%;  }
+#tx-drwiki h6 .editsection { font-size: 125%; font-weight: normal; }
+#tx-drwiki HR { height:1px; border-top:1px dotted #000000; border-left:0; border-right:0; border-bottom:0; }
+#tx-drwiki OL {PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0.3em 0px 0px 3.2em; LINE-HEIGHT: 1.5em; PADDING-TOP: 0px;}
+#tx-drwiki UL {PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0.3em 0px 0px 1.5em; LINE-HEIGHT: 1.5em; PADDING-TOP: 0px; }
+#tx-drwiki PRE { BORDER: #2f6fab 1px dashed; PADDING: 1em; COLOR: black; LINE-HEIGHT: 1.1em; BACKGROUND-COLOR: #f9f9f9; font-family:Fixedsys,Courier; }
+#tx-drwiki INPUT {font-size:10pt;}
+#tx-drwiki TEXTAREA {width:100%; font-size:10pt;}
+#tx-drwiki input, #tx-drwiki textarea {border: 1px #ccc solid; background: #fafafa; color: #777;}
+#tx-drwiki input[type=text]:focus, textarea:focus { background: #f0f0f0; color: #333; border-color: #666;}
+  .tx-drwiki-pi1-urlextension { display: none; }
+  .redirect {BORDER: #2f6fab 1px dashed; PADDING: 1em; COLOR: black; LINE-HEIGHT: 1.1em; BACKGROUND-COLOR: #FFFFF0;}
+  .icons {vertical-align:middle; float:left; margin-right:20px; margin-bottom:10px;}
+  .wiki-box {BORDER: #2f6fab 1px dashed; PADDING: 1em; COLOR: black; LINE-HEIGHT: 1.1em; BACKGROUND-COLOR: #f9f9f9; } 
+  .wiki-box-blue {display: block;font-size: 1em; color: #000; padding: 0.5em; background: #f0f0f4; border-left: 8px #E0E7F5 solid;}  
+  .wiki-box-red {display: block;font-size: 1em; color: #000; padding: 0.5em; background: #fee; border-left: 8px #fcc solid;}  
+  .wiki-box-green {display: block;font-size: 1em; color: #000; padding: 0.5em; background: #33FF33; border-left: 8px #006600 solid;}  
+  .wiki-box-yellow {display: block;font-size: 1em; color: #000; padding: 0.5em; background: #FFFF99; border-left: 8px #FFFF00 solid;}
+  .wiki-box-catlinks {border: 1px solid #aaa;background-color: #f9f9f9;padding: 5px;margin-top: 1em;clear: both;}  
+  .wiki-table {margin: 1em 1em 1em 0; background: #f9f9f9; border: 1px #aaa solid; border-collapse: collapse;}  
+  .diff-r {color: red;}
+  .diff-g {color: green;}
+  .diff-result { BORDER: #2f6fab 1px dashed; PADDING: 1em; COLOR: black; LINE-HEIGHT: 1.1em; BACKGROUND-COLOR: #f9f9f9; font-family:Fixedsys,Courier; }
+  .diff-table {width:100%;}
+  .diff-table-cell-green {vertical-align:top; text-align:left; white-space:normal; color:green; font-family:Fixedsys,Courier; font-size:10pt; BORDER: #2f6fab 1px dashed; PADDING: 1em;}
+  .diff-table-cell-red {vertical-align:top; text-align:left; white-space:normal; color:red; font-family:Fixedsys,Courier; font-size:10pt; BORDER: #2f6fab 1px dashed; PADDING: 1em;}
+  #toc {BORDER: #aaaaaa 1px solid; PADDING: 5px; FONT-SIZE: 10pt; BACKGROUND-COLOR: #f9f9f9 }
+  #toc .tocindent {MARGIN-LEFT: 2em}
+  #toc .tocline {MARGIN-BOTTOM: 0px}
+  #toc P {FONT-SIZE: 10pt; MARGIN: 0px}
+  #toc .toctoggle {FONT-SIZE: 10pt}
+  #toc .editsection {MARGIN-TOP: 0.7em; FONT-SIZE: 10pt}
+
+

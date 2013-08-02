@@ -1,0 +1,97 @@
+/*
+
+CSS-Datei für die Gestaltung der Ansichts-Seite.
+	- Gestaltet die Seitennav
+	- positioniert das Bildelement
+	- Diese Datei wird nur bei Ansicht eingebunden!
+	
+*/
+
+#piccontainer {
+	margin:-90px 0 0 0;
+	padding:110px 0 80px 0;
+	width:100%;
+	text-align:center;
+	background:#989188;
+}
+
+#pagenav {
+	position:relative;
+	top:0;
+	left:0;
+	width:950px;
+	clear:left;
+	height:90px;
+	background:url(../images/tempborder.png) no-repeat top center;
+}
+	
+#pagenav #buttons {
+	position:absolute;
+	top:36px;
+	right:180px;
+	width:400px;
+	height:32px;
+}
+
+#pagenav li { float:left; }
+
+#pagenav li a, #p_site label { width:20px; height:20px; display:block; text-indent:-2000px; overflow:hidden; border-bottom:none; margin:0 2px; }
+
+#pagenav #p_direction,
+#pagenav #p_site,
+#pagenav #p_zoom,
+#pagenav #p_rotate,
+#pagenav #p_pdf {
+	position:absolute;
+	top:0px;
+	height:20px;
+	border-right:1px dotted #666;
+	display:block;
+}
+
+
+#pagenav #p_direction { left:3px; width:99px; border-left:1px dotted #666; margin:0 10px 0 0; }
+
+#pagenav #p_site { left:110px; width:110px; }
+
+#pagenav #p_site { left:110px; width:110px; }
+
+#pagenav #p_zoom { left:225px; width:53px; }
+
+#pagenav #p_rotate { left:283px; width:53px; }
+
+#pagenav #p_pdf { left:340px; width:33px; }
+
+#pagenav #b_first { background:url(../images/go_first.gif) no-repeat 0 0; }
+
+#pagenav #b_back { background:url(../images/go_back.gif) no-repeat 0 0; }
+
+#pagenav #b_next { background:url(../images/go_next.gif) no-repeat 0 0; }
+
+#pagenav #b_last { background:url(../images/go_last.gif) no-repeat 0 0; }
+
+#pagenav #b_zoomin { background:url(../images/zoom_in.gif) no-repeat 0 0; }
+
+#pagenav #b_zoomout { background:url(../images/zoom_out.gif) no-repeat 0 0; }
+
+#pagenav #b_rotccw { background:url(../images/rotate_ccw.gif) no-repeat 0 0; }
+
+#pagenav #b_rotcw { background:url(../images/rotate_cw.gif) no-repeat 0 0; }
+
+#pagenav #b_pdf { width:26px; background:url(../images/pdfdownload.gif) no-repeat 0 0; }
+
+#p_site label { width:44px;height:20px;background:url(../images/sitelabel.gif) no-repeat 0 0;float:left; }
+
+#p_site #site { font-size:10px; width:32px; height;20px; float:left; margin:0 2px; }
+
+#p_site #sendsite { height:20px; width:10px; border:none; background:transparent url(../images/pagenavgo.gif) no-repeat 0 0; text-indent:-2000px; overflow:hidden; display:block; font-size:0em; color:#ccc; margin:0 3px; float:left; }
+
+#pageborder_end {
+	position:relative;
+	top:0;
+	left:0;
+	width:950px;
+	height:60px;
+	margin:-60px 0 0 0;
+	background:url(../images/tempheadborder.png) no-repeat bottom center;
+}

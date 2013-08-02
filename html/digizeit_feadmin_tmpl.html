@@ -1,0 +1,920 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<TITLE>Frond End User Registration Template</TITLE>
+</head>
+<body>
+
+
+
+
+<br>
+<br>
+<br>
+<H1>FRONTEND USER REGISTRATION/ADMINISTRATION TEMPLATES</H1>
+<h2>EXAMPLE</h2>
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<h2>'Create' templates:</h2>
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>Form for creation of a new fe_users record:</em>
+<br>
+<br>
+<!-- ###TEMPLATE_CREATE### begin
+	Form for creation of a new fe_users record
+	In this case, you can only create this record if you're not already logged in. That means the record will NOT get any fe_uid attached.
+	You're totally free to choose whether TEMPLATE_CREATE or TEMPLATE_CREATE_LOGIN is used to display the form. If you use LOGIN then users must be logged in in order to create the records and thus the records will be tagged with the fe_uid so they can be re-edited.
+-->
+<h3>Create new user</h3>
+
+<FORM name="fe_users_form" enctype="multipart/form-data" method="post" action="###FORM_URL###" onSubmit="return enc_form(this);">
+
+Preferred username (lowercase):<br>
+<!--###SUB_REQUIRED_FIELD_username###--><font color=red><strong>Invalid username.</strong></font><BR>
+###EVAL_ERROR_FIELD_username### <br>
+<!--###SUB_REQUIRED_FIELD_username###-->
+<input type="text" name="FE[fe_users][username]"><br>
+
+Password  (lowercase):<br>
+<!--###SUB_REQUIRED_FIELD_password###--><font color=red><strong>Invalid password.</strong></font><BR>
+###EVAL_ERROR_FIELD_password### <br>
+<!--###SUB_REQUIRED_FIELD_password###-->
+<input size=10 type="password" name="FE[fe_users][password]"> Repeat: <input size=10 type="password" name="FE[fe_users][password_again]"><br>
+<br>
+
+<br>
+<strong>Personal information:</strong><br>
+<br>
+
+Name: (*)<br>
+<!--###SUB_REQUIRED_FIELD_name###--><font color=red><strong>You MUST enter a name!</strong></font><!--###SUB_REQUIRED_FIELD_name###-->
+<input type="text" name="FE[fe_users][name]"><br>
+
+Address:<br>
+<input type="text" name="FE[fe_users][address]"><br>
+
+Telephone:<br>
+<input type="text" name="FE[fe_users][telephone]"><br>
+
+Fax:<br>
+<input type="text" name="FE[fe_users][fax]"><br>
+
+Email: (*)<br>
+<!--###SUB_REQUIRED_FIELD_email###--><font color=red><strong>You MUST enter a valid email address!!</strong></font><BR>
+###EVAL_ERROR_FIELD_email### <br>
+<!--###SUB_REQUIRED_FIELD_email###-->
+<input type="text" name="FE[fe_users][email]"><br>
+
+Title:<br>
+<input type="text" name="FE[fe_users][title]"><br>
+
+Company:<br>
+<input type="text" name="FE[fe_users][company]"><br>
+
+Zipcode/City:<br>
+<input type="text" name="FE[fe_users][zip]" size=5>-<input type="text" name="FE[fe_users][city]"><br>
+
+Country:<br>
+<input type="text" name="FE[fe_users][country]"><br>
+
+Homepage:<br>
+<input type="text" name="FE[fe_users][www]"><br>
+
+###HIDDENFIELDS###
+<input type="Submit" name="submit" value="Create user">
+</FORM>
+
+<BR>
+<a href="###FORM_URL###&cmd=infomail&backURL=###FORM_URL_ENC###">Forgot your password?</a>
+<BR>
+<!-- ###TEMPLATE_CREATE### end-->
+
+
+
+
+
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>Here the user information is preview before final submission:</em>
+<br>
+<br>
+<!-- ###TEMPLATE_CREATE_PREVIEW### begin
+	Form for preview before creation of a new fe_users record
+-->
+<h3>Preview information</h3>
+
+Please verify that everything is correct before the user is created:<br>
+<br>
+
+<table>
+<tr>
+	<td>Username:</td>
+	<td>###FIELD_username###</td>
+</tr>
+<tr>
+	<td>Name:</td>
+	<td>###FIELD_name###</td>
+</tr>
+<tr>
+	<td>Email:</td>
+	<td>###FIELD_email###</td>
+</tr>
+<tr>
+	<td>Title:</td>
+	<td>###FIELD_title###</td>
+</tr>
+<tr>
+	<td>Company:</td>
+	<td>###FIELD_company###</td>
+</tr>
+<tr>
+	<td>Address:</td>
+	<td>###FIELD_address###</td>
+</tr>
+<tr>
+	<td>Zip/City:</td>
+	<td>###FIELD_zip###-###FIELD_city###</td>
+</tr>
+<tr>
+	<td>Country:</td>
+	<td>###FIELD_country###</td>
+</tr>
+<tr>
+	<td>Telephone:</td>
+	<td>###FIELD_telephone###</td>
+</tr>
+<tr>
+	<td>Fax:</td>
+	<td>###FIELD_fax###</td>
+</tr>
+<tr>
+	<td>Homepage:</td>
+	<td>###FIELD_www###</td>
+</tr>
+</table>
+	<FORM name="fe_users_form" enctype="multipart/form-data" method="post" action="###FORM_URL###">
+	<input type="hidden" name="FE[fe_users][username]">
+	<input type="hidden" name="FE[fe_users][password]">
+	<input type="hidden" name="FE[fe_users][password_again]">
+	<input type="hidden" name="FE[fe_users][name]">
+	<input type="hidden" name="FE[fe_users][address]">
+	<input type="hidden" name="FE[fe_users][telephone]">
+	<input type="hidden" name="FE[fe_users][fax]">
+	<input type="hidden" name="FE[fe_users][email]">
+	<input type="hidden" name="FE[fe_users][title]">
+	<input type="hidden" name="FE[fe_users][zip]">
+	<input type="hidden" name="FE[fe_users][city]">
+	<input type="hidden" name="FE[fe_users][country]">
+	<input type="hidden" name="FE[fe_users][www]">
+	<input type="hidden" name="FE[fe_users][company]">
+	###HIDDENFIELDS###
+	<input type="Submit" name="doNotSave" value="Back to form">
+	<input type="Submit" name="submit" value="Create user">
+	</FORM>
+	<br>
+
+<!-- ###TEMPLATE_CREATE_PREVIEW### end-->
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>Template, displayed if the user is already logged in.</em>
+<br>
+<br>
+<!-- ###TEMPLATE_CREATE_LOGIN### begin
+	Template, displayed if the user is already logged in
+
+	In this case it redirects to the same page but with the cmd set to edit
+-->
+<a href="###FORM_URL###&cmd=edit">Ihr Benutzerprofil bearbeiten</a>
+<br /><br />
+<script>
+//  document.location='###FORM_URL###&cmd=edit';
+</script>
+<!-- ###TEMPLATE_CREATE_LOGIN### end-->
+
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>This is shown when the user is created:</em>
+<br>
+<br>
+<!-- ###TEMPLATE_CREATE_SAVED### begin
+	This is shown when the user is created
+
+	You can use the newly created record as markers on the format ###FIELD_[fieldname]###
+	The cObject named LOGIN is inserted.
+-->
+
+<h3>User registration complete</h3>
+Now, login with your new username (###FIELD_username###) and password:<br>
+<br>
+
+###CE_LOGIN###<BR>
+
+<br>
+or <a href="###FORM_URL###&logintype=login&user=###FIELD_username###&pass=###FIELD_password###&pid=###THE_PID###">just click here!</a>
+<br>
+<br>
+
+<!-- ###TEMPLATE_CREATE_SAVED### end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<h2>'Edit' templates:</h2>
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>Menu of available fe_users records:</em>
+<br>
+<br>
+<!-- ###TEMPLATE_EDITMENU### begin
+	This template is used to generate a menu that displays the items from the actual table that the user has administration access to
+	For each item you can use the regular record markers formatted like this: ###FIELD_[fielname]### plus ###FORM_URL###
+-->
+Benutzerdaten bearbeiten:
+<hr />
+	<!-- ###ALLITEMS### begin -->
+		<!-- ###ITEM### begin -->
+			<a href="###FORM_URL###&rU=###FIELD_uid###&cmd=edit">###FIELD_username### (###FIELD_name###)</a><br>
+		<!-- ###ITEM### end -->
+	<!-- ###ALLITEMS### end -->
+<br />
+<!--
+<a href="###FORM_URL###&cmd=">###CREATENEWUSER###</a><br>
+//-->
+	<br />
+<!-- ###TEMPLATE_EDITMENU### -->
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>Menu of available fe_users records:</em>
+<br>
+<br>
+<!-- ###TEMPLATE_EDITMENU_NOITEMS### begin
+	This is shown if the user has no items!
+-->
+You have currently no editable user - which is not possible as you're logged in as one! Strange error.
+<!-- ###TEMPLATE_EDITMENU_NOITEMS### -->
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>Form for editing of a fe_users record:</em>
+<br>
+<br>
+<!-- ###TEMPLATE_EDIT### begin
+	Form for editing of a fe_users record:
+-->
+<script language="JavaScript" type="text/javascript" src="typo3/md5.js">
+</script>
+<script language="JavaScript" type="text/javascript">
+<!--
+
+var pw_change = 0;
+function enc_form(form) {
+	var pass = form['FE[fe_users][password]'].value;
+	var pass_again = form['FE[fe_users][password_again]'].value;
+	if (pass != pass_again) {
+		alert('Die beiden Passwörter müssen übereinstimme!');
+		form['FE[fe_users][password]'].select();
+		form['FE[fe_users][password]'].focus();
+		return false;
+	}
+	if (pw_change) {
+		var enc_pass = MD5(pass);
+		form['FE[fe_users][password]'].value = enc_pass;
+		form['FE[fe_users][password_again]'].value = enc_pass;
+	}
+	return true;
+}
+
+// -->
+</script>
+
+<h3>Benutzerdaten für: '###FIELD_username###'</h3>
+
+<form name="fe_users_form" method="post" action="###FORM_URL###" onSubmit="return enc_form(this);">
+<table>
+	<tr>
+		<td align="right" valign="top">
+			Passwort:&nbsp;
+		</td>
+		<td valign="top">
+			<input size=30 type="password" name="FE[fe_users][password]" onChange="pw_change=1; return true;" >
+		</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top">
+			wiederholen:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="password" name="FE[fe_users][password_again]" onChange="pw_change=1; return true;" >
+		</td>
+	</tr>
+</table>
+<br />
+<b>Persönliche Daten</b>
+<br />
+<table>
+	<tr>
+		<td align="right" valign="top">
+			Institution:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="text" name="FE[fe_users][company]">
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right" valign="top">
+			Titel:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="text" name="FE[fe_users][title]">
+		</td>
+	</tr>
+
+	<!--###SUB_REQUIRED_FIELD_name###-->
+	<tr>
+		<td colspan="2">
+			<font color=red><b>Bitte geben Sie Ihren/einen Benutzernamen an.</b></font>
+		</td>
+	</tr>
+	<!--###SUB_REQUIRED_FIELD_name###-->
+	<tr>
+		<td align="right" valign="top">
+			Name*:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="text" name="FE[fe_users][name]">
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right" valign="top">
+			Adresse:&nbsp;
+		</td>
+		<td valign="top">
+			<textarea cols="30" rows="5" name="FE[fe_users][address]">
+			</textarea>
+<!--			<input size="30" type="text" name="FE[fe_users][address]"> -->
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right" valign="top">
+			PLZ Ort::&nbsp;
+		</td>
+		<td valign="top">
+			<input size="4" type="text" name="FE[fe_users][zip]">&nbsp;<input  size="22" type="text" name="FE[fe_users][city]">
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right" valign="top">
+			Land:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="text" name="FE[fe_users][country]">
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right" valign="top">
+			Telefon:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="text" name="FE[fe_users][telephone]">
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right" valign="top">
+			Fax:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="text" name="FE[fe_users][fax]">
+		</td>
+	</tr>
+
+	<!--###SUB_REQUIRED_FIELD_email###-->
+	<tr>
+		<td colspan="2">
+			<font color=red><b>###EVAL_ERROR_FIELD_email###</b></font>
+		</td>
+	</tr>
+	<!--###SUB_REQUIRED_FIELD_email###-->
+	<tr>
+		<td align="right" valign="top">
+			Email*:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="text" name="FE[fe_users][email]">
+		</td>
+	</tr>
+
+	<tr>
+		<td align="right" valign="top">
+			URL:&nbsp;
+		</td>
+		<td valign="top">
+			<input size="30" type="text" name="FE[fe_users][www]">
+		</td>
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+	<tr>
+		<td colspan="2" align="right">
+			<input type="Submit" name="submit" value="abschicken">
+		</td>
+	</tr>
+
+</table>
+
+###HIDDENFIELDS###
+</form>
+
+<!---
+<br />
+<a href="###FORM_URL###&cmd=delete&backURL=###FORM_URL_ENC###&rU=###REC_UID###&preview=1">###DELETETHISUSER###</a>
+<br />
+
+<br />
+<a href="###FORM_URL###&cmd=infomail&backURL=###FORM_URL_ENC###">Forgot your password?</a>
+<br />
+//-->
+<br />
+<!-- ###TEMPLATE_EDIT### end-->
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>Here the user information is preview before final submission:</em>
+<br>
+<br>
+<!-- ###TEMPLATE_EDIT_PREVIEW### begin
+	Form for preview before changing the fe_users record
+-->
+<h3>Vorschau</h3>
+
+Bitte überprüfen sie Ihre Daten bevor sie eingetragen werden
+<br /><br />
+
+<table>
+	<tr>
+		<td align="right" valign="top"><b>Instutution:&nbsp;</b></td>
+		<td>###FIELD_company###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>Titel:&nbsp;</b></td>
+		<td>###FIELD_title###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>Name:&nbsp;</b></td>
+		<td valign="top">###FIELD_name###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>Adresse:&nbsp;</b></td>
+		<td>###FIELD_address###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>PLZ ORT:&nbsp;</b></td>
+		<td>###FIELD_zip### ###FIELD_city###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>Land:&nbsp;</b></td>
+		<td>###FIELD_country###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>Telefon:&nbsp;</b></td>
+		<td>###FIELD_telephone###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>Fax:&nbsp;</b></td>
+		<td>###FIELD_fax###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>Email:&nbsp;</b></td>
+		<td>###FIELD_email###</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><b>URL:&nbsp;</b></td>
+		<td>###FIELD_www###</td>
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+	<tr>
+	<form name="fe_users_form" enctype="multipart/form-data" method="post" action="###FORM_URL###">
+	<input type="hidden" name="FE[fe_users][password]">
+	<input type="hidden" name="FE[fe_users][password_again]">
+	<input type="hidden" name="FE[fe_users][name]">
+	<input type="hidden" name="FE[fe_users][address]">
+	<input type="hidden" name="FE[fe_users][telephone]">
+	<input type="hidden" name="FE[fe_users][fax]">
+	<input type="hidden" name="FE[fe_users][email]">
+	<input type="hidden" name="FE[fe_users][title]">
+	<input type="hidden" name="FE[fe_users][zip]">
+	<input type="hidden" name="FE[fe_users][city]">
+	<input type="hidden" name="FE[fe_users][country]">
+	<input type="hidden" name="FE[fe_users][www]">
+	<input type="hidden" name="FE[fe_users][company]">
+	###HIDDENFIELDS###
+		<td colspan="2" align="right">
+			<input type="Submit" name="doNotSave" value="zurück">
+			&nbsp;&nbsp;<input type="Submit" name="submit" value="eintragen">
+		</td>
+	</tr>
+	</form>
+</table>
+	<br>
+
+<!-- ###TEMPLATE_EDIT_PREVIEW### end-->
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>This is shown when the user is created:</em>
+<br>
+<br>
+<!-- ###TEMPLATE_EDIT_SAVED### begin
+	This is shown when the user is edited
+-->
+
+<h3>Benutzerprofil geändert</h3>
+Die Daten für Benutzer: <b>###FIELD_username###</b> wurden geändert..
+<br /><br />
+
+<!-- ###TEMPLATE_EDIT_SAVED### end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<h2>'Delete' templates:</h2>
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>		This template is the response page when a users has delete him self.</em>
+<br>
+<br>
+<!-- ###TEMPLATE_DELETE_SAVED### begin
+	This is the message displayed if you have just deleted your subscription
+-->
+<h3>You've deleted your registration</h3>
+
+Username: ###FIELD_username###<BR>
+<!-- ###TEMPLATE_DELETE_SAVED### end-->
+
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>This template is the verification page before the user finally deletes him self.</em>
+<br>
+<br>
+<!-- ###TEMPLATE_DELETE_PREVIEW### begin
+	This is the message displayed if you have just deleted your subscription
+-->
+<h3>Do you really wish to delete this user, '###FIELD_username###' ?</h3>
+
+<FORM name="fe_users_form" enctype="multipart/form-data" method="post" action="###FORM_URL###">
+###HIDDENFIELDS###
+<input type="Submit" name="doNotSave" value="No, Cancel" onClick="document.location='###BACK_URL###'; return false;">
+<input type="Submit" name="submit" value="Yes, Delete user">
+</FORM>
+<br>
+<!-- ###TEMPLATE_DELETE_PREVIEW### end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<h2>'Info mail' templates:</h2>
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>		This form is used to send the infomails.</em>
+<br>
+<br>
+<!-- ###TEMPLATE_INFOMAIL### begin
+	This form is used to send the infomails.
+	You could also use this as a "did you forget your password?" service form.
+-->
+<h3>Forgot your password?</h3>
+
+Enter the email address <em>by which you're registered</em> here, and your password will be sent to you by email.<br>
+
+<FORM name="fe_users_form" enctype="multipart/form-data" method="post" action="###FORM_URL###">
+<input type="text" name="fetch"><br>
+<input type="submit" name="whatever" value="Send">
+	###HIDDENFIELDS###
+</FORM>
+<!-- ###TEMPLATE_INFOMAIL### end-->
+
+
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>		This template is the response page when a users has requested his password send to his email.</em>
+<br>
+<br>
+<!-- ###TEMPLATE_INFOMAIL_SENT### begin
+	This template is the response page when a users has requested his password send to his email.
+-->
+<h3>An email has been sent to your account with the required information</h3>
+
+<a href="###BACK_URL###"><strong>Go back...</strong></a><BR>
+<!-- ###TEMPLATE_INFOMAIL_SENT### end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<h2>'Authentication' templates:</h2>
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>	Authentication failed message.</em>
+<br>
+<br>
+<!-- ###TEMPLATE_AUTH### begin
+	Authentication failed message
+-->
+<h3>Authentication failed</h3>
+Of some reason the authentication failed.
+<!-- ###TEMPLATE_AUTH### end-->
+
+
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>No permission template</em>
+<br>
+<br>
+<!-- ###TEMPLATE_NO_PERMISSIONS### begin
+	Authentication failed message
+-->
+<h3>No permissions to edit record</h3>
+Sorry, you did not have permissions to edit the record.
+<!-- ###TEMPLATE_NO_PERMISSIONS### end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<H1>EMAIL TEMPLATES:</H1>
+In these plain text email templates the first line with content is used as subject in the mails.<br>
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>This template is used to notify a person by email that he is subscribed to the newsletter.<br>
+You can use the newly created record as markers on the format ###FIELD_[fieldname]###
+</em>
+<br>
+<br>
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>This is the template used for the administrator notification email upon a new user registration.<br>
+You can use the newly created record as markers on the format ###FIELD_[fieldname]###
+</em>
+<br>
+<br>
+<pre>
+<!-- ###EMAIL_TEMPLATE_CREATE_SAVED-ADMIN### begin
+ 	This is the template used for the administrator notifycation email upon a new user registration.
+	You can use the newly created record as markers on the format ###FIELD_[fieldname]###
+-->
+<!--###SUB_RECORD###-->
+Admin: New user registration
+
+Name: ###FIELD_name###
+Email: ###FIELD_email###
+
+Username: ###FIELD_username###
+Password: ###FIELD_password###
+
+- kind regards.
+<!--###SUB_RECORD###-->
+<!-- ###EMAIL_TEMPLATE_CREATE_SAVED-ADMIN### end-->
+</pre>
+
+
+
+
+
+
+
+
+<BR><BR><BR><BR><HR><BR><BR><BR>
+<em>The template for forgotten passwords (infomail 'FORGOTPASSWORD' template!)</em>
+<br>
+<br>
+<pre>
+<!-- ###EMAIL_TEMPLATE_FORGOTPASSWORD### begin
+	The template for forgotten passwords (infomail 'FORGOTPASSWORD' template!)
+-->
+<!--###SUB_RECORD###-->
+Typo3 testsite user password
+
+Dear ###FIELD_name###
+
+You username is ###FIELD_username###
+You password is ###FIELD_password###
+
+<!--###SUB_RECORD###-->
+<!-- ###EMAIL_TEMPLATE_FORGOTPASSWORD### end-->
+</pre>
+
+
+
+
+
+
+
+</body>
+</html>
