@@ -1,4 +1,4 @@
 digizeit-templates
 ==================
 
-DigiZeit: TypoScript, HTML, CSS, Images, Scripts aus dem TYPO3 filadmin Ordner 
+DigiZeit: TypoScript, HTML, CSS, Images, Scripts aus dem TYPO3 fileadmin Ordner 
