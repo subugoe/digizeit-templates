@@ -5,6 +5,8 @@ error_reporting(0);
 
 $scriptPath = dirname(__FILE__);
 
+$checkCommand = '/usr/bin/gs -q -dNOPAUSE -sDEVICE=nullpage -sOutputFile=/dev/null -dBATCH';
+
 include_once(realpath($scriptPath.'/../../typo3conf').'/localconf.php');
 $basehref = 'http://www.digizeitschriften.de/';
 $cachePath = 'file:///storage_lokal/cache/';
@@ -37,8 +39,6 @@ if($_REQUEST['ACL']) {
 }
 
 $arrAccess = array_intersect($arrUserAcl, $arrStructAcl);
-
-
 /*
 print_r('<pre>');
 print_r($_SERVER);
@@ -47,43 +47,77 @@ print_r($arrAccess);
 print_r('</pre>');
 exit();
 */
-$status = '500';
+$status = '200';
 
 if(count($arrAccess)) {
-    chdir($pdfwriter);
-//exit();
-    if(!is_file($cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml')) {
-        file_put_contents($logPath.'mets2itext_cmd.log','./mets2itext.php '.$basehref.'dms/metsresolver/?PPN='.$_REQUEST['PPN'].' '.$_REQUEST['logID']."\n",FILE_APPEND);
-        $test = exec('./mets2itext.php '.$basehref.'dms/metsresolver/?PPN='.$_REQUEST['PPN'].' '.$_REQUEST['logID']);
-    }
-//exit();
-    if(!is_file($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf')) {
-        file_put_contents($logPath.'itext2pdf_cmd.log','./itext2pdf.php '.$cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml'."\n",FILE_APPEND);
-        exec('./itext2pdf.php '.$cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml');    
-    }
-    
-//file_put_contents('/tmp/bla.log',$_REQUEST['PPN'].'_'.$_REQUEST['logID'].'.pdf'."\n",FILE_APPEND);
 
-    header("Expires: -1");
-    header("Cache-Control: post-check=0, pre-check=0");
-    header("Pragma: no-cache");
-    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-    header('Content-type: application/pdf');
-      // download
-//    header('Content-Disposition: attachment; filename="'.enc_str($_REQUEST['PPN']).'_'.enc_str($_REQUEST['logID']).'.pdf"');
-    // inline
-    header('Content-Disposition: inline; filename="'.enc_str($_REQUEST['PPN']).'_'.enc_str($_REQUEST['logID']).'.pdf"');
-    header('Content-Length: '.filesize($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf'));  
-    header("Content-Transfer-Encoding: binary");
-    $status = '200';
-    if(is_file($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf')) {
-        $fpin = fopen($cachePath.'pdf/'.$_REQUEST['PPN'].'/'.$_REQUEST['logID'].'.pdf','r');
-        while(!feof($fpin)) {
-            echo(fread($fpin, 8192));
-            ob_flush();
-            flush();
+    if(substr(strtolower($_REQUEST['PPN']),0,3) !='ppn') {
+        //################# Jochen's pdfwriter ######################################
+        chdir($pdfwriter);
+        //exit();
+        if(!is_file($cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml')) {
+            file_put_contents($logPath.'mets2itext_cmd.log','./mets2itext.php '.$basehref.'dms/metsresolver/?PPN='.$_REQUEST['PPN'].' '.$_REQUEST['logID']."\n",FILE_APPEND);
+            $test = exec('./mets2itext.php '.$basehref.'dms/metsresolver/?PPN='.$_REQUEST['PPN'].' '.$_REQUEST['logID']);
         }
-        fclose($fpin);
+        //exit();
+        if(!is_file($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf')) {
+            file_put_contents($logPath.'itext2pdf_cmd.log','./itext2pdf.php '.$cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml'."\n",FILE_APPEND);
+            exec('./itext2pdf.php '.$cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml');    
+        }
+        
+        //file_put_contents($logPath.'bla.log',$_REQUEST['PPN'].'_'.$_REQUEST['logID'].'.pdf'."\n",FILE_APPEND);
+        //############################################################################
+
+    } else {
+        //################# ContentServer ############################################
+        if(!is_file($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf')) {
+            mkdir($cachePath.'pdf/'.enc_str($_REQUEST['PPN']), 0775, true);
+            file_put_contents($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf',file_get_contents('http://localhost:8080/gcs/gcs?action=pdf&metsFile='.$_REQUEST['PPN'].'&divID='.$_REQUEST['logID'].'&pdftitlepage='.urlencode($basehref).'%2Fdms%2Fpdf-titlepage%2F%3FmetsFile%3D'.$_REQUEST['PPN'].'%26divID%3D'.$_REQUEST['logID']));
+
+            //check PDF
+            $size = filesize($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf');
+            if($size == 0) {
+                @unlink($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf');
+                @unlink($cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml');
+                $status = '500';
+            } else {
+                $arrError = array();
+                $error = exec($checkCommand.' '.str_replace('file://','',$cachePath).'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf 2>&1',$arrError);
+                if(trim(implode("\n",$arrError))) {
+                    @unlink($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf');
+                    @unlink($cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml');
+                    $status = '500';
+                }
+            }
+        }
+        //############################################################################
+    }
+
+
+    if($status == '200') {
+        header("Expires: -1");
+        header("Cache-Control: post-check=0, pre-check=0");
+        header("Pragma: no-cache");
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header('Content-type: application/pdf');
+          // download
+    //    header('Content-Disposition: attachment; filename="'.enc_str($_REQUEST['PPN']).'_'.enc_str($_REQUEST['logID']).'.pdf"');
+        // inline
+        header('Content-Disposition: inline; filename="'.enc_str($_REQUEST['PPN']).'_'.enc_str($_REQUEST['logID']).'.pdf"');
+        header('Content-Length: '.filesize($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf'));  
+        header("Content-Transfer-Encoding: binary");
+        
+        if(is_file($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf')) {
+            $fpin = fopen($cachePath.'pdf/'.$_REQUEST['PPN'].'/'.$_REQUEST['logID'].'.pdf','r');
+            while(!feof($fpin)) {
+                echo(fread($fpin, 8192));
+                ob_flush();
+                flush();
+            }
+            fclose($fpin);
+        }
+    } else {
+//ERRORHANDLING;
     }
 } else {
     $status = '401';
