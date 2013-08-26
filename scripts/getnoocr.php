@@ -11,7 +11,7 @@ $arrDZ = scandir($strDZPath);
 foreach($arrDZ as $k=>$v) {
     $ppn = trim(str_replace('.xml','',trim($v)));
     if(substr($ppn,0,3)!='PPN' || strlen($ppn)<=12) {
-        unset($arr[$k]);
+        unset($arrDZ[$k]);
     } else {
         $arrDZ[$k] = $ppn;
     } 
