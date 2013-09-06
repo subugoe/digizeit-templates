@@ -1,4 +1,9 @@
 <?php
+print_r('<pre>');
+print_r($_SERVER);
+print_r($_REQUEST);
+print_r('</pre>');
+exit();
 set_time_limit(0);
 //error_reporting(E_ALL);
 error_reporting(0);
@@ -28,17 +33,26 @@ if($_REQUEST['fes']) {
                         AND fe_users.uid = fe_sessions.ses_userid
                         AND FIND_IN_SET( fe_groups.uid, fe_users.usergroup )');
     while($arr = mysql_fetch_assoc($res)) {
-        $arrUserAcl[] = $arr['title'];
+        $arrUserAcl[] = strtolower(trim($arr['title']));
     }
 }
+//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log','USER: '.json_encode($arrUserAcl)."\n",FILE_APPEND);                        
+
+
+
 
 //get ACL from Struct
 $arrStructAcl = array();
 if($_REQUEST['ACL']) {
     $arrStructAcl = _unserialize(base64_decode($_REQUEST['ACL']));
+    foreach($arrStructAcl as $k => $v) {
+        $arrStructAcl[$k] = strtolower(trim($v));
+    }
 }
+//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log','STRUCT: '.json_encode($arrStructAcl)."\n",FILE_APPEND);                        
 
 $arrAccess = array_intersect($arrUserAcl, $arrStructAcl);
+//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log',json_encode($arrAccess)."\n",FILE_APPEND);                        
 /*
 print_r('<pre>');
 print_r($_SERVER);
@@ -48,6 +62,7 @@ print_r('</pre>');
 exit();
 */
 $status = '200';
+
 
 if(count($arrAccess)) {
 
@@ -73,7 +88,6 @@ if(count($arrAccess)) {
         if(!is_file($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf')) {
             mkdir($cachePath.'pdf/'.enc_str($_REQUEST['PPN']), 0775, true);
             file_put_contents($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf',file_get_contents('http://localhost:8080/gcs/gcs?action=pdf&metsFile='.$_REQUEST['PPN'].'&divID='.$_REQUEST['logID'].'&pdftitlepage='.urlencode($basehref).'%2Fdms%2Fpdf-titlepage%2F%3FmetsFile%3D'.$_REQUEST['PPN'].'%26divID%3D'.$_REQUEST['logID']));
-
             //check PDF
             $size = filesize($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf');
             if($size == 0) {
