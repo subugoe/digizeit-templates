@@ -1,9 +1,4 @@
 <?php
-print_r('<pre>');
-print_r($_SERVER);
-print_r($_REQUEST);
-print_r('</pre>');
-exit();
 set_time_limit(0);
 //error_reporting(E_ALL);
 error_reporting(0);
@@ -53,14 +48,14 @@ if($_REQUEST['ACL']) {
 
 $arrAccess = array_intersect($arrUserAcl, $arrStructAcl);
 //file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log',json_encode($arrAccess)."\n",FILE_APPEND);                        
-/*
+
 print_r('<pre>');
 print_r($_SERVER);
 print_r($_REQUEST);
 print_r($arrAccess);
 print_r('</pre>');
 exit();
-*/
+
 $status = '200';
 
 
