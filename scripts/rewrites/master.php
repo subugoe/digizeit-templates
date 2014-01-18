@@ -22,6 +22,8 @@
     *  This copyright notice MUST APPEAR in all copies of the script!
     ***************************************************************/
 define(__DZROOT__, __DIR__.'../../../../');
+print_r(__DZROOT__);
+exit();
 include(__DZROOT__.'.hosteurope.cloud.secrets');
 //debug
 file_put_contents(__DZROOT__.'tmp/debug.log','key: '.$key."\n".'secret: '.$secret."\n",FILE_APPEND);
