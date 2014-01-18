@@ -52,19 +52,19 @@ $arrQuery['action'] = 'image';
 $arrTmp = explode('/', htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8"));
 
   //debug
-  print_r('<pre>');
-  print_r($arrTmp);
-  print_r('</pre>');
-  exit();
+  //print_r('<pre>');
+  //print_r($arrTmp);
+  //print_r('</pre>');
+  //exit();
  
 
 
 ################################################################################
 // es werden nur URIs mit folgendem Aufbau verarbeitet
-// /<Pfad ohne Slash>/<PPN>/<width in Pixeln>/<Rotation in Grad (0 bis 360)>/<image nummer wie im entsprechenden TIF Verzeichnis>.<Dateiendung (jpg,png,gif)>
-// Beispiel: /content/PPN341861871/800/0/00000001.jpg
+// <PPN>/<width in Pixeln>/<Rotation in Grad (0 bis 360)>/<image nummer wie im entsprechenden TIF Verzeichnis>.<Dateiendung (jpg,png,gif)>
+// Beispiel: PPN341861871/800/0/00000001.jpg
 // ###############################################################################
-if (count($arrTmp) != 6) {
+if (count($arrTmp) != 4) {
     exit();
 } else {
 
@@ -75,11 +75,11 @@ if (count($arrTmp) != 6) {
     //##############################################################################
     $acl = 0;
     $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
-    $acl = file_get_contents($authServer . 'PPN=' . $arrTmp[2] . '&imagenumber=' . $imagenumber . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
+    $acl = file_get_contents($authServer . 'PPN=' . $arrTmp[0] . '&imagenumber=' . $imagenumber . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
 
-//file_put_contents($logPath.'/dfgv.log',$acl.' - '.$authServer.'PPN='.$arrTmp[2].'&imagenumber='.$imagenumber.'&ipaddress='.$_SERVER['REMOTE_ADDR']."\n",FILE_APPEND);
-//file_put_contents($logPath.'/logs/dfgv.log',$acl.' - '.$authServer.'PPN='.$arrTmp[2].'&imagenumber='.$imagenumber.' - '.$_SERVER['REMOTE_ADDR']."\n",FILE_APPEND);
-//print_r($authServer.'PPN='.$arrTmp[2].'&imagenumber='.$imagenumber);
+//file_put_contents($logPath.'/dfgv.log',$acl.' - '.$authServer.'PPN='.$arrTmp[0].'&imagenumber='.$imagenumber.'&ipaddress='.$_SERVER['REMOTE_ADDR']."\n",FILE_APPEND);
+//file_put_contents($logPath.'/logs/dfgv.log',$acl.' - '.$authServer.'PPN='.$arrTmp[0].'&imagenumber='.$imagenumber.' - '.$_SERVER['REMOTE_ADDR']."\n",FILE_APPEND);
+//print_r($authServer.'PPN='.$arrTmp[0].'&imagenumber='.$imagenumber);
 //print_r($acl);
 //exit();
 //$acl = false;
@@ -104,19 +104,19 @@ if (count($arrTmp) != 6) {
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //###############################################################################
     //format
-    $arrQuery['format'] = substr($arrTmp[5], -3);
+    $arrQuery['format'] = substr($arrTmp[3], -3);
     //sourcepath
     //$arrQuery['sourcepath'] = 'http://www.digizeitschriften.de/master/'.$arrTmp[2].'/'.substr($arrTmp[5],0,-3).'tif';
-    $arrQuery['sourcepath'] = $arrTmp[2] . '/' . substr($arrTmp[5], 0, -3) . 'tif';
+    $arrQuery['sourcepath'] = $arrTmp[0] . '/' . substr($arrTmp[3], 0, -3) . 'tif';
     //width
-    $arrTmp[3] = intval($arrTmp[3]);
-    if ($arrTmp[3] > 1) {
-        $arrQuery['width'] = $arrTmp[3];
+    $arrTmp[1] = intval($arrTmp[1]);
+    if ($arrTmp[1] > 1) {
+        $arrQuery['width'] = $arrTmp[1];
     }
     //rotate
-    $arrTmp[4] = intval($arrTmp[4]);
-    if ($arrTmp[4] > 1) {
-        $arrQuery['rotate'] = ($arrTmp[4] % 360 + 360) % 360;
+    $arrTmp[2] = intval($arrTmp[2]);
+    if ($arrTmp[2] > 1) {
+        $arrQuery['rotate'] = ($arrTmp[2] % 360 + 360) % 360;
     }
     $strQuery = '';
     foreach ($arrQuery as $k => $v) {
