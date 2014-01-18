@@ -51,13 +51,12 @@ $arrQuery['action'] = 'image';
 
 $arrTmp = explode('/', htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8"));
 
-/*
   //debug
   print_r('<pre>');
   print_r($arrTmp);
   print_r('</pre>');
   exit();
- */
+ 
 
 
 ################################################################################
@@ -65,9 +64,9 @@ $arrTmp = explode('/', htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, 
 // /<Pfad ohne Slash>/<PPN>/<width in Pixeln>/<Rotation in Grad (0 bis 360)>/<image nummer wie im entsprechenden TIF Verzeichnis>.<Dateiendung (jpg,png,gif)>
 // Beispiel: /content/PPN341861871/800/0/00000001.jpg
 // ###############################################################################
-if (count($arrTmp) != 6)
+if (count($arrTmp) != 6) {
     exit();
-else {
+} else {
 
     //##############################################################################
     // Hier Zugriffskontrolle einbauen wenn nötig.
