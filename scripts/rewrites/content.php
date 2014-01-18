@@ -23,6 +23,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
+define(__DZROOT__, realpath(__DIR__ . '/../../../../'));
 
 error_reporting(0);
 $serverUrl = $_SERVER['HTTPS'] ? 'https://' . $_SERVER['SERVER_NAME'] : 'http://' . $_SERVER['SERVER_NAME'];
@@ -117,8 +118,11 @@ if (count($arrTmp) != 4) {
     }
     $img = file_get_contents($csBaseUrl . '?' . $strQuery);
 
+
     //write cache
     @mkdir(dirname($imgCachePath.$strQuery), 0775 , true);
+    file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strQuery."\n", FILE_APPEND);
+
     file_put_contents($imgCachePath.$strQuery, $img);
     
     header('Content-type: image/' . $arrQuery['format']);
