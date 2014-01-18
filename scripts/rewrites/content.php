@@ -62,6 +62,7 @@ if(is_file($imgCachePath.$strUrlQuery)) {
     echo(file_get_contents($imgCachePath.$strUrlQuery));
     exit();
 }
+file_put_contents(__DZROOT__.'/tmp/bla.log', count($arrTmp)."\n", FILE_APPEND);
 
 ################################################################################
 // es werden nur URIs mit folgendem Aufbau verarbeitet
