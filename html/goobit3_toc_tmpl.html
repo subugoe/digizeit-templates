@@ -330,10 +330,10 @@
                             <!--  pagenumber  -->
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
-<form action="dms/gcs-wrapper" method="post" name="{$structid}" class="siteno"><input type="hidden" name="gcsurl" value="{$pdflink}" /><a href="{$link}"><xsl:value-of select="$page" /></a><a href="#" onClick="{$structid}.submit(); return false;" class="sitepdf"><img class="pdficon" src="{$pdficon}" alt="PDF" title="PDF" /></a></form>
 <!--	
-                                    <span class="siteno"><a href="{$link}"><xsl:value-of select="$page" /></a><a href="{$pdflink}" class="sitepdf"><img class="pdficon" src="{$pdficon}" alt="PDF" title="PDF" /></a></span>
+<form action="dms/gcs-wrapper" method="post" name="{$structid}" class="siteno"><input type="hidden" name="gcsurl" value="{$pdflink}" /><a href="{$link}"><xsl:value-of select="$page" /></a><a href="#" onClick="{$structid}.submit(); return false;" class="sitepdf"><img class="pdficon" src="{$pdficon}" alt="PDF" title="PDF" /></a></form>
 //-->
+                                    <span class="siteno"><a href="{$link}"><xsl:value-of select="$page" /></a><a href="{$pdflink}" class="sitepdf"><img class="pdficon" src="{$pdficon}" alt="PDF" title="PDF" /></a></span>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <span class="siteno"><a href="{$link}"><xsl:value-of select="$page" /></a><img class="sitepdf" src="clear.gif" width="27" height="11" /></span>
