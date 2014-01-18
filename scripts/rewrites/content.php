@@ -47,14 +47,14 @@ $arrQuery['action'] = 'image';
 // &width=200
 // &highlight=10,50,80,150|60,80,160,200  (nicht umgesetzt!!!)
 
-$strQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
+$strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
 
 $arrTmp = explode('/', $strQuery);
 
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
 
-if(is_file($imgCachePath.$strQuery)) {
+if(is_file($imgCachePath.$strUrlQuery)) {
     header('Content-type: image/' . $arrQuery['format']);
     echo(file_get_contents($imgCachePath.$strQuery));
     exit();
@@ -120,9 +120,9 @@ if (count($arrTmp) != 4) {
 
 
     //write cache
-    @mkdir(dirname($imgCachePath.$strQuery), 0775 , true);
+    @mkdir(dirname($imgCachePath.$strUrlQuery), 0775 , true);
     //file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strQuery."\n", FILE_APPEND);
-    file_put_contents($imgCachePath.$strQuery, $img);
+    file_put_contents($imgCachePath.$strUrlQuery, $img);
     
     header('Content-type: image/' . $arrQuery['format']);
     echo($img);
