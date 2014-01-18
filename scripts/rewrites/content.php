@@ -32,6 +32,8 @@ $logPath = realpath($scriptPath . '/../../logs/');
 $csBaseUrl = 'http://localhost:8080/gcs/cs';
 $restrictImg = $serverUrl . '/fileadmin/images/restrict.png';
 $authServer = $serverUrl . '/dms/authserver/?';
+$imgCachePath = '/storage/digizeit/cache/jpg/';
+
 $arrQuery['action'] = 'image';
 
 //sample call with rewrite: http://www.digizeitschriften.de/content/PPN342672002_0007/150/180/00000101.jpg
@@ -44,7 +46,18 @@ $arrQuery['action'] = 'image';
 // &width=200
 // &highlight=10,50,80,150|60,80,160,200  (nicht umgesetzt!!!)
 
-$arrTmp = explode('/', htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8"));
+$strQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
+
+$arrTmp = explode('/', $strQuery);
+
+//format
+$arrQuery['format'] = substr($arrTmp[3], -3);
+
+if(is_file($imgCachePath.$strQuery)) {
+    header('Content-type: image/' . $arrQuery['format']);
+    echo(file_get_contents($imgCachePath.$strQuery));
+    exit();
+}
 
 ################################################################################
 // es werden nur URIs mit folgendem Aufbau verarbeitet
@@ -84,9 +97,6 @@ if (count($arrTmp) != 4) {
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //###############################################################################
 
-    //format
-    $arrQuery['format'] = substr($arrTmp[3], -3);
-
     //sourcepath
     $arrQuery['sourcepath'] = $arrTmp[0] . '/' . substr($arrTmp[3], 0, -3) . 'tif';
 
@@ -107,8 +117,16 @@ if (count($arrTmp) != 4) {
     }
     $img = file_get_contents($csBaseUrl . '?' . $strQuery);
 
+    //write cache
+    file_put_contents($imgCachePath.$strQuery,$img);
+    
     header('Content-type: image/' . $arrQuery['format']);
     echo($img);
+    exit();
 }
 
+
+function id2name($id) {
+    return str_replace('/', '___', trim($id));
+}
 ?>
