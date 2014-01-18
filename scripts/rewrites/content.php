@@ -54,6 +54,8 @@ $arrTmp = explode('/', $strQuery);
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
 
+file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strUrlQuery."\n", FILE_APPEND);
+
 if(is_file($imgCachePath.$strUrlQuery)) {
     header('Content-type: image/' . $arrQuery['format']);
     echo(file_get_contents($imgCachePath.$strUrlQuery));
