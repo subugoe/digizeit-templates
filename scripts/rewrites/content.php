@@ -121,8 +121,7 @@ if (count($arrTmp) != 4) {
 
     //write cache
     @mkdir(dirname($imgCachePath.$strQuery), 0775 , true);
-    file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strQuery."\n", FILE_APPEND);
-
+    //file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strQuery."\n", FILE_APPEND);
     file_put_contents($imgCachePath.$strQuery, $img);
     
     header('Content-type: image/' . $arrQuery['format']);
