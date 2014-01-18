@@ -54,7 +54,8 @@ $arrTmp = explode('/', $strQuery);
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
 
-file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strUrlQuery."\n", FILE_APPEND);
+//debug
+//file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strUrlQuery."\n", FILE_APPEND);
 
 if(is_file($imgCachePath.$strUrlQuery)) {
     header('Content-type: image/' . $arrQuery['format']);
@@ -123,7 +124,7 @@ if (count($arrTmp) != 4) {
 
     //write cache
     @mkdir(dirname($imgCachePath.$strUrlQuery), 0775 , true);
-    //file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strQuery."\n", FILE_APPEND);
+    file_put_contents(__DZROOT__.'/tmp/bla.log', dirname($imgCachePath.$strUrlQuery)."\n", FILE_APPEND);
     file_put_contents($imgCachePath.$strUrlQuery, $img);
     
     header('Content-type: image/' . $arrQuery['format']);
