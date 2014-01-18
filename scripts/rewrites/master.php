@@ -33,7 +33,7 @@ include(__DZROOT__.'/.hosteurope.cloud.secrets');
 //debug
 //file_put_contents(__DZROOT__.'/tmp/debug.log',$_SERVER['QUERY_STRING']."\n",FILE_APPEND);
 
-$arrQuery = explode('/',$_SERVER['QUERY_STRING']);
+$arrQuery = explode('/', htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8"));;
 
 $ppn = array_shift($arrQuery);
 $img = array_shift($arrQuery);

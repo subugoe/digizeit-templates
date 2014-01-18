@@ -47,7 +47,7 @@
 $solrPhpsUrl = 'http://localhost:8080/digizeit/select/?wt=phps';
 $metsPath = '/storage/digizeit/mets_repository/indexed_mets/';
 
-$arrQuery = explode('/',$_SERVER['QUERY_STRING']);
+$arrQuery = explode('/', htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8"));
 
 /*
 echo '<pre>';
