@@ -23,15 +23,15 @@
     ***************************************************************/
 define(__DZROOT__, realpath(__DIR__.'/../../../../'));
 include(__DZROOT__.'/.hosteurope.cloud.secrets');
+
 //debug
-file_put_contents(__DZROOT__.'/tmp/debug.log','key: '.$key."\n".'secret: '.$secret."\n",FILE_APPEND);
+//file_put_contents(__DZROOT__.'/tmp/debug.log','key: '.$key."\n".'secret: '.$secret."\n",FILE_APPEND);
 
 //sample call with rewrite: http://www.digizeitschriften.de/master/PPN129323640_0001/00000001.tif
 //sample call without rewrite: http://www.digizeitschriften.de/fileadmin/scripts/rewrites/master.php?PPN129323640_0001/00000001.tif
 
 //debug
-file_put_contents(__DZROOT__.'/tmp/debug.log',$_SERVER['QUERY_STRING']."\n",FILE_APPEND);
-//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/debug.log',json_encode($_SERVER)."\n",FILE_APPEND);
+//file_put_contents(__DZROOT__.'/tmp/debug.log',$_SERVER['QUERY_STRING']."\n",FILE_APPEND);
 
 $arrQuery = explode('/',$_SERVER['QUERY_STRING']);
 
@@ -47,7 +47,7 @@ $signature = urlencode(base64_encode(hash_hmac('sha1', $string , $secret, true))
 $URL = 'http://digizeit.cs.hosteurope.de/tiff/'.trim($ppn).'/'.trim($img).'?AWSAccessKeyId='.$key.'&Expires='.$expire.'&Signature='.$signature;
 
 //debug
-file_put_contents(__DZROOT__.'tmp/debug.log',$URL."\n",FILE_APPEND);
+//file_put_contents(__DZROOT__.'tmp/debug.log',$URL."\n",FILE_APPEND);
 
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
 usleep(50);
