@@ -42,7 +42,7 @@ if($_REQUEST['fes']) {
         $arrUserAcl[] = strtolower(trim($arr['title']));
     }
 }
-//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log','USER: '.json_encode($arrUserAcl)."\n",FILE_APPEND);                        
+file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log','USER: '.json_encode($arrUserAcl)."\n",FILE_APPEND);                        
 
 
 
