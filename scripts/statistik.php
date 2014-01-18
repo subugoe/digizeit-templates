@@ -61,26 +61,33 @@ $sysInstitutionAdminPID = 116;
 if(in_array($digizeitAdmin,$arrFe_groups)) {
 	echo '<h3>DigiZeitschriften</h3>'."\n";
 	echo '<table>'."\n";
-	echo '<tr>'."\n";
-	echo '<td valign="top" width="250">Gesamt</td>'."\n";
-	foreach($arrYear as $year) {
-		//get last xlsfile
-		for($k=12;$k>0;$k--) {
-			if(is_file($logPath.$year.substr('0'.$k,-2).'/xls/all.xls')) {
-				$xlsFile = $logPath.$year.substr('0'.$k,-2).'/xls/all.xls';
-				$xlsName = $year;
-				break;
-			}
-		}
-		if($xlsFile) {
-			echo '<td valign="top" align="right" width="40"><a href="/fileadmin/scripts/statistik_getxls.php?xlsfile='.$xlsFile.'&xlsname='.$xlsName.'.xls'.'">'.$xlsName.'</td>'."\n";
-		} else {
-			echo '<td valign="top" align="right" width="40">&nbsp</td>'."\n";
-		}
-		unset($xlsFile);
-		unset($xlsName);
-	}
-	echo '</tr>';
+    $arrAll = array('all'=>'Gesamt', '12'=>'Subskription', 'free'=>'Open Access');
+	foreach($arrAll as $index=>$name) {
+	    echo '<tr>'."\n";
+	    echo '<td valign="top" width="250">'.$name.'</td>'."\n";
+	    foreach($arrYear as $year) {
+		    //get last xlsfile
+		    for($k=12;$k>0;$k--) {
+			    if(is_file($logPath.$year.substr('0'.$k,-2).'/xls/'.$index.'.xls')) {
+				    $xlsFile = $logPath.$year.substr('0'.$k,-2).'/xls/'.$index.'.xls';
+				    $xlsName = $year;
+				    break;
+			    } else if(is_file($logPath.$year.substr('0'.$k,-2).'/publisher/xls/'.$index.'.xls')) {
+				    $xlsFile = $logPath.$year.substr('0'.$k,-2).'/publisher/xls/'.$index.'.xls';
+				    $xlsName = $year;
+				    break;
+                }
+		    }
+		    if($xlsFile) {
+			    echo '<td valign="top" align="right" width="40"><a href="/fileadmin/scripts/statistik_getxls.php?xlsfile='.$xlsFile.'&xlsname='.$xlsName.'_'.$index.'.xls'.'">'.$xlsName.'</td>'."\n";
+		    } else {
+			    echo '<td valign="top" align="right" width="40">&nbsp</td>'."\n";
+		    }
+		    unset($xlsFile);
+		    unset($xlsName);
+	    }
+	    echo '</tr>';
+    }
 	echo '</table>'."\n";
 }
 

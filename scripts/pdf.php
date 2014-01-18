@@ -9,13 +9,24 @@ $checkCommand = '/usr/bin/gs -q -dNOPAUSE -sDEVICE=nullpage -sOutputFile=/dev/nu
 
 include_once(realpath($scriptPath.'/../../typo3conf').'/localconf.php');
 $basehref = 'http://www.digizeitschriften.de/';
-$cachePath = 'file:///storage_lokal/cache/';
+$cachePath = '/storage/digizeit/cache/';
 $pdfwriter = realpath($scriptPath.'/../../../').'/pdfwriter/';
 $logPath = realpath($scriptPath.'/../../../').'/logs/';
 
 $connect = mysql_connect($typo_db_host,$typo_db_username,$typo_db_password);
 mysql_select_db($typo_db,$connect);
 mysql_query('set names utf8');
+
+
+if(!isset($_REQUEST['RIP'])) {
+    parse_str(base64_decode($_SERVER['QUERY_STRING']),$_REQUEST);
+}
+//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log',json_encode($_REQUEST)."\n",FILE_APPEND);                        
+
+// repair '&amp;' in URL
+foreach($_REQUEST as $key => $val) {
+    $_REQUEST[str_replace('amp;','',$key)] = $val;
+}
 
 //get ACL from user
 $arrUserAcl = array();
@@ -47,15 +58,15 @@ if($_REQUEST['ACL']) {
 //file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log','STRUCT: '.json_encode($arrStructAcl)."\n",FILE_APPEND);                        
 
 $arrAccess = array_intersect($arrUserAcl, $arrStructAcl);
-//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log',json_encode($arrAccess)."\n",FILE_APPEND);                        
 
+/*
 print_r('<pre>');
 print_r($_SERVER);
 print_r($_REQUEST);
 print_r($arrAccess);
 print_r('</pre>');
 exit();
-
+*/
 $status = '200';
 
 
@@ -83,8 +94,10 @@ if(count($arrAccess)) {
         if(!is_file($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf')) {
             mkdir($cachePath.'pdf/'.enc_str($_REQUEST['PPN']), 0775, true);
             file_put_contents($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf',file_get_contents('http://localhost:8080/gcs/gcs?action=pdf&metsFile='.$_REQUEST['PPN'].'&divID='.$_REQUEST['logID'].'&pdftitlepage='.urlencode($basehref).'%2Fdms%2Fpdf-titlepage%2F%3FmetsFile%3D'.$_REQUEST['PPN'].'%26divID%3D'.$_REQUEST['logID']));
+            @exec('chmod -R g+w '.$cachePath.'pdf/'.enc_str($_REQUEST['PPN']));
             //check PDF
             $size = filesize($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf');
+
             if($size == 0) {
                 @unlink($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf');
                 @unlink($cachePath.'itext/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.xml');
@@ -137,14 +150,15 @@ if(count($arrAccess)) {
 //129.125.129.128 - 
 //- 
 //[01/Jun/2011:14:48:02 +0200]  
-//"GET http://localhost:8086/gcs/gcs?action=pdf&metsFile=PPN345204425_0046&divID=log11... HTTP/1.1" 200 0 
+//"GET http://localhost:8080/gcs/gcs?action=pdf&metsFile=PPN345204425_0046&divID=log11... HTTP/1.1" 200 0 
 //"http://www.digizeitschriften.de/dms/img/?PPN=PPN345204425_0046&DMDID=dmdlog11&PHYSID=phys85" 
 //"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.11) Gecko/20101012 Firefox/3.6.11 ( .NET CLR 3.5.30729; .NET4.0E)"
 //print_r($_SERVER);
-$logline = $_SERVER['REMOTE_ADDR'].' - ';
+//$logline = $_SERVER['REMOTE_ADDR'].' - ';
+$logline = $_REQUEST['RIP'].' - ';
 $logline .= $_REQUEST['fes'].' ';
 $logline .= date('[d/M/Y:H:i:s O] ',$_SERVER['REQUEST_TIME']);        
-$logline .= '"GET http://localhost:8086/gcs/gcs?action=pdf&metsFile='.$_REQUEST['PPN'].'&divID='.$_REQUEST['logID'].' HTTP/1.1" ';
+$logline .= '"GET http://localhost:8080/gcs/gcs?action=pdf&metsFile='.$_REQUEST['PPN'].'&divID='.$_REQUEST['logID'].' HTTP/1.1" ';
 $logline .= $status.' 0 - ';
 if(isset($_SERVER['HTTP_REFERER'])) {        
     $logline .= '"'.$_SERVER['HTTP_REFERER'].'" ';
