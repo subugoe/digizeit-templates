@@ -82,7 +82,7 @@ CSS-Datei für die Gestaltung der Ansichts-Seite.
 
 #p_site label { width:44px;height:20px;background:url(../images/sitelabel.gif) no-repeat 0 0;float:left; }
 
-#p_site #site { font-size:10px; width:32px; height;20px; float:left; margin:0 2px; }
+#p_site #site { font-size:10px; width:32px; height:20px; float:left; margin:0 2px; }
 
 #p_site #sendsite { height:20px; width:10px; border:none; background:transparent url(../images/pagenavgo.gif) no-repeat 0 0; text-indent:-2000px; overflow:hidden; display:block; font-size:0em; color:#ccc; margin:0 3px; float:left; }
 
