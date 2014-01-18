@@ -23,9 +23,11 @@
     ***************************************************************/
 define(__DZROOT__, __DIR__.'../../../../');
 include(__DZROOT__.'.hosteurope.cloud.secrets');
+//debug
+file_put_contents(__DZROOT__.'tmp/debug.log','key: '.$key."\n".'secret: '.$secret."\n",FILE_APPEND);
 
 //sample call with rewrite: http://www.digizeitschriften.de/master/PPN129323640_0001/00000001.tif
-//sample call without rewrite: http://www.digizeitschriften.de/fileadmin/rewrites/master.php?PPN129323640_0001/00000001.tif
+//sample call without rewrite: http://www.digizeitschriften.de/fileadmin/scripts/rewrites/master.php?PPN129323640_0001/00000001.tif
 
 //debug
 file_put_contents(__DZROOT__.'tmp/debug.log',$_SERVER['QUERY_STRING']."\n",FILE_APPEND);
