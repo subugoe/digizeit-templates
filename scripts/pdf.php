@@ -21,7 +21,7 @@ mysql_query('set names utf8');
 if(!isset($_REQUEST['RIP'])) {
     parse_str(base64_decode($_SERVER['QUERY_STRING']),$_REQUEST);
 }
-file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log',json_encode($_REQUEST)."\n",FILE_APPEND);                        
+//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log',json_encode($_REQUEST)."\n",FILE_APPEND);                        
 
 // repair '&amp;' in URL
 foreach($_REQUEST as $key => $val) {
@@ -42,7 +42,7 @@ if($_REQUEST['fes']) {
         $arrUserAcl[] = strtolower(trim($arr['title']));
     }
 }
-file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log','USER: '.json_encode($arrUserAcl)."\n",FILE_APPEND);                        
+//file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log','USER: '.json_encode($arrUserAcl)."\n",FILE_APPEND);                        
 
 
 
