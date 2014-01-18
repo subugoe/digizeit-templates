@@ -56,7 +56,7 @@ $arrQuery['format'] = substr($arrTmp[3], -3);
 
 if(is_file($imgCachePath.$strUrlQuery)) {
     header('Content-type: image/' . $arrQuery['format']);
-    echo(file_get_contents($imgCachePath.$strQuery));
+    echo(file_get_contents($imgCachePath.$strUrlQuery));
     exit();
 }
 
