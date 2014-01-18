@@ -23,6 +23,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
+
 error_reporting(0);
 $serverUrl = $_SERVER['HTTPS'] ? 'https://' . $_SERVER['SERVER_NAME'] : 'http://' . $_SERVER['SERVER_NAME'];
 $scriptPath = dirname(__FILE__);
@@ -41,23 +42,9 @@ $arrQuery['action'] = 'image';
 // &scale=0.3
 // &rotate=90
 // &width=200
-// &highlight=10,50,80,150|60,80,160,200
-//debug
-//print_r('<pre>');
-//print_r($_SERVER);
-//print_r('</pre>');
-//exit();
-//file_put_contents($logPath.'/dfgv.log','content: '.$_SERVER['REMOTE_ADDR']."\n",FILE_APPEND);
+// &highlight=10,50,80,150|60,80,160,200  (nicht umgesetzt!!!)
 
 $arrTmp = explode('/', htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8"));
-
-  //debug
-  //print_r('<pre>');
-  //print_r($arrTmp);
-  //print_r('</pre>');
-  //exit();
- 
-
 
 ################################################################################
 // es werden nur URIs mit folgendem Aufbau verarbeitet
@@ -76,13 +63,6 @@ if (count($arrTmp) != 4) {
     $acl = 0;
     $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
     $acl = file_get_contents($authServer . 'PPN=' . $arrTmp[0] . '&imagenumber=' . $imagenumber . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
-
-//file_put_contents($logPath.'/dfgv.log',$acl.' - '.$authServer.'PPN='.$arrTmp[0].'&imagenumber='.$imagenumber.'&ipaddress='.$_SERVER['REMOTE_ADDR']."\n",FILE_APPEND);
-//file_put_contents($logPath.'/logs/dfgv.log',$acl.' - '.$authServer.'PPN='.$arrTmp[0].'&imagenumber='.$imagenumber.' - '.$_SERVER['REMOTE_ADDR']."\n",FILE_APPEND);
-//print_r($authServer.'PPN='.$arrTmp[0].'&imagenumber='.$imagenumber);
-//print_r($acl);
-//exit();
-//$acl = false;
 
     if (!$acl) {
         $arrInfo = getimagesize($restrictImg);
@@ -103,16 +83,19 @@ if (count($arrTmp) != 4) {
     // CustomLog /logs/content_log combined env=contentdir
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //###############################################################################
+
     //format
     $arrQuery['format'] = substr($arrTmp[3], -3);
+
     //sourcepath
-    //$arrQuery['sourcepath'] = 'http://www.digizeitschriften.de/master/'.$arrTmp[2].'/'.substr($arrTmp[5],0,-3).'tif';
     $arrQuery['sourcepath'] = $arrTmp[0] . '/' . substr($arrTmp[3], 0, -3) . 'tif';
+
     //width
     $arrTmp[1] = intval($arrTmp[1]);
     if ($arrTmp[1] > 1) {
         $arrQuery['width'] = $arrTmp[1];
     }
+
     //rotate
     $arrTmp[2] = intval($arrTmp[2]);
     if ($arrTmp[2] > 1) {
@@ -123,47 +106,9 @@ if (count($arrTmp) != 4) {
         $strQuery .= $k . '=' . $v . '&';
     }
     $img = file_get_contents($csBaseUrl . '?' . $strQuery);
-//debug
-//print_r($csBaseUrl.'?'.$strQuery);
-//echo '<pre>';
-//print_r($_SERVER);
-//echo '</pre>';
-//exit();
-//file_put_contents($logPath.'/dfgv.log',$_SERVER['REMOTE_ADDR'].' - '.$csBaseUrl.'?'.$strQuery."\n",FILE_APPEND);
 
     header('Content-type: image/' . $arrQuery['format']);
     echo($img);
-}
-
-function setNSprefix(&$xpath, $node = false) {
-    if (!$node) {
-        $xqueryList = $xpath->evaluate('*[1]');
-        if ($xqueryList->length) {
-            setNSprefix($xpath, $xqueryList->item(0));
-        }
-    }
-    if (is_object($node)) {
-        if ($node->prefix) {
-            $xpath->registerNamespace(strtolower($node->prefix), $node->namespaceURI);
-        }
-        $xqueryList = $xpath->evaluate('following-sibling::*[name()!="' . $node->nodeName . '"][1]', $node);
-        if ($xqueryList->length) {
-            setNSprefix($xpath, $xqueryList->item(0));
-        }
-        if ($node->firstChild) {
-            setNSprefix($xpath, $node->firstChild);
-        }
-        if ($node->attributes->length) {
-            foreach ($node->attributes as $attribute) {
-                if ($attribute->prefix && !$arrNS[strtolower($attribute->prefix)]) {
-                    $xpath->registerNamespace(strtolower($attribute->prefix), $attribute->namespaceURI);
-                }
-            }
-        }
-    }
-    unset($xqueryList);
-    unset($node);
-    unset($attribute);
 }
 
 ?>
