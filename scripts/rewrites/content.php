@@ -118,7 +118,8 @@ if (count($arrTmp) != 4) {
     $img = file_get_contents($csBaseUrl . '?' . $strQuery);
 
     //write cache
-    file_put_contents($imgCachePath.$strQuery,$img);
+    @mkdir(dirname($imgCachePath.$strQuery), 0775 , true);
+    file_put_contents($imgCachePath.$strQuery, $img);
     
     header('Content-type: image/' . $arrQuery['format']);
     echo($img);
