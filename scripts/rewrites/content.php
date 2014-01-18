@@ -54,15 +54,11 @@ $arrTmp = explode('/', $strUrlQuery);
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
 
-//debug
-//file_put_contents(__DZROOT__.'/tmp/bla.log', $imgCachePath.$strUrlQuery."\n", FILE_APPEND);
-
 if(is_file($imgCachePath.$strUrlQuery)) {
     header('Content-type: image/' . $arrQuery['format']);
     echo(file_get_contents($imgCachePath.$strUrlQuery));
     exit();
 }
-file_put_contents(__DZROOT__.'/tmp/bla.log', count($arrTmp)."\n", FILE_APPEND);
 
 ################################################################################
 // es werden nur URIs mit folgendem Aufbau verarbeitet
@@ -125,7 +121,6 @@ if (count($arrTmp) != 4) {
 
     //write cache
     @mkdir(dirname($imgCachePath.$strUrlQuery), 0775 , true);
-    file_put_contents(__DZROOT__.'/tmp/bla.log', dirname($imgCachePath.$strUrlQuery)."\n", FILE_APPEND);
     file_put_contents($imgCachePath.$strUrlQuery, $img);
     
     header('Content-type: image/' . $arrQuery['format']);
