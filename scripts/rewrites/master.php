@@ -33,7 +33,6 @@ include(__DZROOT__ . '/.hosteurope.cloud.secrets');
 //file_put_contents(__DZROOT__.'/tmp/debug.log',$_SERVER['QUERY_STRING']."\n",FILE_APPEND);
 
 $arrQuery = explode('/', htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8"));
-;
 
 $ppn = array_shift($arrQuery);
 $img = array_shift($arrQuery);
@@ -49,7 +48,7 @@ $URL = 'http://digizeit.cs.hosteurope.de/tiff/' . trim($ppn) . '/' . trim($img) 
 //debug
 //file_put_contents(__DZROOT__.'tmp/debug.log',$URL."\n",FILE_APPEND);
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
-//usleep(50);
+usleep(30);
 
 header('location: ' . $URL);
 exit();
