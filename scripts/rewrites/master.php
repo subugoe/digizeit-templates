@@ -49,7 +49,7 @@ $URL = 'http://digizeit.cs.hosteurope.de/tiff/' . trim($ppn) . '/' . trim($img) 
 //debug
 //file_put_contents(__DZROOT__.'tmp/debug.log',$URL."\n",FILE_APPEND);
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
-usleep(50);
+//usleep(50);
 
 header('location: ' . $URL);
 exit();
