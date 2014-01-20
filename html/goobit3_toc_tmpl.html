@@ -304,7 +304,7 @@
                             </xsl:choose>
 
                             <!-- Persons -->
-                            <xsl:if test="$docstrct!='Zeitschriftenband'">
+                            
                             <xsl:for-each select="mods:name[not(@*)]" >
                                 <br />
                                 <xsl:choose>
@@ -337,7 +337,7 @@
                                     <xsl:text>; </xsl:text>
                                 </xsl:if>
                             </xsl:for-each>
-                            </xsl:if>    
+                             
                             <!--  pagenumber  -->
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
