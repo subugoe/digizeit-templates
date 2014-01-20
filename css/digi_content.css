@@ -482,6 +482,7 @@ dt.tx-irfaq-pi1 {
 }
 
 #tx-goobit3-met_section .comment {
+    display: block;
     font-size: 1.1em;
     color: #222;
     margin-left: 75px;
@@ -491,9 +492,7 @@ dt.tx-irfaq-pi1 {
     margin-left: 2px;
     margin-right: 5px;
 }
-#tx-goobit3-met_section .comment div {
-    padding-top: 15px;
-}
+
 #tx-goobit3-toc_toc .comment {
     font-size: 1.1em;
     color: #222;
