@@ -304,7 +304,7 @@
                             </xsl:choose>
 
                             <!-- Persons -->
-                            
+                            <xsl:if test="$docstrct!='Zeitschriftenband'">
                             <xsl:for-each select="mods:name[not(@*)]" >
                                 <br />
                                 <xsl:choose>
@@ -322,7 +322,7 @@
                                 </xsl:if>
                             </xsl:for-each>
                             <xsl:for-each select="mods:name[@*]" >
-                                <!--<br /> -->
+                                <br /> 
                                 <xsl:choose>
                                     <xsl:when test="mods:displayForm">
                                         <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
@@ -337,7 +337,7 @@
                                     <xsl:text>; </xsl:text>
                                 </xsl:if>
                             </xsl:for-each>
-                             
+                            </xsl:if>    
                             <!--  pagenumber  -->
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
