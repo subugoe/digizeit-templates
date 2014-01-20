@@ -304,17 +304,17 @@
                             </xsl:choose>
 
                             <!-- Persons -->
+                            <xsl:if test="$docstrct!='Zeitschriftenband'">
                             <xsl:for-each select="mods:name[not(@*)]" >
+                                <br />
                                 <xsl:choose>
                                     <xsl:when test="mods:displayForm">
-                                        <br />
                                         <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
                                         <xsl:value-of select="mods:displayForm" />
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <br />
-                                        <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
-                                        <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
+                                            <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
+                                            <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
                                     </xsl:otherwise>
                                 </xsl:choose>
                                 <xsl:if test="position()!=last()">
@@ -322,14 +322,13 @@
                                 </xsl:if>
                             </xsl:for-each>
                             <xsl:for-each select="mods:name[@*]" >
+                                <!--<br /> -->
                                 <xsl:choose>
                                     <xsl:when test="mods:displayForm">
-                                        <br />
                                         <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
                                         <xsl:value-of select="mods:displayForm" />
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <br />
                                         <div class="tx-goobit3-toc_space"><img src="clear.gif" width="{$indention}" height="5" title="" alt="" /></div>
                                         <xsl:value-of select="mods:namePart[@type='given']" /><xsl:text> </xsl:text><xsl:value-of select="mods:namePart[@type='family']" />
                                     </xsl:otherwise>
@@ -338,6 +337,7 @@
                                     <xsl:text>; </xsl:text>
                                 </xsl:if>
                             </xsl:for-each>
+                            </xsl:if>    
                             <!--  pagenumber  -->
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
