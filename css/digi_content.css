@@ -486,14 +486,13 @@ dt.tx-irfaq-pi1 {
     color: #222;
     margin-left: 75px;
     margin-right: 75px;
-    vertical-align: bottom
 }
 #tx-goobit3-met_section .comment img {
     margin-left: 2px;
     margin-right: 5px;
 }
 #tx-goobit3-met_section .comment div {
-    margin-top: 15px;
+    padding-top: 15px;
 }
 #tx-goobit3-toc_toc .comment {
     font-size: 1.1em;
