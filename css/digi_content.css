@@ -491,10 +491,7 @@ dt.tx-irfaq-pi1 {
 #tx-goobit3-met_section .comment img {
     margin-left: 2px;
     margin-right: 5px;
-}
-#tx-goobit3-met_section .comment div {
-    display:inline-block;
-    vertical-align:middle
+    float:left;
 }
 #tx-goobit3-toc_toc .comment {
     font-size: 1.1em;
