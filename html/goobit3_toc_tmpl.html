@@ -96,7 +96,7 @@
 
             <xsl:template match="mods:note[@ID='europeana.ub.uni-frankfurt.de']" mode="periodicalvolume">
                 <xsl:choose>
-                    <xsl:when test="$docstrct='Zeitschriftenband' or $docstrct='Periodical Volume'">
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical' or $docstrct='multivolume_work'">
                         <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
                     </xsl:when>
                 </xsl:choose>
