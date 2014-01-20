@@ -482,7 +482,6 @@ dt.tx-irfaq-pi1 {
 }
 
 #tx-goobit3-met_section .comment {
-    display: block;
     font-size: 1.1em;
     color: #222;
     margin-left: 75px;
@@ -499,9 +498,17 @@ dt.tx-irfaq-pi1 {
     margin-left: 75px;
     margin-right: 75px;
 }
+#tx-goobit3-toc_toc .comment img {
+    margin-left: 2px;
+    margin-right: 5px;
+}
 #tx-goobi-img_head .comment {
     font-size: 1.1em;
     color: #222;
+}
+#tx-goobit3-img_head .comment img {
+    margin-left: 2px;
+    margin-right: 5px;
 }
 
 #tx-goobi-img_head hr,
