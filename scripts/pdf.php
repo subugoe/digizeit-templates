@@ -1,17 +1,40 @@
 <?php
+/* * *************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2010 Niedersächsische Staats- und Universitätsbibliothek
+ *  (c) 2010 Jochen Kothe (kothe@sub.uni-goettingen.de) (jk@profi-php.de)
+ *  All rights reserved
+ *
+ *  This script is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ * ************************************************************* */
+
 set_time_limit(0);
 //error_reporting(E_ALL);
 error_reporting(0);
 
-$scriptPath = dirname(__FILE__);
+define(__DZROOT__, realpath(__DIR__ . '/../../../'));
 
 $checkCommand = '/usr/bin/gs -q -dNOPAUSE -sDEVICE=nullpage -sOutputFile=/dev/null -dBATCH';
 
-include_once(realpath($scriptPath.'/../../typo3conf').'/localconf.php');
+include_once(__DZROOT__.'/htdocs/typo3conf/localconf.php');
 $basehref = 'http://www.digizeitschriften.de/';
 $cachePath = '/storage/digizeit/cache/';
-$pdfwriter = realpath($scriptPath.'/../../../').'/pdfwriter/';
-$logPath = realpath($scriptPath.'/../../../').'/logs/';
+$pdfwriter = __DZROOT__.'/htdocs/fileadmin/scripts/pdfwriter/';
+$logPath = __DZROOT__.'/logs/';
 
 $connect = mysql_connect($typo_db_host,$typo_db_username,$typo_db_password);
 mysql_select_db($typo_db,$connect);
