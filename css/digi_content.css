@@ -494,7 +494,8 @@ dt.tx-irfaq-pi1 {
 }
 
 #tx-goobit3-toc_toc .comment {
-    display: block;
+    height: 80px;
+    min-height: 80px;
     font-size: 1.1em;
     color: #222;
     margin-left: 75px;
