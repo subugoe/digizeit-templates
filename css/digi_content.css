@@ -499,6 +499,10 @@ dt.tx-irfaq-pi1 {
     margin-left: 75px;
     margin-right: 75px;
 }
+#tx-goobit3-toc_toc .comment div {
+    height: 180px;
+    min-height: 80px;
+}
 #tx-goobit3-toc_toc .comment img {
     margin-left: 2px;
     margin-right: 5px;
