@@ -492,7 +492,10 @@ dt.tx-irfaq-pi1 {
     margin-left: 2px;
     margin-right: 5px;
 }
-
+#tx-goobit3-met_section .comment div {
+    height: 80px;
+    min-height: 80px;
+}
 #tx-goobit3-toc_toc .comment {
     font-size: 1.1em;
     color: #222;
@@ -500,7 +503,7 @@ dt.tx-irfaq-pi1 {
     margin-right: 75px;
 }
 #tx-goobit3-toc_toc .comment div {
-    height: 180px;
+    height: 80px;
     min-height: 80px;
 }
 #tx-goobit3-toc_toc .comment img {
@@ -510,6 +513,10 @@ dt.tx-irfaq-pi1 {
 #tx-goobi-img_head .comment {
     font-size: 1.1em;
     color: #222;
+}
+#tx-goobit3-img_head .comment div {
+    height: 80px;
+    min-height: 80px;
 }
 #tx-goobit3-img_head .comment img {
     margin-left: 2px;
