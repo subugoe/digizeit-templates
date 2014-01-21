@@ -73,10 +73,12 @@ $global = array(
 
     'PIDquery' => array(
         '/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:identifier[@type="urn" or @type="URN"]',
+        '/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:identifier[@type="gbv-ppn"]',
         '/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:identifier[@type="ppn" or @type="PPN"]',
         '/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:recordInfo/mods:recordIdentifier[@source="gbv-ppn"]',
-        '/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:recordInfo/mods:recordIdentifier',
-    ),
+        '/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:identifier[@type="oai"]',
+        '/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:recordInfo/mods:recordIdentifier',        
+        ),
     'authorQuery' => array(
         'concat(
             string(mets:xmlData/mods:mods/mods:name[@type="personal"]/mods:displayForm/child::text()),
