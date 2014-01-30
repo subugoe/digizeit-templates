@@ -121,9 +121,9 @@ class vgwort {
             $this->end = $this->POST['end']['year'][0].$this->POST['end']['month'][0].$this->POST['end']['day'][0];
 
 
+            // volumes
             $volumeQuery = 'ISWORK:1 AND DATEINDEXED:['.$this->start.' TO '.$this->end.']'; 
 
-            // volumes
             if(count($arrQuery)) {
                 $q = implode(' AND ', $arrQuery).' AND '.$periodicalQuery;
             } else {
@@ -137,12 +137,13 @@ class vgwort {
             $arrVolumeSolr = $this->getSolrResult($arrParams);
 
             //get all periodicals from start!
+            $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[000000 TO '.$this->end.']'; 
+
             if(count($arrQuery)) {
                 $q = implode(' AND ', $arrQuery).' AND '.$periodicalQuery;
             } else {
                 $q = $periodicalQuery;
             }
-            $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[000000 TO '.$this->end.']'; 
             $arrParams = array(
                 'q' => urlencode($q),
                 'start' => 0,
