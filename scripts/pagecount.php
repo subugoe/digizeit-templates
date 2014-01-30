@@ -153,6 +153,10 @@ class vgwort {
                     $this->arrSuccessors[$periodical['PPN']] = $periodical;
                 }
             }
+print_r('<pre>');
+print_r($this->arrSuccessors);
+print_r('</pre>');
+            
             foreach($this->arrResult as $ppn=>$periodical) {
                 if(isset($periodical['SUC'])) {
                     foreach($periodical['SUC'] as $_ppn) {
@@ -173,7 +177,7 @@ class vgwort {
             array_multisort($arrTitle,$this->arrResult);
  */
 print_r('<pre>');
-print_r($this->arrResult);
+//print_r($this->arrResult);
 print_r('</pre>');
             
 //debug($this->arrResult);
