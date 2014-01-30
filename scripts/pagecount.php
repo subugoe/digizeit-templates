@@ -169,18 +169,12 @@ class vgwort {
                     }
                 }
             }
-/*
+
             foreach($this->arrResult as $id=>$periodical) {
                 $this->getInfoFromMets($this->arrResult[$id]);
-                $this->getInfoFromCache($this->arrResult[$id]);
+//                $this->getInfoFromCache($this->arrResult[$id]);
             }
 
-            $this->resortPeriodicals();
-            foreach($this->arrResult as $key=>$val) {
-                $arrTitle[$key] = $val['TITLE'];
-            }
-            array_multisort($arrTitle,$this->arrResult);
- */
 print_r('<pre>');
 print_r($this->arrResult);
 print_r('</pre>');
@@ -403,36 +397,6 @@ print_r('</pre>');
         }
     }
     
-    function resortPeriodicals() {
-        foreach($this->arrResult as $id=>$periodical) {
-            //periodical has real successor
-            if($periodical['SUCCESSOR'] && !($periodical['PREDECESSOR'] && count(array_intersect($periodical['SUCCESSOR'],$periodical['PREDECESSOR'])))) {
-                //get main master
-                $master = $this->getMainMaster($periodical);
-                if(!$this->arrResult[$master['PPN']]) {
-                    $this->arrResult[$master['PPN']] = $master;
-                    $this->getInfoFromMets($this->arrResult[$master['PPN']]);                        
-                    $this->getInfoFromCache($this->arrResult[$master['PPN']]);
-                }
-                $arrKey = array_keys($this->arrResult[$master['PPN']]['PREDECESSOR'],$id);
-                if($arrKey[0]) {
-                    $this->arrResult[$master['PPN']]['PREDECESSOR'][$id] = $periodical;
-                    unset($this->arrResult[$master['PPN']]['PREDECESSOR'][$arrKey[0]]);
-                } else {
-                    $this->arrResult[$master['PPN']]['PREDECESSOR'][$id] = $periodical;
-                }
-                unset($this->arrResult[$id]);
-            }
-        }
-    }
-
-    function getMainMaster($periodical) {       
-        if(!$periodical['SUC']|| ($periodical['SUC'] && $periodical['PRE'] && count(array_intersect($periodical['SUC'],$periodical['PRE'] )))) {
-            return $periodical;
-        } else {
-            return $this->arrResult($periodical['SUC'][0]);
-        }
-    }
 
     function getInfoFromMets(&$arr) {
         $dom = mets::openMetsAsDom($arr['PPN']);
