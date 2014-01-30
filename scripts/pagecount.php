@@ -38,7 +38,7 @@ class vgwort {
             'arrWall' => array('1925'),
             'ppnResolver' => 'http://resolver.sub.uni-goettingen.de/purl/?',
             'metsResolver' => 'http://www.digizeitschriften.de/dms/metsresolver/?PPN=',
-            'solrPhpsUrl' => 'http://localhost:8080/digizeit/select/?wt=phps&q=',
+            'solrPhpsUrl' => 'http://localhost:8080/digizeit/select/?wt=phps',
         );
 //####################################################################################
 //## END CONFIG ######################################################################
@@ -130,8 +130,7 @@ class vgwort {
                 'start' => 0,
                 'rows' => 99999,
             );
-            $strSolr = file_get_contents($this->config['solrPhpsUrl'] . implode('&',$arrParams));
-            $arrSolr = unserialize($strSolr);
+            $arrSolr = $this->getSolrResult($arrParams);
 
             //get periodical from volumes
             $this->arrResult = array();
@@ -145,8 +144,7 @@ class vgwort {
                     'start' => 0,
                     'rows' => 1,
                 );
-                $strSolr = file_get_contents($this->config['solrPhpsUrl'] . implode('&',$arrParams));
-                $arrSolr = unserialize($strSolr);
+                $arrSolr = $this->getSolrResult($arrParams);
                 $this->arrResult[$arrResult[0]['PPN']] = $arrSolr['response']['docs'][0];            
             }
 
@@ -535,8 +533,7 @@ class vgwort {
             'facet.field' => 'ACL',
             'facet.sort' => 'lexicographic',
         );
-        $strSolr = file_get_contents($this->config['solrPhpsUrl'] . implode('&',$arrParams));
-        $arrSolr = unserialize($strSolr);
+        $arrSolr = $this->getSolrResult($arrParams);
         $arrACL = $arrSolr['response']['facet_counts']['facet_fields']['DOCSTRCT'];
         array_unshift($arrACL,'all');
 
@@ -585,8 +582,7 @@ class vgwort {
             'facet.field' => 'DC',
             'facet.sort' => 'lexicographic',
         );
-        $strSolr = file_get_contents($this->config['solrPhpsUrl'] . implode('&',$arrParams));
-        $arrSolr = unserialize($strSolr);
+        $arrSolr = $this->getSolrResult($arrParams);
         $arrFields = $arrSolr['response']['facet_counts']['facet_fields']['DC'];
         foreach($arrFields as $field) {
             $collect[$i]['item'] = $field;
@@ -627,8 +623,7 @@ class vgwort {
             'facet.field' => 'DOCSTRCT',
             'facet.sort' => 'lexicographic',
         );
-        $strSolr = file_get_contents($this->config['solrPhpsUrl'] . implode('&',$arrParams));
-        $arrSolr = unserialize($strSolr);
+        $arrSolr = $this->getSolrResult($arrParams);
         $arrFields = $arrSolr['response']['facet_counts']['facet_fields']['DOCSTRCT'];
         foreach($arrFields as $field) {
             if(in_array($field,lucene::$incStruct)) {
@@ -712,6 +707,14 @@ class vgwort {
             $this->content .= '<option value="'.$year.'" '.$selected.'>'.$year.'</option>'."\n";
         }
         $this->content .= '</select>'."\n";
+    }
+    
+    function getSolrResult($arr) {
+        $strSolr = '';
+        foreach($arr as $key=>$val) {
+            $strSolr .='&'.$key.'='.$val;
+        }
+        return unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
     }
 }
 
