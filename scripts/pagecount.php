@@ -503,7 +503,7 @@ class vgwort {
         array_unshift($arrACL,'all');
 
         $i = 0;
-        foreach($arrACL as $acl) {
+        foreach($arrACL as $acl=>$count) {
             $license[$i]['item'] = $acl;
             if(isset($this->POST['license'])) {
                 if(in_array($license[$i]['item'],$this->POST['license'])) {
@@ -549,11 +549,8 @@ class vgwort {
         );
         $arrSolr = $this->getSolrResult($arrParams);
         $arrFields = $arrSolr['facet_counts']['facet_fields']['DC'];
-print_r('<pre>');
-print_r($arrFields);
-print_r('</pre>');
 
-        foreach($arrFields as $field) {
+        foreach($arrFields as $field=>$count) {
             $collect[$i]['item'] = $field;
             $collect[$i]['value'] = $field;
             if(isset($this->POST['collect'])) {
@@ -594,7 +591,7 @@ print_r('</pre>');
         );
         $arrSolr = $this->getSolrResult($arrParams);
         $arrFields = $arrSolr['facet_counts']['facet_fields']['DOCSTRCT'];
-        foreach($arrFields as $field) {
+        foreach($arrFields as $field=>$count) {
             $struct[$i]['item'] = $field;
             $struct[$i]['value'] = $field;
             if(isset($this->POST['struct'])) {
