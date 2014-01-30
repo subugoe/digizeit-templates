@@ -147,7 +147,7 @@ class vgwort {
                     'rows' => 1,
                 );
                 $_arrSolr = $this->getSolrResult($arrParams);
-                $this->arrResult[$_arrSolr[0]['PPN']] = $_arrSolr['response']['docs'][0];            
+                $this->arrResult[$_arrSolr['response']['docs'][0]['PPN']] = $_arrSolr['response']['docs'][0];            
             }
 /*
             foreach($this->arrResult as $id=>$periodical) {
