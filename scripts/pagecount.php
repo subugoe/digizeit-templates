@@ -133,6 +133,7 @@ class vgwort {
             );
             $arrSolr = $this->getSolrResult($arrParams);
 
+            
             //get periodical from volumes
             $this->arrResult = array();
             foreach($arrSolr['response']['docs'] as $volume) {
@@ -148,7 +149,7 @@ class vgwort {
                 $arrSolr = $this->getSolrResult($arrParams);
                 $this->arrResult[$arrResult[0]['PPN']] = $arrSolr['response']['docs'][0];            
             }
-
+/*
             foreach($this->arrResult as $id=>$periodical) {
                 $this->getInfoFromMets($this->arrResult[$id]);
                 $this->getInfoFromCache($this->arrResult[$id]);
@@ -159,6 +160,7 @@ class vgwort {
                 $arrTitle[$key] = $val['TITLE'];
             }
             array_multisort($arrTitle,$this->arrResult);
+ */
 print_r('<pre>');
 print_r($this->arrResult);
 print_r('</pre>');
