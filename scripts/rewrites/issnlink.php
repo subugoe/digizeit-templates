@@ -146,10 +146,12 @@ function setNSprefix(&$xpath, $node = false) {
         if ($node->firstChild) {
             setNSprefix($xpath, $node->firstChild);
         }
-        if ($node->attributes->length) {
-            foreach ($node->attributes as $attribute) {
-                if ($attribute->prefix && !$arrNS[strtolower($attribute->prefix)]) {
-                    $xpath->registerNamespace(strtolower($attribute->prefix), $attribute->namespaceURI);
+        if(is_object($node)) {
+            if ($node->attributes->length) {
+                foreach ($node->attributes as $attribute) {
+                    if ($attribute->prefix && !$arrNS[strtolower($attribute->prefix)]) {
+                        $xpath->registerNamespace(strtolower($attribute->prefix), $attribute->namespaceURI);
+                    }
                 }
             }
         }
