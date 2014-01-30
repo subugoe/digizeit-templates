@@ -161,6 +161,11 @@ class vgwort {
                     $this->arrSuccessors[$periodical['PPN']] = $periodical;
                 }
             }
+
+            foreach($this->arrSuccessors as $id=>$periodical) {
+                $this->getInfoFromMets($this->arrSuccessors[$id]);
+//                $this->getInfoFromCache($this->arrResult[$id]);
+            }
             
             foreach($this->arrResult as $ppn=>$periodical) {
                 if(isset($periodical['SUC'])) {
