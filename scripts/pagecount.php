@@ -140,6 +140,9 @@ class vgwort {
 //                'sort' => 'BYTITLE+asc'
             );
             $arrPeriodicalSolr = $this->getSolrResult($arrParams);
+print_r('<pre>');
+print_r(urlencode(implode(' AND ', $arrQuery).' AND '.$periodicalQuery).'<br />');
+print_r('</pre>');
 
             $this->arrResult = array();
             $this->arrSuccessors = array();
