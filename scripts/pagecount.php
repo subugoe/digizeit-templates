@@ -183,8 +183,6 @@ class vgwort {
 print_r('<pre>');
 print_r($this->arrResult);
 print_r('</pre>');
-            
-//debug($this->arrResult);
         }
 /*
             // create excel sheets
@@ -487,10 +485,6 @@ print_r('</pre>');
 
     function dateFormat($YYYYMMDD) {
         return  substr($YYYYMMDD,6,2).'.'.substr($YYYYMMDD,4,2).'.'.substr($YYYYMMDD,0,4);
-    }
-
-    function getCheckBox($key) {
-            if(isset($this->POST[$key])) return 'checked';
     }
 
     function getLicenseForm() {
