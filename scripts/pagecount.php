@@ -173,7 +173,7 @@ class vgwort {
             array_multisort($arrTitle,$this->arrResult);
  */
 print_r('<pre>');
-//print_r($this->arrResult);
+print_r($this->arrResult);
 print_r('</pre>');
             
 //debug($this->arrResult);
@@ -710,10 +710,6 @@ print_r('</pre>');
             foreach($val as $k=>$v) {
                 if(in_array($k, $this->config['arrSerFields'])) {
                     $arrSolr['response']['docs'][$key][$k] = $this->_unserialize($v);
-print_r($v);          
-print_r('<br />');
-print_r($this->_unserialize($v));          
-print_r('<br />');
                 }
             }
         }
