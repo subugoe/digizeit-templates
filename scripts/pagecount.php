@@ -105,8 +105,8 @@ class vgwort {
                 foreach ($this->POST['collect'] as $collect) {
                     $arrCol[] = 'DC:"'.$collect.'"';
                 }
+                $arrQuery[] = '('.implode(' AND ', $arrCol).')';
             }
-            $arrQuery[] = '('.implode(' AND ',$arrCol).')';
 
             //Licenses
             $arrAcl = array();
@@ -114,14 +114,14 @@ class vgwort {
                 foreach($this->POST['license'] as $license) {
                     $arrAcl[] = 'ACL:"'.$license.'"';
                 }
+                $arrQuery[] = '('.implode(' AND ',$arrAcl).')';
             }
-            $arrQuery[] = '('.implode(' AND ',$arrAcl).')';
             
             $this->start = $this->POST['start']['year'][0].$this->POST['start']['month'][0].$this->POST['start']['day'][0];
             $this->end = $this->POST['end']['year'][0].$this->POST['end']['month'][0].$this->POST['end']['day'][0];
 
             //get all periodicals from start!
-            $arrQuery[] = 'DATEINDEXED:[000000 TO '.$this->end; 
+            $arrQuery[] = 'DATEINDEXED:[000000 TO '.$this->end.']'; 
 
             // volumes
             $arrQuery[] = 'ISWORK:1'; 
