@@ -133,8 +133,8 @@ class vgwort {
             );
             $arrSolr = $this->getSolrResult($arrParams);
 
- print_r('<pre>');
-print_r($this->arrResult);
+print_r('<pre>');
+print_r($arrSolr);
 print_r('</pre>');
            
             //get periodical from volumes
