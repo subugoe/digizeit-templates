@@ -714,6 +714,7 @@ class vgwort {
         foreach($arr as $key=>$val) {
             $strSolr .='&'.$key.'='.$val;
         }
+print_r($this->config['solrPhpsUrl'] . $strSolr."\n");
         return unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
     }
 }
