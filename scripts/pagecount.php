@@ -145,6 +145,7 @@ class vgwort {
             $this->arrSuccessors = array();
             foreach($arrPeriodicalSolr['response']['docs'] as $periodical) {
 print_r('<pre>');
+print_r(urlencode(implode(' AND ', $arrQuery).' AND '.$periodicalQuery).'<br />');
 print_r($periodical);
 print_r('</pre>');
                if(!isset($periodical['PRE'])) {
