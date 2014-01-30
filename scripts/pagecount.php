@@ -144,11 +144,11 @@ class vgwort {
             $this->arrResult = array();
             $this->arrSuccessors = array();
             foreach($arrPeriodicalSolr['response']['docs'] as $periodical) {
-                if(!isset($periodical['PRE'])) {
-                    $this->arrResult[$periodical['PPN']] = $periodical;
 print_r('<pre>');
 print_r($periodical);
 print_r('</pre>');
+               if(!isset($periodical['PRE'])) {
+                    $this->arrResult[$periodical['PPN']] = $periodical;
                 } else {
                     $this->arrSuccessors[$periodical['PPN']] = $periodical;
                 }
@@ -177,7 +177,7 @@ print_r('</pre>');
             array_multisort($arrTitle,$this->arrResult);
  */
 print_r('<pre>');
-print_r($this->arrResult);
+//print_r($this->arrResult);
 print_r('</pre>');
             
 //debug($this->arrResult);
