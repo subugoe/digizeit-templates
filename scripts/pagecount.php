@@ -534,6 +534,9 @@ class vgwort {
             'facet.sort' => 'lexicographic',
         );
         $arrSolr = $this->getSolrResult($arrParams);
+print_r('<pre>');
+print_r($arrSolr);
+print_r('</pre>');
         $arrACL = $arrSolr['response']['facet_counts']['facet_fields']['DOCSTRCT'];
         array_unshift($arrACL,'all');
 
@@ -714,7 +717,6 @@ class vgwort {
         foreach($arr as $key=>$val) {
             $strSolr .='&'.$key.'='.$val;
         }
-print_r($this->config['solrPhpsUrl'] . $strSolr."\n");
         return unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
     }
 }
