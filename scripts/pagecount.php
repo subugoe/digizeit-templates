@@ -121,36 +121,44 @@ class vgwort {
             $this->end = $this->POST['end']['year'][0].$this->POST['end']['month'][0].$this->POST['end']['day'][0];
 
             //get all periodicals from start!
-            $arrQuery[] = 'DATEINDEXED:['.$this->start.' TO '.$this->end.']'; 
+            $periodicalQuery = 'DATEINDEXED:[000000 TO '.$this->end.']'; 
+
+            $volumeQuery = 'DATEINDEXED:['.$this->start.' TO '.$this->end.']'; 
 
             // volumes
             $arrQuery[] = 'ISWORK:1'; 
 
             $arrParams = array(
-                'q' => urlencode(implode(' AND ', $arrQuery)),
+                'q' => urlencode(implode(' AND ', $arrQuery).' AND '.$volumeQuery),
                 'start' => 0,
                 'rows' => 99999,
             );
-            $arrSolr = $this->getSolrResult($arrParams);
+            $arrVolumeSolr = $this->getSolrResult($arrParams);
 
-print_r('<pre>');
-print_r($arrSolr);
-print_r('</pre>');
-           
-            //get periodical from volumes
+            //get all periodicals 
+            $arrParams = array(
+                'q' => urlencode(implode(' AND ', $arrQuery).' AND '.$periodicalQuery),
+                'start' => 0,
+                'rows' => 9999,
+                'sort' => 'BYTITLE+asc'
+            );
+            $arrPeriodicalSolr = $this->getSolrResult($arrParams);
+
             $this->arrResult = array();
-            foreach($arrSolr['response']['docs'] as $volume) {
-                if(isset($this->arrResult[trim($volume['STRUCTRUN'][0]['PPN'])])) {
-                    continue;
+            $this->successors = array();
+            foreach($arrPeriodicalSolr['response']['docs'] as $periodical) {
+                if(!isset($periodical['PRE'])) {
+                    $this->arrResult[$periodical['PPN']] = $periodical;
+                } else {
+                    $this->arrSuccessors[$periodical['PPN']] = $periodical;
                 }
-
-                $arrParams = array(
-                    'q' => urlencode('PPN:"'.trim($volume['STRUCTRUN'][0]['PPN']).'"'),
-                    'start' => 0,
-                    'rows' => 1,
-                );
-                $_arrSolr = $this->getSolrResult($arrParams);
-                $this->arrResult[$_arrSolr['response']['docs'][0]['PPN']] = $_arrSolr['response']['docs'][0];            
+            }
+            foreach($this->arrResult as $ppn=>$periodical) {
+                if(isset($periodical['SUC'])) {
+                    foreach($periodical['SUC'] as $_ppn) {
+                        $this->getSuccessors($ppn, $_ppn);
+                    }
+                }
             }
 /*
             foreach($this->arrResult as $id=>$periodical) {
@@ -376,6 +384,15 @@ print_r('</pre>');
 //####################################################################################
 //## end MAIN ########################################################################
 //####################################################################################
+    
+    function getSuccessors($ppn, $_ppn) {
+        $this->arrResult[$ppn]['SUCCESSOR'][$_ppn] = $this->arrSuccessors[$_ppn];
+        if($this->arrSuccessors[$_ppn]['PRE']) {
+            foreach($this->arrSuccessors[$_ppn]['PRE'] as $PPN) {
+                $this->getSuccessors($ppn, $PPN);
+            }
+        }
+    }
     
     function resortPeriodicals() {
         foreach($this->arrResult as $id=>$periodical) {
