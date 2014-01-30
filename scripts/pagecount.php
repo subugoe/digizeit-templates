@@ -682,6 +682,7 @@ print_r('</pre>');
         foreach($arr as $key=>$val) {
             $strSolr .='&'.$key.'='.$val;
         }
+print_r($this->config['solrPhpsUrl'] . $strSolr);
         $arrSolr = unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
         foreach($arrSolr['response']['docs'] as $key=>$val) {
             foreach($val as $k=>$v) {
