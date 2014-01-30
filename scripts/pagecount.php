@@ -500,7 +500,10 @@ class vgwort {
         );
         $arrSolr = $this->getSolrResult($arrParams);
         $arrACL = $arrSolr['facet_counts']['facet_fields']['ACL'];
-        array_merge(array('all'=>'0'), $arrACL);
+        $arrACL = array_merge(array('all'=>'0'), $arrACL);
+print_r('<pre>');
+print_r($arrSolr);
+print_r('</pre>');
 
         $i = 0;
         foreach($arrACL as $acl=>$count) {
