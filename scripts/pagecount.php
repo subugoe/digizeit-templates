@@ -133,7 +133,10 @@ class vgwort {
             );
             $arrSolr = $this->getSolrResult($arrParams);
 
-            
+ print_r('<pre>');
+print_r($this->arrResult);
+print_r('</pre>');
+           
             //get periodical from volumes
             $this->arrResult = array();
             foreach($arrSolr['response']['docs'] as $volume) {
@@ -684,8 +687,6 @@ print_r('</pre>');
         foreach($arr as $key=>$val) {
             $strSolr .='&'.$key.'='.$val;
         }
-print_r($this->config['solrPhpsUrl'] . $strSolr);
-print_r('<br />');
 
         $arrSolr = unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
         foreach($arrSolr['response']['docs'] as $key=>$val) {
