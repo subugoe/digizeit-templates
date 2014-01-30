@@ -149,6 +149,9 @@ class vgwort {
             foreach($arrPeriodicalSolr['response']['docs'] as $periodical) {
                 if(!isset($periodical['PRE'])) {
                     $this->arrResult[$periodical['PPN']] = $periodical;
+print_r('<pre>');
+print_r($periodical);
+print_r('</pre>');
                 } else {
                     $this->arrSuccessors[$periodical['PPN']] = $periodical;
                 }
