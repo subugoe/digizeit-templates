@@ -137,7 +137,7 @@ class vgwort {
                 'q' => urlencode(implode(' AND ', $arrQuery).' AND '.$periodicalQuery),
                 'start' => 0,
                 'rows' => 9999,
-                'sort' => 'BYTITLE+asc'
+//                'sort' => 'BYTITLE+asc'
             );
             $arrPeriodicalSolr = $this->getSolrResult($arrParams);
 
