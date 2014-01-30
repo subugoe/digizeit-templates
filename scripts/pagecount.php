@@ -396,8 +396,8 @@ print_r('</pre>');
     
     function getSuccessors($ppn, $_ppn) {
         $this->arrResult[$ppn]['SUCCESSOR'][$_ppn] = $this->arrSuccessors[$_ppn];
-        if($this->arrSuccessors[$_ppn]['PRE']) {
-            foreach($this->arrSuccessors[$_ppn]['PRE'] as $PPN) {
+        if($this->arrSuccessors[$_ppn]['SUC']) {
+            foreach($this->arrSuccessors[$_ppn]['SUC'] as $PPN) {
                 $this->getSuccessors($ppn, $PPN);
             }
         }
