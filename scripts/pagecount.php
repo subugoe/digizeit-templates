@@ -39,6 +39,7 @@ class vgwort {
             'ppnResolver' => 'http://resolver.sub.uni-goettingen.de/purl/?',
             'metsResolver' => 'http://www.digizeitschriften.de/dms/metsresolver/?PPN=',
             'solrPhpsUrl' => 'http://localhost:8080/digizeit/select/?wt=phps',
+            'arrSerFields' => array('ACL', 'STRUCTRUN', 'PRE', 'SUC'),
         );
 //####################################################################################
 //## END CONFIG ######################################################################
@@ -372,7 +373,7 @@ class vgwort {
             //periodical has real successor
             if($periodical['SUCCESSOR'] && !($periodical['PREDECESSOR'] && count(array_intersect($periodical['SUCCESSOR'],$periodical['PREDECESSOR'])))) {
                 //get main master
-                $master = $this->getMainMaster($id);
+                $master = $this->getMainMaster($periodical);
                 if(!$this->arrResult[$master['PPN']]) {
                     $this->arrResult[$master['PPN']] = $master;
                     $this->getInfoFromMets($this->arrResult[$master['PPN']]);                        
@@ -390,41 +391,11 @@ class vgwort {
         }
     }
 
-    function getMainMaster($id) {
-       $dom = mets::openMetsAsDom($id);
-        if(!$dom) {
-            return false;
-        }
-        $xpath = mets::openXPath($dom);
-        if(!$xpath) {
-            return false;
-        }
-        $arrPredecessor = array();
-         //predecessor    
-        $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:relatedItem[@type="preceding"]/mods:recordInfo/mods:recordIdentifier');
-        if($nodeList->length) {
-            foreach($nodeList as $node) {
-                $arrPredecessor[] = trim($node->nodeValue);
-            }
-        }
-        $arrSuccessor = array();
-        //successor    
-        $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:relatedItem[@type="succeeding"]/mods:recordInfo/mods:recordIdentifier');
-        if($nodeList->length) {
-            foreach($nodeList as $node) {
-                $arrSuccessor[] = trim($node->nodeValue);
-            }
-        }
-        if(!$arrSuccessor || ($arrSuccessor && $arrPredecessor && count(array_intersect($arrSuccessor,$arrPredecessor )))) {
-            $term = lucene::term('PPN',trim(strtolower($id)));
-            $query = lucene::termQuery($term);   
-            $ptr = lucene::search($query);
-           if(lucene::length($ptr)) {
-                $arrResult = lucene::getResults(0, 1, $ptr);
-                return $arrResult[0];
-            }
+    function getMainMaster($periodical) {       
+        if(!$periodical['SUC']|| ($periodical['SUC'] && $periodical['PRE'] && count(array_intersect($periodical['SUC'],$periodical['PRE'] )))) {
+            return $periodical;
         } else {
-            return $this->getMainMaster($arrSuccessor[0]);
+            return $this->arrResult($periodical['SUC'][0]);
         }
     }
 
@@ -436,29 +407,12 @@ class vgwort {
         $xpath = mets::openXPath($dom);
         if(!$xpath) {
             return false;
-        }
-        
+        }        
         //copyright
         $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:accessCondition[@type="copyright"]');
         if($nodeList->length) {
             $arr['COPYRIGHT'] = trim($nodeList->item(0)->nodeValue);
         }    
-
-        //successor    
-        $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:relatedItem[@type="succeeding"]/mods:recordInfo/mods:recordIdentifier');
-        if($nodeList->length) {
-            foreach($nodeList as $node) {
-                $arr['SUCCESSOR'][] = trim($node->nodeValue);
-            }
-        }
-
-        //predecessor    
-        $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:relatedItem[@type="preceding"]/mods:recordInfo/mods:recordIdentifier');
-        if($nodeList->length) {
-            foreach($nodeList as $node) {
-                $arr['PREDECESSOR'][] = trim($node->nodeValue);
-            }
-        }
     }
 
     function getInfoFromCache(&$arr) {
@@ -467,9 +421,20 @@ class vgwort {
         $sort = lucene::sort(array(array('field'=>'DATEINDEXED','order'=>false)));
         $ptr = lucene::search($query, null, false, $sort);
         $limit = lucene::length($ptr);
-        if($limit) {
-            $arrResult = lucene::getResults(0, $limit, $ptr, array('PPN','CURRENTNO','YEARPUBLISH','DATEINDEXED','DATEMODIFIED'));
+        
+        
+        $arrParams = array(
+            'q' => urlencode('IDPARENTDOC:"'.$arr['IDDOC'].'"'),
+            'start' => 0,
+            'rows' => 9999,
+            'sort' => 'DATEINDEXED asc',
+        );
+        $arrSolr = $this->getSolrResult($arrParams);
 
+        
+        if($arrSolr['response']['numFound']) {
+            $arrResult = $arrSolr['response']['docs'];
+            
             foreach($this->config['arrWall'] as $wall) {
                 foreach($this->POST['struct'] as $struct) {
                     $arr[$struct][$wall]['between'] = 0;
@@ -626,20 +591,18 @@ class vgwort {
         $arrSolr = $this->getSolrResult($arrParams);
         $arrFields = $arrSolr['facet_counts']['facet_fields']['DOCSTRCT'];
         foreach($arrFields as $field) {
-            if(in_array($field,lucene::$incStruct)) {
-                $struct[$i]['item'] = $field;
-                $struct[$i]['value'] = $field;
-                if(isset($this->POST['struct'])) {
-                    if(in_array($struct[$i]['value'],$this->POST['struct'])) {
-                        $struct[$i]['selected'] = 'selected="selected"';
-                    } else {
-                        $struct[$i]['selected'] = '';
-                    }
+            $struct[$i]['item'] = $field;
+            $struct[$i]['value'] = $field;
+            if(isset($this->POST['struct'])) {
+                if(in_array($struct[$i]['value'],$this->POST['struct'])) {
+                    $struct[$i]['selected'] = 'selected="selected"';
                 } else {
                     $struct[$i]['selected'] = '';
                 }
-                $i++;
+            } else {
+                $struct[$i]['selected'] = '';
             }
+            $i++;
         }
 
         reset($struct);
@@ -714,7 +677,23 @@ class vgwort {
         foreach($arr as $key=>$val) {
             $strSolr .='&'.$key.'='.$val;
         }
-        return unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
+        $arrSolr = unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
+        foreach($arrSolr['response']['docs'] as $key=>$val) {
+            foreach($val as $k=>$v) {
+                if(in_array($k, $this->arrSerFields)) {
+                    $arrSolr['response']['docs'][$key][$k] = $tis->_unserialize($v);
+                }
+            }
+        }
+        return $arrSolr;
+    }
+    
+    function _unserialize($str) {
+        $ret = json_decode($str,true);
+        if(!is_array($ret)) {
+            $ret = unserialize($str);
+        }
+        return $ret;
     }
 }
 

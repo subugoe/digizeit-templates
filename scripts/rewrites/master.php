@@ -22,7 +22,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
-define(__DZROOT__, realpath(__DIR__ . '/../../../../'));
+define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 include(__DZROOT__ . '/.hosteurope.cloud.secrets');
 
 //debug

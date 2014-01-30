@@ -26,7 +26,7 @@ set_time_limit(0);
 //error_reporting(E_ALL);
 error_reporting(0);
 
-define(__DZROOT__, realpath(__DIR__ . '/../../../'));
+define('__DZROOT__', realpath(__DIR__ . '/../../../'));
 
 $checkCommand = '/usr/bin/gs -q -dNOPAUSE -sDEVICE=nullpage -sOutputFile=/dev/null -dBATCH';
 

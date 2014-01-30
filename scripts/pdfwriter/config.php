@@ -27,7 +27,7 @@ set_time_limit(0);
 error_reporting(0);
 //error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 
-define(__DZROOT__, realpath(__DIR__ . '/../../../../'));
+define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 
 $global = array(
     // 72 dpi

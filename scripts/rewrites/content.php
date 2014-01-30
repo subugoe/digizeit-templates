@@ -23,7 +23,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
-define(__DZROOT__, realpath(__DIR__ . '/../../../../'));
+define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 
 error_reporting(0);
 $serverUrl = $_SERVER['HTTPS'] ? 'https://' . $_SERVER['SERVER_NAME'] : 'http://' . $_SERVER['SERVER_NAME'];
