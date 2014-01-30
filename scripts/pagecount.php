@@ -110,7 +110,7 @@ class vgwort {
 
             //Licenses
             $arrAcl = array();
-            if(!in_array('all',$this->POST['license'])) {
+            if(!in_array(0,$this->POST['license'])) {
                 foreach($this->POST['license'] as $license) {
                     $arrAcl[] = 'ACL:"'.$license.'"';
                 }
