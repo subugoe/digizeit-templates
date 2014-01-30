@@ -151,26 +151,16 @@ class vgwort {
 //                'sort' => 'BYTITLE+asc'
             );
             $arrPeriodicalSolr = $this->getSolrResult($arrParams);
-print_r('<pre>');
-print_r(urlencode(implode(' AND ', $arrQuery).' AND '.$periodicalQuery).'<br />');
-print_r('</pre>');
 
             $this->arrResult = array();
             $this->arrSuccessors = array();
             foreach($arrPeriodicalSolr['response']['docs'] as $periodical) {
-print_r('<pre>');
-print_r(urlencode(implode(' AND ', $arrQuery).' AND '.$periodicalQuery).'<br />');
-print_r($periodical);
-print_r('</pre>');
                if(!isset($periodical['PRE'])) {
                     $this->arrResult[$periodical['PPN']] = $periodical;
                 } else {
                     $this->arrSuccessors[$periodical['PPN']] = $periodical;
                 }
             }
-print_r('<pre>');
-print_r($this->arrSuccessors);
-print_r('</pre>');
             
             foreach($this->arrResult as $ppn=>$periodical) {
                 if(isset($periodical['SUC'])) {
@@ -192,7 +182,7 @@ print_r('</pre>');
             array_multisort($arrTitle,$this->arrResult);
  */
 print_r('<pre>');
-//print_r($this->arrResult);
+print_r($this->arrResult);
 print_r('</pre>');
             
 //debug($this->arrResult);
