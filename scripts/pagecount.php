@@ -110,7 +110,7 @@ class vgwort {
 
             //Licenses
             $arrAcl = array();
-            if(!in_array('All', $this->POST['license'])) {
+            if(!in_array('all', $this->POST['license'])) {
                 foreach($this->POST['license'] as $license) {
                     $arrAcl[] = 'ACL:"'.$license.'"';
                 }
@@ -545,7 +545,7 @@ print_r('</pre>');
         );
         $arrSolr = $this->getSolrResult($arrParams);
         $arrACL = $arrSolr['facet_counts']['facet_fields']['ACL'];
-        $arrACL = array_merge(array('All'=>'All'), $arrACL);
+        $arrACL = array_merge(array('all'=>'All'), $arrACL);
 
         $i = 0;
         foreach($arrACL as $acl=>$count) {
