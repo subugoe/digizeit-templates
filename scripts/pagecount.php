@@ -120,8 +120,6 @@ class vgwort {
             $this->start = $this->POST['start']['year'][0].$this->POST['start']['month'][0].$this->POST['start']['day'][0];
             $this->end = $this->POST['end']['year'][0].$this->POST['end']['month'][0].$this->POST['end']['day'][0];
 
-            //get all periodicals from start!
-            $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[000000 TO '.$this->end.']'; 
 
             $volumeQuery = 'ISWORK:1 AND DATEINDEXED:['.$this->start.' TO '.$this->end.']'; 
 
@@ -133,7 +131,8 @@ class vgwort {
             );
             $arrVolumeSolr = $this->getSolrResult($arrParams);
 
-            //get all periodicals 
+            //get all periodicals from start!
+            $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[000000 TO '.$this->end.']'; 
             $arrParams = array(
                 'q' => urlencode(implode(' AND ', $arrQuery).' AND '.$periodicalQuery),
                 'start' => 0,
@@ -143,19 +142,19 @@ class vgwort {
             $arrPeriodicalSolr = $this->getSolrResult($arrParams);
 
             $this->arrResult = array();
-            $this->successors = array();
+            $this->arrSuccessors = array();
             foreach($arrPeriodicalSolr['response']['docs'] as $periodical) {
                 if(!isset($periodical['PRE'])) {
                     $this->arrResult[$periodical['PPN']] = $periodical;
 print_r('<pre>');
-//print_r($periodical);
+print_r($periodical);
 print_r('</pre>');
                 } else {
                     $this->arrSuccessors[$periodical['PPN']] = $periodical;
                 }
             }
 print_r('<pre>');
-//print_r($this->arrSuccessors);
+print_r($this->arrSuccessors);
 print_r('</pre>');
             
             foreach($this->arrResult as $ppn=>$periodical) {
