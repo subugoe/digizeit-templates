@@ -121,13 +121,11 @@ class vgwort {
             $this->end = $this->POST['end']['year'][0].$this->POST['end']['month'][0].$this->POST['end']['day'][0];
 
             //get all periodicals from start!
-            $periodicalQuery = 'DATEINDEXED:[000000 TO '.$this->end.']'; 
+            $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[000000 TO '.$this->end.']'; 
 
-            $volumeQuery = 'DATEINDEXED:['.$this->start.' TO '.$this->end.']'; 
+            $volumeQuery = 'ISWORK:1 AND DATEINDEXED:['.$this->start.' TO '.$this->end.']'; 
 
             // volumes
-            $arrQuery[] = 'ISWORK:1'; 
-
             $arrParams = array(
                 'q' => urlencode(implode(' AND ', $arrQuery).' AND '.$volumeQuery),
                 'start' => 0,
@@ -150,14 +148,14 @@ class vgwort {
                 if(!isset($periodical['PRE'])) {
                     $this->arrResult[$periodical['PPN']] = $periodical;
 print_r('<pre>');
-print_r($periodical);
+//print_r($periodical);
 print_r('</pre>');
                 } else {
                     $this->arrSuccessors[$periodical['PPN']] = $periodical;
                 }
             }
 print_r('<pre>');
-print_r($this->arrSuccessors);
+//print_r($this->arrSuccessors);
 print_r('</pre>');
             
             foreach($this->arrResult as $ppn=>$periodical) {
@@ -180,7 +178,7 @@ print_r('</pre>');
             array_multisort($arrTitle,$this->arrResult);
  */
 print_r('<pre>');
-//print_r($this->arrResult);
+print_r($this->arrResult);
 print_r('</pre>');
             
 //debug($this->arrResult);
