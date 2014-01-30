@@ -534,10 +534,7 @@ class vgwort {
             'facet.sort' => 'lexicographic',
         );
         $arrSolr = $this->getSolrResult($arrParams);
-print_r('<pre>');
-print_r($arrSolr);
-print_r('</pre>');
-        $arrACL = $arrSolr['response']['facet_counts']['facet_fields']['DOCSTRCT'];
+        $arrACL = $arrSolr['facet_counts']['facet_fields']['DOCSTRCT'];
         array_unshift($arrACL,'all');
 
         $i = 0;
@@ -586,7 +583,7 @@ print_r('</pre>');
             'facet.sort' => 'lexicographic',
         );
         $arrSolr = $this->getSolrResult($arrParams);
-        $arrFields = $arrSolr['response']['facet_counts']['facet_fields']['DC'];
+        $arrFields = $arrSolr['facet_counts']['facet_fields']['DC'];
         foreach($arrFields as $field) {
             $collect[$i]['item'] = $field;
             $collect[$i]['value'] = $field;
@@ -627,7 +624,7 @@ print_r('</pre>');
             'facet.sort' => 'lexicographic',
         );
         $arrSolr = $this->getSolrResult($arrParams);
-        $arrFields = $arrSolr['response']['facet_counts']['facet_fields']['DOCSTRCT'];
+        $arrFields = $arrSolr['facet_counts']['facet_fields']['DOCSTRCT'];
         foreach($arrFields as $field) {
             if(in_array($field,lucene::$incStruct)) {
                 $struct[$i]['item'] = $field;
