@@ -121,7 +121,7 @@ class vgwort {
             $this->end = $this->POST['end']['year'][0].$this->POST['end']['month'][0].$this->POST['end']['day'][0];
 
             //get all periodicals from start!
-            $arrQuery[] = 'DATEINDEXED:[000000 TO '.$this->end.']'; 
+            $arrQuery[] = 'DATEINDEXED:['.$this->start.' TO '.$this->end.']'; 
 
             // volumes
             $arrQuery[] = 'ISWORK:1'; 
@@ -692,7 +692,7 @@ print_r('</pre>');
         foreach($arrSolr['response']['docs'] as $key=>$val) {
             foreach($val as $k=>$v) {
                 if(in_array($k, $this->arrSerFields)) {
-                    $arrSolr['response']['docs'][$key][$k] = $tis->_unserialize($v);
+                    $arrSolr['response']['docs'][$key][$k] = $this->_unserialize($v);
                 }
             }
         }
