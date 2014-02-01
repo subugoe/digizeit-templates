@@ -142,22 +142,6 @@ class vgwort {
             $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . $this->POST['start']['day'][0];
             $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $this->POST['end']['day'][0];
 
-
-            // volumes
-            $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
-
-            if (count($arrQuery)) {
-                $q = implode(' AND ', $arrQuery) . ' AND ' . $periodicalQuery;
-            } else {
-                $q = $periodicalQuery;
-            }
-            $arrParams = array(
-                'q' => urlencode($q),
-                'start' => 0,
-                'rows' => 99999,
-            );
-            $arrVolumeSolr = $this->getSolrResult($arrParams);
-
             //get all periodicals from start!
             $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[000000 TO ' . $this->end . ']';
 
@@ -202,7 +186,29 @@ class vgwort {
                 $this->getInfoFromMets($this->arrResult[$id]);
 //                $this->getInfoFromCache($this->arrResult[$id]);
             }
+            // end periodicals
+            
+            // volumes
+            $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
 
+            if (count($arrQuery)) {
+                $q = implode(' AND ', $arrQuery) . ' AND ' . $periodicalQuery;
+            } else {
+                $q = $periodicalQuery;
+            }
+            $arrParams = array(
+                'q' => urlencode($q),
+                'start' => 0,
+                'rows' => 99999,
+                'sort' => 'CURRENTNOSORT+asc'
+            );
+            $arrVolumeSolr = $this->getSolrResult($arrParams);
+
+            foreach ($arrVolumeSolr['response']['docs'] as $volume) {
+                $this->getInfoFromMets($volume);
+                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+            }
+            // end volumes            
 print_r('<pre>');
 print_r($this->arrResult);
 print_r('</pre>');
@@ -441,14 +447,8 @@ print_r('</pre>');
             }
 
             //scanned pages
-print_r('<pre>');
-print_r(strtolower($arr['DOCSTRCT']).'<br />');
-print_r('</pre>');
             if (strtolower($arr['DOCSTRCT']) == 'periodicalvolume') {
                 $nodeList = $xpath->evaluate('/mets:mets/mets:structMap[@TYPE="PHYSICAL"]/mets:div/mets:div');
-print_r('<pre>');
-print_r($nodeList->length.'<br />');
-print_r('</pre>');
                 if ($nodeList->length) {
                     $arr['PAGES'] = $nodeList->length;
                     $this->cache[$arr['PPN']]['PAGES'] = $arr['PAGES'];
@@ -456,9 +456,6 @@ print_r('</pre>');
             }
 
             //first- / last Import
-print_r('<pre>');
-print_r(strtolower($arr['DOCSTRCT']).'<br />');
-print_r('</pre>');
             if (strtolower($arr['DOCSTRCT']) == 'periodical') {
                 $arrParams = array(
                     'q' => urlencode('ISWORK:1 AND IDPARENTDOC:"' . $arr['PPN'] . '"'),
@@ -467,12 +464,6 @@ print_r('</pre>');
                     'sort' => 'DATEINDEXED+asc'
                 );
                 $arrSolr = $this->getSolrResult($arrParams);
-print_r('<pre>');
-print_r($arrParams);
-print_r('</pre>');
-print_r('<pre>');
-print_r(count($arrSolr['response']['docs']).'<br />');
-print_r('</pre>');
                 if ($arrSolr['response']['docs']) {
                     $arr['FIRSTIMPORT'] = $arrSolr['response']['docs'][0]['DATEINDEXED'];
                     $this->cache[$arr['PPN']]['FIRSTIMPORT'] = $arr['FIRSTIMPORT'];
