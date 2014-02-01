@@ -162,10 +162,10 @@ class vgwort {
             $this->arrResult = array();
             $this->arrPredecessor = array();
             foreach ($arrPeriodicalSolr['response']['docs'] as $periodical) {
-                if (!isset($periodical['SUC'])) {
-                    $this->arrResult[$periodical['PPN']] = $periodical;
-                } else {
+                if(isset($periodical['SUC'])) {
                     $this->arrPredecessor[$periodical['PPN']] = $periodical;
+                } else {
+                    $this->arrResult[$periodical['PPN']] = $periodical;
                 }
             }
 
@@ -175,8 +175,8 @@ class vgwort {
             }
 
             foreach ($this->arrResult as $ppn => $periodical) {
-                if (isset($periodical['SUC'])) {
-                    foreach ($periodical['SUC'] as $_ppn) {
+                if (isset($periodical['PRE'])) {
+                    foreach ($periodical['PRE'] as $_ppn) {
                         $this->getPredecessor($ppn, $_ppn);
                     }
                 }
