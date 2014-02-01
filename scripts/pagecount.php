@@ -26,8 +26,8 @@
 /* +++++++++++++++++++++++++++++++++++++++++++++ */
 /* +++++ MyDigiZeit/VG Wort ++++++++++++++++++++ */
 /* +++++++++++++++++++++++++++++++++++++++++++++ */
-define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
-define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
+define('__DZROOT__', realpath(__DIR__ . '/../../../'));
+
 
 include_once ('class.berkeley.php');
 include_once ('class.excel.php');
@@ -38,6 +38,7 @@ class vgwort {
 //## CONFIG ##########################################################################
 //####################################################################################
     var $config = array(
+        'counter' => '/counter/logs/',
         'cache' => '/pagecount.cache',
         'start' => '20020730',
         'strWall' => '1925',
@@ -57,6 +58,7 @@ class vgwort {
     function main() {
 
         $this->config['cache'] = sys_get_temp_dir() . $this->config['cache'];
+        $this->config['counter'] = realpath(__DZROOT__ . $this->config['counter']);
 
         if (!is_array($this->cache)) {
             $str = file_get_contents($this->config['cache']);
@@ -93,8 +95,8 @@ class vgwort {
         $this->content .= '<tr><td valign="top">Kollektion:&nbsp;</td><td valign="top">' . "\n";
         $this->getCollectionForm();
 
-        $this->content .= '</td><td valign="top">Struktur:&nbsp;</td><td valign="top">' . "\n";
-        $this->getStructForm();
+//        $this->content .= '</td><td valign="top">Struktur:&nbsp;</td><td valign="top">' . "\n";
+//        $this->getStructForm();
 
         $this->content .= '</td><td valign="top">Lizenz:&nbsp;</td><td valign="top">' . "\n";
         $this->getLicenseForm();
@@ -227,9 +229,6 @@ class vgwort {
                     foreach($periodical['ACL'] as $key=>$license) {
                         $periodical['ACL'][$key] = strtolower($license);
                     }
-print_r('<pre>');
-print_r($periodical['ACL']);
-print_r('</pre>');
                     if(!in_array('gesamtabo',$periodical['ACL'])) {
                         continue;
                     }
@@ -266,7 +265,6 @@ print_r('</pre>');
         $column[1] = trim($periodical['TITLE']);
         $column[2] = $this->config['ppnResolver'].trim($periodical['PPN']);
         $column[3] = trim($periodical['COPYRIGHT']);
-
         $column[4] = 0;
         $column[5] = 0;
         foreach($periodical['volumes'] as $volume) {
@@ -336,7 +334,6 @@ print_r('</pre>');
                     $arr['LASTIMPORT'] = $arrSolr['response']['docs'][count($arrSolr['response']['docs']) - 1]['DATEINDEXED'];
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
-
             }
                         
             $this->updateCache($arr['PPN']);
@@ -377,7 +374,7 @@ print_r('</pre>');
         $arrSolr = $this->getSolrResult($arrParams);
         $arrACL = $arrSolr['facet_counts']['facet_fields']['ACL'];
         $arrACL = array_merge(array('all' => 'All'), $arrACL);
-        $arrACL = array_merge(array('digizeitonly' => 'DigiZeitschriften'), $arrACL);
+        $arrACL = array_merge(array('digizeitonly' => 'VGWort'), $arrACL);
 
         $i = 0;
         foreach ($arrACL as $acl => $count) {
