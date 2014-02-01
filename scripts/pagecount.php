@@ -192,9 +192,9 @@ class vgwort {
             $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
 
             if (count($arrQuery)) {
-                $q = implode(' AND ', $arrQuery) . ' AND ' . $periodicalQuery;
+                $q = implode(' AND ', $arrQuery) . ' AND ' . $volumeQuery;
             } else {
-                $q = $periodicalQuery;
+                $q = $volumeQuery;
             }
             $arrParams = array(
                 'q' => urlencode($q),
