@@ -150,6 +150,10 @@ class vgwort {
             } else {
                 $q = $periodicalQuery;
             }
+print_r('<pre>');
+print_r($periodicalQuery."\n");
+print_r('</pre>');
+
             $arrParams = array(
                 'q' => urlencode($q),
                 'start' => 0,
