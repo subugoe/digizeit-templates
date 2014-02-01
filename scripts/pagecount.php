@@ -40,7 +40,7 @@ class vgwort {
     var $config = array(
         'cache' => '/pagecount.cache',
         'start' => '20020730',
-        'arrWall' => array('1925'),
+        'strWall' => '1925',
         'ppnResolver' => 'http://resolver.sub.uni-goettingen.de/purl/?',
         'metsResolver' => 'http://www.digizeitschriften.de/dms/metsresolver/?PPN=',
         'solrPhpsUrl' => 'http://localhost:8080/digizeit/select/?wt=phps',
@@ -218,217 +218,58 @@ class vgwort {
             }
             // end periodicals
             
+            
+            //output
+            $count = 0;
+            $arrLines = array();
+            foreach ($this->arrResult as $periodical) {
+                $count++;
+                $periodical['linenumber'] = $count;
+                $arrLines[] = $this->getLine($periodical);
+                if($periodical['PREDECESSOR']) {
+                    foreach ($periodical['PREDECESSOR'] as $_periodical) {
+                        $periodical['linemumber'] = '';
+                        $arrLines[] = $this->getLine($_periodical);
+                    }
+                }
+                $arrLines[] = "\n";                    
+            }
+            file_put_contents('test.csv',$arrLines);                    
+                
+                
+                
 print_r('<pre>');
 print_r($this->arrResult);
 print_r('</pre>');
-        }
+        } // post
 
-        
-        /*
-          // create excel sheets
-          foreach($this->POST['struct'] as $struct) {
-          $rowCount = 0;
-          $mainSheet = excel::createSheet($xls,$struct);
-          $mainTable = excel::createNode(array('dom'=>$xls, 'name'=>'Table','parent'=>$mainSheet));
-          // spaltenbreiten
-          // Titel
-          excel::createNode(array('dom'=>$xls, 'name'=>'Column','arrAttributes'=>array('ss:Width'=>'150.0000'),'parent'=>$mainTable));
-          // PPN
-          excel::createNode(array('dom'=>$xls, 'name'=>'Column','arrAttributes'=>array('ss:Width'=>'100.0000'),'parent'=>$mainTable));
-          // Copyright
-          excel::createNode(array('dom'=>$xls, 'name'=>'Column','arrAttributes'=>array('ss:Width'=>'120.0000'),'parent'=>$mainTable));
-          // Zahlen Spalten
-          excel::createNode(array('dom'=>$xls, 'name'=>'Column','arrAttributes'=>array('ss:Span'=>'7','ss:Width'=>'60.0000'),'parent'=>$mainTable));
-          if($struct=='periodicalvolume') {
-          // Datumsspalten
-          excel::createNode(array('dom'=>$xls, 'name'=>'Column','arrAttributes'=>array('ss:Span'=>'1','ss:Width'=>'70.0000'),'parent'=>$mainTable));
-          }
-
-          $row = excel::createNode(array('dom'=>$xls, 'name'=>'Row','arrAttributes'=>array('ss:Height'=>'20.0000'),'parent'=>$mainTable));
-          $rowCount ++;
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading1'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'Titel', 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading1'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'PPN', 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading1'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'Copyright', 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading1','ss:MergeAcross'=>count($this->config['arrWall'])+1),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'Alle bis '.$this->dateFormat($this->end), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading1','ss:MergeAcross'=>count($this->config['arrWall'])+1),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'Vom '.$this->dateFormat($this->start).' bis '.$this->dateFormat($this->end), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          if($struct=='periodicalvolume') {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading1','ss:MergeAcross'=>'1'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'Band Importe', 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-          }
-
-          $row = excel::createNode(array('dom'=>$xls, 'name'=>'Row','arrAttributes'=>array('ss:Height'=>'15.0000'),'parent'=>$mainTable));
-          $rowCount++;
-
-          excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'parent'=>$row));
-
-          for($i=0;$i<2;$i++) {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading2'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'Seiten', 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          foreach($this->config['arrWall'] as $index=>$wall) {
-          if($index==0) {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading2'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim('vor '.$wall), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-          } else if($index>0) {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading2'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($this->config['arrWall'][$index-1].' - '.$wall), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-          }
-          }
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading2'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'nach '.$wall, 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-          }
-
-          if($struct=='periodicalvolume') {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading2'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'erster', 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'Heading2'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>'letzter', 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-          }
-
-          // leerzeile
-          excel::createNode(array('dom'=>$xls, 'name'=>'Row','arrAttributes'=>array('ss:Height'=>'8.0000'),'parent'=>$mainTable));
-          $rowCount++;
-
-          $startSum = $rowCount;
-          foreach($this->arrResult as $id=>$periodical) {
-          $row = excel::createNode(array('dom'=>$xls, 'name'=>'Row','arrAttributes'=>array('ss:AutoFitHeight'=>'1', 'ss:Height'=>'15.0000'),'parent'=>$mainTable));
-          $rowCount++;
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowback'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['TITLE']), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:HRef'=>trim($this->config['ppnResolver'].$periodical['PPN']),'ss:StyleID'=>'yellowbluelink'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['PPN']), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowback'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['COPYRIGHT']), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowback'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['struct'][$struct][0]['before']), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-
-          $diff = 0;
-          foreach($this->config['arrWall'] as $index=>$wall) {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowback'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['struct'][$struct][$wall]['before']), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-          $diff += $periodical['struct'][$struct][$wall]['before'];
-          }
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowback'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['struct'][$struct][0]['before'] - $diff), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowback'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['struct'][$struct][0]['between']), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-
-          $diff = 0;
-          foreach($this->config['arrWall'] as $index=>$wall) {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowback'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['struct'][$struct][$wall]['between']), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-          $diff += $periodical['struct'][$struct][$wall]['between'];
-          }
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowback'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($periodical['struct'][$struct][0]['between'] - $diff), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-
-          if($struct=='periodicalvolume') {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowbackright'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($this->dateFormat($periodical['FIRSTIMPORT'])), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'yellowbackright'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($this->dateFormat($periodical['LASTIMPORT'])), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-          }
-
-          // Vorgänger
-          if(is_array($periodical['PREDECESSOR'])) {
-          foreach($periodical['PREDECESSOR'] as $_id=>$_periodical) {
-          if(substr($_id,0,3)!='PPN') {
-          continue;
-          }
-          $row = excel::createNode(array('dom'=>$xls, 'name'=>'Row','arrAttributes'=>array('ss:AutoFitHeight'=>'1', 'ss:Height'=>'15.0000'),'parent'=>$mainTable));
-          $rowCount++;
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'topwrap'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['TITLE']), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:HRef'=>trim($this->config['ppnResolver'].$_periodical['PPN']),'ss:StyleID'=>'bluelink'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['PPN']), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'top'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['COPYRIGHT']), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'top'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['struct'][$struct][0]['before']), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-
-          $diff = 0;
-          foreach($this->config['arrWall'] as $index=>$wall) {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'top'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['struct'][$struct][$wall]['before']), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-          $diff += $_periodical['struct'][$struct][$wall]['before'];
-          }
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'top'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['struct'][$struct][0]['before'] - $diff), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'top'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['struct'][$struct][0]['between']), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-
-          $diff = 0;
-          foreach($this->config['arrWall'] as $index=>$wall) {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'top'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['struct'][$struct][$wall]['between']), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-          $diff += $_periodical['struct'][$struct][$wall]['between'];
-          }
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'top'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($_periodical['struct'][$struct][0]['between'] - $diff), 'arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-
-          if($struct=='periodicalvolume') {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'right'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($this->dateFormat($_periodical['FIRSTIMPORT'])), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'right'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data', 'value'=>trim($this->dateFormat($_periodical['LASTIMPORT'])), 'arrAttributes'=>array('ss:Type'=>'String'),'parent'=>$cell));
-          }
-          }
-          }
-          // leerzeile
-          //                    excel::createNode(array('dom'=>$xls, 'name'=>'Row','arrAttributes'=>array('ss:Height'=>'8.0000'),'parent'=>$mainTable));
-          //                    $rowCount++;
-          }
-
-          // summen berechnen
-          $row = excel::createNode(array('dom'=>$xls, 'name'=>'Row','arrAttributes'=>array('ss:Height'=>'15.0000'),'parent'=>$mainTable));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'parent'=>$row));
-
-          for($i=0; $i<(4+2*count($this->config['arrWall'])); $i++) {
-          $cell = excel::createNode(array('dom'=>$xls, 'name'=>'Cell', 'arrAttributes'=>array('ss:StyleID'=>'redcharsbordertop','ss:Formula'=>'=SUM(R[-'.($rowCount-$startSum).']C:R[-1]C)'),'parent'=>$row));
-          excel::createNode(array('dom'=>$xls, 'name'=>'Data','arrAttributes'=>array('ss:Type'=>'Number'),'parent'=>$cell));
-          }
-          }
-
-          header('Content-Type: application/vnd.ms-excel');
-          header('Content-Disposition: attachment; filename=DigiZeit_Seiten_'.$createDate_file.'.xml');
-          echo $xls->saveXML();
-          exit();
-          }
-         */
     }
 
 //####################################################################################
 //## end MAIN ########################################################################
 //####################################################################################
 
+    function getLine($periodical) {
+        $column = array();
+        $column[0] = $periodical['linenumber'];
+        $column[1] = trim($periodical['TITLE']);
+        $column[2] = $this->config['ppnResolver'].trim($periodical['PPN']);
+        $column[3] = trim($periodical['COPYRIGHT']);
+
+        $column[4] = 0;
+        $column[5] = 0;
+        foreach($periodical['volumes'] as $volume) {
+            if($volume['YEARPUBLISH'] <= $this->config['strWall']) {
+                $column[4] += $volume['PAGES'];
+            } else {
+                $column[5] += $volume['PAGES'];
+            }
+        }
+        $column[6] = trim($periodical['FISTIMPORT']);
+        $column[7] = trim($periodical['LASTIMPORT']);
+        return implode("\t",$column)."\n";
+    }
+    
     function getPredecessor($ppn, $_ppn) {
         $this->arrResult[$ppn]['PREDECESSOR'][$_ppn] = $this->arrPredecessor[$_ppn];
         if ($this->arrPredecessor[$_ppn]['PRE']) {
@@ -464,6 +305,9 @@ print_r('</pre>');
                     $arr['PAGES'] = $nodeList->length;
                     $this->cache[$arr['PPN']]['PAGES'] = $arr['PAGES'];
                 }
+                $arr['YEARPUBLISH'] = str_replace(array('(' . '{', '[', ']', '}', ')'), '', $arr['YEARPUBLISH']);
+                $arr['YEARPUBLISH'] = intval(trim(array_shift(explode('/', $arr['YEARPUBLISH']))));
+                
             }
 
             //first- / last Import
