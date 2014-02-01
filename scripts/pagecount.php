@@ -265,8 +265,8 @@ print_r('</pre>');
                 $column[5] += $volume['PAGES'];
             }
         }
-        $column[6] = trim($periodical['FISTIMPORT']);
-        $column[7] = trim($periodical['LASTIMPORT']);
+        $column[6] = trim($this->dateFormat($periodical['FIRSTIMPORT']));
+        $column[7] = trim($this->dateFormat($periodical['LASTIMPORT']));
         return implode("\t",$column)."\n";
     }
     
@@ -349,70 +349,6 @@ print_r('</pre>');
         }
     }
 
-    function getInfoFromCache(&$arr) {
-        $term = lucene::term('IDPARENTDOC', $arr['IDDOC']);
-        $query = lucene::termQuery($term);
-        $sort = lucene::sort(array(array('field' => 'DATEINDEXED', 'order' => false)));
-        $ptr = lucene::search($query, null, false, $sort);
-        $limit = lucene::length($ptr);
-
-
-        $arrParams = array(
-            'q' => urlencode('IDPARENTDOC:"' . $arr['IDDOC'] . '"'),
-            'start' => 0,
-            'rows' => 9999,
-            'sort' => 'DATEINDEXED asc',
-        );
-        $arrSolr = $this->getSolrResult($arrParams);
-
-
-        if ($arrSolr['response']['numFound']) {
-            $arrResult = $arrSolr['response']['docs'];
-
-            foreach ($this->config['arrWall'] as $wall) {
-                foreach ($this->POST['struct'] as $struct) {
-                    $arr[$struct][$wall]['between'] = 0;
-                    $arr[$struct][$wall]['before'] = 0;
-                }
-            }
-            foreach ($arrResult as $volume) {
-                $volume['YEARPUBLISH'] = str_replace(array('(' . '{', '[', ']', '}', ')'), '', $volume['YEARPUBLISH']);
-                $volume['YEARPUBLISH'] = intval(trim(array_shift(explode('/', $volume['YEARPUBLISH']))));
-                $entry = berkeley::getDbaEntry($volume['PPN']);
-                if ($volume['DATEINDEXED'] <= $this->end) {
-                    foreach ($this->POST['struct'] as $struct) {
-                        $arr['struct'][$struct][0]['before'] += $entry['type'][$struct];
-                    }
-                }
-                if ($volume['DATEINDEXED'] <= $this->end && $volume['DATEINDEXED'] >= $this->start) {
-                    foreach ($this->POST['struct'] as $struct) {
-                        $arr['struct'][$struct][0]['between'] += $entry['type'][$struct];
-                    }
-                }
-                foreach ($this->config['arrWall'] as $key => $wall) {
-                    if ($key == 0) {
-                        $lower = 0;
-                    } else {
-                        $lower = $this->config['arrWall'][$key - 1];
-                    }
-                    if ($volume['YEARPUBLISH'] > $lower && $volume['YEARPUBLISH'] <= $wall) {
-                        if ($volume['DATEINDEXED'] <= $this->end) {
-                            foreach ($this->POST['struct'] as $struct) {
-                                $arr['struct'][$struct][$wall]['before'] += $entry['type'][$struct];
-                            }
-                        }
-                        if ($volume['DATEINDEXED'] <= $this->end && $volume['DATEINDEXED'] >= $this->start) {
-                            foreach ($this->POST['struct'] as $struct) {
-                                $arr['struct'][$struct][$wall]['between'] += $entry['type'][$struct];
-                            }
-                        }
-                    }
-                }
-            }
-            $arr['FIRSTIMPORT'] = $arrResult[0]['DATEINDEXED'];
-            $arr['LASTIMPORT'] = $arrResult[$limit - 1]['DATEINDEXED'];
-        }
-    }
 
     function dateFormat($YYYYMMDD) {
         return substr($YYYYMMDD, 6, 2) . '.' . substr($YYYYMMDD, 4, 2) . '.' . substr($YYYYMMDD, 0, 4);
