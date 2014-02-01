@@ -26,6 +26,7 @@
 /*+++++ MyDigiZeit/VG Wort ++++++++++++++++++++*/
 /*+++++++++++++++++++++++++++++++++++++++++++++*/
 define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
+define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 
 include_once ('class.mets.php');
 include_once ('class.berkeley.php');
@@ -35,7 +36,7 @@ class vgwort {
 //## CONFIG ##########################################################################
 //####################################################################################
 	var $config = array(
-            'cache' => __DIR__ . '/pagecount.cache',
+            'cache' => '/pagecount.cache',
             'start' => '20020730',
             'arrWall' => array('1925'),
             'ppnResolver' => 'http://resolver.sub.uni-goettingen.de/purl/?',
@@ -53,6 +54,7 @@ class vgwort {
 //####################################################################################
     function main () {
 
+        $this->config['cache'] = sys_get_temp_dir() . $this->config['cache'];
         if(!is_array($this->cache)) {
             $str = file_get_contents('./'.$this->config['cache']);
             if($str) {
