@@ -482,20 +482,6 @@ print_r('</pre>');
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
 
-print_r('<pre>');
-print_r($arr['volumes']);
-print_r('</pre>');
-                foreach($arr['volumes'] as $volume) {
-print_r('<pre>');
-print_r($volume['PAGES']);
-print_r('</pre>');
-                    $arr['PAGES'] += $volume['PAGES'];
-                }
-                foreach($arr['PREDECESSOR'] as $ppn=>$journal) {
-                    foreach($journal['volumes'] as $volume) {
-                        $arr['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
-                    }
-                }
             }
                         
             $this->updateCache($arr['PPN']);
@@ -503,6 +489,23 @@ print_r('</pre>');
             if ($this->cache[$arr['PPN']]) {
                 foreach ($this->cache[$arr['PPN']] as $key => $val) {
                     $arr[$key] = $val;
+                }
+            }
+        }
+        
+print_r('<pre>');
+print_r($arr['volumes']);
+print_r('</pre>');
+        if(is_array($arr['volumes'])) {
+            foreach($arr['volumes'] as $volume) {
+print_r('<pre>');
+print_r($volume['PAGES']);
+print_r('</pre>');
+                $arr['PAGES'] += $volume['PAGES'];
+            }
+            foreach($arr['PREDECESSOR'] as $ppn=>$journal) {
+                foreach($journal['volumes'] as $volume) {
+                    $arr['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
                 }
             }
         }
