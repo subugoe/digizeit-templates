@@ -468,7 +468,10 @@ print_r('</pre>');
                 );
                 $arrSolr = $this->getSolrResult($arrParams);
 print_r('<pre>');
-print_r($arrSolr['reponse']['numFound'].'<br />');
+print_r($arrParams);
+print_r('</pre>');
+print_r('<pre>');
+print_r(count($arrSolr['reponse']['docs']).'<br />');
 print_r('</pre>');
                 if ($arrSolr['reponse']['docs']) {
                     $arr['FIRSTIMPORT'] = $arrSolr['reponse']['docs'][0]['DATEINDEXED'];
