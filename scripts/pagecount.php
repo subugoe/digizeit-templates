@@ -40,6 +40,7 @@ class vgwort {
             'metsResolver' => 'http://www.digizeitschriften.de/dms/metsresolver/?PPN=',
             'solrPhpsUrl' => 'http://localhost:8080/digizeit/select/?wt=phps',
             'arrSerFields' => array('ACL', 'STRUCTRUN', 'PRE', 'SUC'),
+            'digizeitonly' => '((ACL:free OR ACL:gesmtabo) AND NOT(ACL:ubfrankfurt OR ACL:ubheidelberg OR ACL:ubtuebingen OR ACL:ubweimar OR ACL:zbwkieldigire)) ',
         );
 //####################################################################################
 //## END CONFIG ######################################################################
@@ -112,6 +113,11 @@ class vgwort {
             $arrAcl = array();
             if(!in_array('all', $this->POST['license'])) {
                 foreach($this->POST['license'] as $license) {
+                    if($license == 'digizeitonly') [
+                        $arrAcl = array();
+                        $arrAcl[] = $this->config[$license];
+                        break;
+                    ]
                     $arrAcl[] = 'ACL:"'.$license.'"';
                 }
                 $arrQuery[] = '('.implode(' OR ',$arrAcl).')';
@@ -499,10 +505,16 @@ print_r('</pre>');
         $arrSolr = $this->getSolrResult($arrParams);
         $arrACL = $arrSolr['facet_counts']['facet_fields']['ACL'];
         $arrACL = array_merge(array('all'=>'All'), $arrACL);
+        $arrACL = array_merge(array('digizeitonly'=>'DigiZeitschriften'), $arrACL);
 
         $i = 0;
         foreach($arrACL as $acl=>$count) {
             $license[$i]['item'] = $acl;
+            if($acl=='all' || $acl=='digizeitonly') {
+                $license[$i]['value'] = $count;
+            } else {
+                $license[$i]['value'] = $acl;
+            }
             if(isset($this->POST['license'])) {
                 if(in_array($license[$i]['item'],$this->POST['license'])) {
                     $license[$i]['selected'] = 'selected="selected"';
@@ -518,7 +530,7 @@ print_r('</pre>');
         reset($license);
         $this->content .= '<select name="license[]" size="10" multiple>'."\n";
         foreach($license as $val) {
-                $this->content .= '<option value="'.strtolower($val['item']).'" '.$val['selected'].'>'.$val['item'].'</option>'."\n";
+                $this->content .= '<option value="'.strtolower($val['item']).'" '.$val['selected'].'>'.$val['value'].'</option>'."\n";
         }
         $this->content .= '</select>'."\n";
     }
