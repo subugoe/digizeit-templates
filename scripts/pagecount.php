@@ -168,7 +168,16 @@ class vgwort {
                     $this->arrResult[$periodical['PPN']] = $periodical;
                 }
             }
-
+print_r('<pre>');
+print_r('all: '.count($arrPeriodicalSolr['response']['docs']).'<br />');
+print_r('</pre>');
+print_r('<pre>');
+print_r('master: '.count($this->arrResult).'<br />');
+print_r('</pre>');
+print_r('<pre>');
+print_r('slave: '.count($this->arrPredecessor).'<br />');
+print_r('</pre>');
+exit();
             foreach ($this->arrPredecessor as $id => $periodical) {
                 $this->getInfoFromMets($this->arrPredecessor[$id]);
 //                $this->getInfoFromCache($this->arrResult[$id]);
@@ -213,7 +222,7 @@ class vgwort {
             }
             // end volumes            
 print_r('<pre>');
-print_r($this->arrResult);
+//print_r($this->arrResult);
 print_r('</pre>');
         }
         /*
