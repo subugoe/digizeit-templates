@@ -203,8 +203,8 @@ class vgwort {
             }
             
             // add info to predecessors
-            foreach ($this->arrPredecessor as $id => $periodical) {
-                  $this->getInfoFromMets($this->arrPredecessor[$id]);
+            foreach ($this->arrPredecessor as $ppn=> $periodical) {
+                  $this->getInfoFromMets($this->arrPredecessor[$ppn]);
             }
 
             // add info and predecessors to journals
@@ -219,7 +219,7 @@ class vgwort {
             // end periodicals
             
 print_r('<pre>');
-print_r($this->arrResult);
+//print_r($this->arrResult);
 print_r('</pre>');
         }
 
@@ -483,7 +483,7 @@ print_r('</pre>');
                 }
 
 print_r('<pre>');
-print_r($arr['volumes'][0]['PAGES']);
+print_r($arr['volumes']);
 print_r('</pre>');
                 foreach($arr['volumes'] as $volume) {
 print_r('<pre>');
