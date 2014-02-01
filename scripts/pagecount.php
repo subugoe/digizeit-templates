@@ -223,6 +223,14 @@ class vgwort {
             $count = 0;
             $arrLines = array();
             foreach ($this->arrResult as $periodical) {
+                if(isset($this->POST['license']['digizeitonly'])) {
+                    foreach($periodical['ACL'] as $key=>$license) {
+                        $periodical['ACL'][$key] = strtolower($license);
+                    }
+                    if(!in_array('gesamtabo',$periodical['ACL'])) {
+                        continue;
+                    }
+                }
                 $count++;
                 $periodical['linenumber'] = $count;
                 $arrLines[] = $this->getLine($periodical);
