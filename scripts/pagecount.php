@@ -55,8 +55,12 @@ class vgwort {
     function main () {
 
         $this->config['cache'] = sys_get_temp_dir() . $this->config['cache'];
+print_r('<pre>');
+print_r($this->config['cache']);
+print_r('</pre>');
+        
         if(!is_array($this->cache)) {
-            $str = file_get_contents('./'.$this->config['cache']);
+            $str = file_get_contents($this->config['cache']);
             if($str) {
                 $this->cache = json_decode($str, true);
             }
@@ -427,56 +431,54 @@ print_r('</pre>');
     function getInfoFromMets(&$arr) {
         if($this->cache['mofified'] < $arr['DATEMODIFIED']) {
             unset($this->cache[$arr['PPN']]);
+
+            $dom = mets::openMetsAsDom($arr['PPN']);
+            if(!$dom) {
+                return false;
+            }
+            $xpath = mets::openXPath($dom);
+            if(!$xpath) {
+                return false;
+            }        
+            //copyright
+            $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:accessCondition[@type="copyright"]');
+            if($nodeList->length) {
+                $arr['COPYRIGHT'] = trim($nodeList->item(0)->nodeValue);
+                $this->cache[$arr['PPN']]['COPYRIGHT'] =  $arr['COPYRIGHT'];
+                $this->updateCache();
+            }
+
+            //scanned pages
+            if(strtolower($arr['DOCSTRCT'])=='periodicalvolume') {
+                $nodeList = $xpath->evaluate('/mets:mets/mets:structMap[@TYPE="PHYSICAL"]/mets:div/mets:div');
+                if($nodeList->length) {
+                    $arr['PAGES'] = $nodeList->length;
+                    $this->cache[$arr['PPN']]['PAGES'] =  $arr['PAGES'];
+                }
+            }
+
+            //first- / last Import
+            if(strtolower($arr['DOCSTRCT'])=='periodical') {
+                $arrParams = array(
+                    'q' => urlencode('ISWORK:1 AND IDPARENTDOC:"'.$arr['PPN'].'"'),
+                    'start' => 0,
+                    'rows' => 9999,
+                    'sort' => 'DATEINDEXED+asc'
+                );
+                $arrSolr = $this->getSolrResult($arrParams);
+                if($arrSolr['reponse']['docs']) {
+                    $arr['FIRSTIMPORT'] = $arrSolr['reponse']['docs'][0]['DATEINDEXED'];
+                    $this->cache[$arr['PPN']]['FIRSTIMPORT'] =  $arr['FIRSTIMPORT'];
+                    $arr['LASTIMPORT'] = $arrSolr['reponse']['docs'][count($arrSolr['reponse']['docs'])-1]['DATEINDEXED'];
+                    $this->cache[$arr['PPN']]['LASTIMPORT'] =  $arr['LASTIMPORT'];
+                }
+            }
             $this->updateCache();
         } else {
             if($this->cache[$arr['PPN']]) {
                 foreach($this->cache[$arr['PPN']] as $key=>$val) {
                     $arr[$key] = $val;
                 }
-                return;
-            }
-        }
-        $dom = mets::openMetsAsDom($arr['PPN']);
-        if(!$dom) {
-            return false;
-        }
-        $xpath = mets::openXPath($dom);
-        if(!$xpath) {
-            return false;
-        }        
-        //copyright
-        $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:accessCondition[@type="copyright"]');
-        if($nodeList->length) {
-            $arr['COPYRIGHT'] = trim($nodeList->item(0)->nodeValue);
-            $this->cache[$arr['PPN']]['COPYRIGHT'] =  $arr['COPYRIGHT'];
-            $this->updateCache();
-        }
-
-        //scanned pages
-        if(strtolower($arr['DOCSTRCT'])=='periodicalvolume') {
-            $nodeList = $xpath->evaluate('/mets:mets/mets:structMap[@TYPE="PHYSICAL"]/mets:div/mets:div');
-            if($nodeList->length) {
-                $arr['PAGES'] = $nodeList->length;
-                $this->cache[$arr['PPN']]['PAGES'] =  $arr['PAGES'];
-                $this->updateCache();
-            }
-        }
-
-        //first- / last Import
-        if(strtolower($arr['DOCSTRCT'])=='periodical') {
-            $arrParams = array(
-                'q' => urlencode('ISWORK:1 AND IDPARENTDOC:"'.$arr['PPN'].'"'),
-                'start' => 0,
-                'rows' => 9999,
-                'sort' => 'DATEINDEXED+asc'
-            );
-            $arrSolr = $this->getSolrResult($arrParams);
-            if($arrSolr['reponse']['docs']) {
-                $arr['FIRSTIMPORT'] = $arrSolr['reponse']['docs'][0]['DATEINDEXED'];
-                $this->cache[$arr['PPN']]['FIRSTIMPORT'] =  $arr['FIRSTIMPORT'];
-                $arr['LASTIMPORT'] = $arrSolr['reponse']['docs'][count($arrSolr['reponse']['docs'])-1]['DATEINDEXED'];
-                $this->cache[$arr['PPN']]['LASTIMPORT'] =  $arr['LASTIMPORT'];
-                $this->updateCache();
             }
         }
         
@@ -761,7 +763,7 @@ print_r('</pre>');
     
     function updateCache() {
         $this->cache['modified'] = date('Ymd', time());
-        file_put_contents('./'.$this->config['cache'],  json_encode($this->cache));
+        file_put_contents($this->config['cache'],  json_encode($this->cache));
     }
     
     function _unserialize($str) {
