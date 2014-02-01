@@ -45,7 +45,7 @@ class vgwort {
         'metsResolver' => 'http://www.digizeitschriften.de/dms/metsresolver/?PPN=',
         'solrPhpsUrl' => 'http://localhost:8080/digizeit/select/?wt=phps',
         'arrSerFields' => array('ACL', 'STRUCTRUN', 'PRE', 'SUC'),
-        'digizeitonly' => '((ACL:free OR ACL:gesmtabo) AND NOT(ACL:ubfrankfurt OR ACL:ubheidelberg OR ACL:ubtuebingen OR ACL:ubweimar OR ACL:zbwkieldigire)) ',
+        'digizeitonly' => '((ACL:free OR ACL:gesamtabo) AND NOT(ACL:ubfrankfurt OR ACL:ubheidelberg OR ACL:ubtuebingen OR ACL:ubweimar OR ACL:zbwkieldigire)) ',
     );
 
 //####################################################################################
@@ -143,7 +143,7 @@ class vgwort {
             $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $this->POST['end']['day'][0];
 
             //get all periodicals from start!
-            $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[000000 TO ' . $this->end . ']';
+            $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[00000000 TO ' . $this->end . ']';
 
             if (count($arrQuery)) {
                 $q = implode(' AND ', $arrQuery) . ' AND ' . $periodicalQuery;
