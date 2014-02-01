@@ -223,7 +223,7 @@ class vgwort {
             $count = 0;
             $arrLines = array();
             foreach ($this->arrResult as $periodical) {
-                if(isset($this->POST['license']['digizeitonly'])) {
+                if(in_array('digizeitonly', $this->POST['license'])) {
                     foreach($periodical['ACL'] as $key=>$license) {
                         $periodical['ACL'][$key] = strtolower($license);
                     }
