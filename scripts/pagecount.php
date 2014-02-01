@@ -142,9 +142,27 @@ class vgwort {
             $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . $this->POST['start']['day'][0];
             $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $this->POST['end']['day'][0];
 
+            // volumes
+            $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
+
+            if (count($arrQuery)) {
+                $q = implode(' AND ', $arrQuery) . ' AND ' . $volumeQuery;
+            } else {
+                $q = $volumeQuery;
+            }
+            $arrParams = array(
+                'q' => urlencode($q),
+                'start' => 0,
+                'rows' => 99999,
+                'sort' => 'CURRENTNOSORT+asc'
+            );
+            $arrVolumeSolr = $this->getSolrResult($arrParams);
+            // end volumes            
+            
+            
             //get all periodicals from start!
             $periodicalQuery = 'DOCSTRCT:periodical AND DATEINDEXED:[00000000 TO ' . $this->end . ']';
-
+            
             if (count($arrQuery)) {
                 $q = implode(' AND ', $arrQuery) . ' AND ' . $periodicalQuery;
             } else {
@@ -159,6 +177,12 @@ class vgwort {
             );
             $arrPeriodicalSolr = $this->getSolrResult($arrParams);
 
+            foreach ($arrVolumeSolr['response']['docs'] as $volume) {
+                $this->getInfoFromMets($volume);
+                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
+            }
+            
             $this->arrResult = array();
             $this->arrPredecessor = array();
             foreach ($arrPeriodicalSolr['response']['docs'] as $periodical) {
@@ -169,6 +193,13 @@ class vgwort {
                 }
             }
 
+            foreach ($arrVolumeSolr['response']['docs'] as $volume) {
+                $this->getInfoFromMets($volume);
+                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                $this->arrPredecessor[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+            }
+            
+            
             foreach ($this->arrPredecessor as $id => $periodical) {
                 $this->getInfoFromMets($this->arrPredecessor[$id]);
 //                $this->getInfoFromCache($this->arrResult[$id]);
@@ -188,30 +219,6 @@ class vgwort {
             }
             // end periodicals
             
-            // volumes
-            $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
-
-            if (count($arrQuery)) {
-                $q = implode(' AND ', $arrQuery) . ' AND ' . $volumeQuery;
-            } else {
-                $q = $volumeQuery;
-            }
-            $arrParams = array(
-                'q' => urlencode($q),
-                'start' => 0,
-                'rows' => 99999,
-                'sort' => 'CURRENTNOSORT+asc'
-            );
-            $arrVolumeSolr = $this->getSolrResult($arrParams);
-
-            foreach ($arrVolumeSolr['response']['docs'] as $volume) {
-                $this->getInfoFromMets($volume);
-                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
-                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
-                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
-                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
-            }
-            // end volumes            
 print_r('<pre>');
 print_r($this->arrResult);
 print_r('</pre>');
