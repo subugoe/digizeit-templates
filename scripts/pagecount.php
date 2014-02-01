@@ -471,12 +471,12 @@ print_r('<pre>');
 print_r($arrParams);
 print_r('</pre>');
 print_r('<pre>');
-print_r(count($arrSolr['reponse']['docs']).'<br />');
+print_r(count($arrSolr['response']['docs']).'<br />');
 print_r('</pre>');
-                if ($arrSolr['reponse']['docs']) {
-                    $arr['FIRSTIMPORT'] = $arrSolr['reponse']['docs'][0]['DATEINDEXED'];
+                if ($arrSolr['response']['docs']) {
+                    $arr['FIRSTIMPORT'] = $arrSolr['response']['docs'][0]['DATEINDEXED'];
                     $this->cache[$arr['PPN']]['FIRSTIMPORT'] = $arr['FIRSTIMPORT'];
-                    $arr['LASTIMPORT'] = $arrSolr['reponse']['docs'][count($arrSolr['reponse']['docs']) - 1]['DATEINDEXED'];
+                    $arr['LASTIMPORT'] = $arrSolr['response']['docs'][count($arrSolr['response']['docs']) - 1]['DATEINDEXED'];
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
             }
