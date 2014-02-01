@@ -160,24 +160,24 @@ class vgwort {
             $arrPeriodicalSolr = $this->getSolrResult($arrParams);
 
             $this->arrResult = array();
-            $this->arrSuccessors = array();
+            $this->arrPredecessor = array();
             foreach ($arrPeriodicalSolr['response']['docs'] as $periodical) {
                 if (!isset($periodical['PRE'])) {
                     $this->arrResult[$periodical['PPN']] = $periodical;
                 } else {
-                    $this->arrSuccessors[$periodical['PPN']] = $periodical;
+                    $this->arrPredecessor[$periodical['PPN']] = $periodical;
                 }
             }
 
-            foreach ($this->arrSuccessors as $id => $periodical) {
-                $this->getInfoFromMets($this->arrSuccessors[$id]);
+            foreach ($this->arrPredecessor as $id => $periodical) {
+                $this->getInfoFromMets($this->arrPredecessor[$id]);
 //                $this->getInfoFromCache($this->arrResult[$id]);
             }
 
             foreach ($this->arrResult as $ppn => $periodical) {
                 if (isset($periodical['SUC'])) {
                     foreach ($periodical['SUC'] as $_ppn) {
-                        $this->getSuccessors($ppn, $_ppn);
+                        $this->getPredecessor($ppn, $_ppn);
                     }
                 }
             }
@@ -207,6 +207,9 @@ class vgwort {
             foreach ($arrVolumeSolr['response']['docs'] as $volume) {
                 $this->getInfoFromMets($volume);
                 $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
+                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
             }
             // end volumes            
 print_r('<pre>');
@@ -418,11 +421,11 @@ print_r('</pre>');
 //## end MAIN ########################################################################
 //####################################################################################
 
-    function getSuccessors($ppn, $_ppn) {
-        $this->arrResult[$ppn]['SUCCESSOR'][$_ppn] = $this->arrSuccessors[$_ppn];
-        if ($this->arrSuccessors[$_ppn]['SUC']) {
-            foreach ($this->arrSuccessors[$_ppn]['SUC'] as $PPN) {
-                $this->getSuccessors($ppn, $PPN);
+    function getPredecessor($ppn, $_ppn) {
+        $this->arrResult[$ppn]['PREDECESSOR'][$_ppn] = $this->arrPredecessor[$_ppn];
+        if ($this->arrPredecessor[$_ppn]['SUC']) {
+            foreach ($this->arrPredecessor[$_ppn]['SUC'] as $PPN) {
+                $this->getPredecessor($ppn, $PPN);
             }
         }
     }
