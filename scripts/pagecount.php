@@ -57,9 +57,6 @@ class vgwort {
     function main() {
 
         $this->config['cache'] = sys_get_temp_dir() . $this->config['cache'];
-        print_r('<pre>');
-        print_r($this->config['cache']);
-        print_r('</pre>');
 
         if (!is_array($this->cache)) {
             $str = file_get_contents($this->config['cache']);
@@ -81,7 +78,7 @@ class vgwort {
         $this->config['end'] = date("Ymd", time());
 
         $this->POST = t3lib_div::_POST();
-//print_r($this->POST);
+
         $this->content .= '<table>' . "\n";
         $this->content .= '<tr><td colspan="6">&nbsp;</td></tr>' . "\n";
 
@@ -208,9 +205,9 @@ class vgwort {
 //                $this->getInfoFromCache($this->arrResult[$id]);
             }
 
-            print_r('<pre>');
-            print_r($this->arrResult);
-            print_r('</pre>');
+print_r('<pre>');
+print_r($this->arrResult);
+print_r('</pre>');
         }
         /*
           // create excel sheets
@@ -431,7 +428,7 @@ class vgwort {
             unset($this->cache[$arr['PPN']]);
 
             $dom = new DOMDocument('1.0', 'UTF-8');
-            $test = $dom->load($this->config['metsResolver'].trim($arr['PPN']));
+            $test = $dom->load($this->config['metsResolver'].trim($arr['PPN']).'.xml');
             if (!$test) {
                 return false;
             }
@@ -446,8 +443,14 @@ class vgwort {
             }
 
             //scanned pages
+print_r('<pre>');
+print_r(strtolower($arr['DOCSTRCT']).'<br />');
+print_r('</pre>');
             if (strtolower($arr['DOCSTRCT']) == 'periodicalvolume') {
                 $nodeList = $xpath->evaluate('/mets:mets/mets:structMap[@TYPE="PHYSICAL"]/mets:div/mets:div');
+print_r('<pre>');
+print_r($nodeList->length.'<br />');
+print_r('</pre>');
                 if ($nodeList->length) {
                     $arr['PAGES'] = $nodeList->length;
                     $this->cache[$arr['PPN']]['PAGES'] = $arr['PAGES'];
@@ -455,6 +458,9 @@ class vgwort {
             }
 
             //first- / last Import
+print_r('<pre>');
+print_r(strtolower($arr['DOCSTRCT']).'<br />');
+print_r('</pre>');
             if (strtolower($arr['DOCSTRCT']) == 'periodical') {
                 $arrParams = array(
                     'q' => urlencode('ISWORK:1 AND IDPARENTDOC:"' . $arr['PPN'] . '"'),
@@ -463,6 +469,9 @@ class vgwort {
                     'sort' => 'DATEINDEXED+asc'
                 );
                 $arrSolr = $this->getSolrResult($arrParams);
+print_r('<pre>');
+print_r($arrSolr['reponse']['numFound'].'<br />');
+print_r('</pre>');
                 if ($arrSolr['reponse']['docs']) {
                     $arr['FIRSTIMPORT'] = $arrSolr['reponse']['docs'][0]['DATEINDEXED'];
                     $this->cache[$arr['PPN']]['FIRSTIMPORT'] = $arr['FIRSTIMPORT'];
