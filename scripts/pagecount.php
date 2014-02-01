@@ -66,8 +66,6 @@ class vgwort {
         }
         if (!is_array($this->cache)) {
             $this->cache = array();
-            $this->cache['modified'] = date('Ymd', time());
-            $this->updateCache();
         }
 
 
@@ -424,11 +422,11 @@ print_r('</pre>');
     }
 
     function getInfoFromMets(&$arr) {
-        if ($this->cache['mofified'] < $arr['DATEMODIFIED']) {
+        if (!isset($this->cache[$arr['PPN']]['cachemodified']) OR $this->cache[$arr['PPN']]['cachemodified'] < $arr['DATEMODIFIED']) {
             unset($this->cache[$arr['PPN']]);
 
             $dom = new DOMDocument('1.0', 'UTF-8');
-            $test = $dom->load($this->config['metsResolver'].trim($arr['PPN']).'.xml');
+            $test = $dom->load($this->config['metsResolver'].trim($arr['PPN']));
             if (!$test) {
                 return false;
             }
@@ -479,7 +477,7 @@ print_r('</pre>');
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
             }
-            $this->updateCache();
+            $this->updateCache([$arr['PPN']]);
         } else {
             if ($this->cache[$arr['PPN']]) {
                 foreach ($this->cache[$arr['PPN']] as $key => $val) {
@@ -763,8 +761,8 @@ print_r('</pre>');
         return $arrSolr;
     }
 
-    function updateCache() {
-        $this->cache['modified'] = date('Ymd', time());
+    function updateCache($ppn) {
+        $this->cache[$ppn]['cachemodified'] = date('Ymd', time());
         file_put_contents($this->config['cache'], json_encode($this->cache));
     }
 
