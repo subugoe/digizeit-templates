@@ -34,7 +34,8 @@ class vgwort {
 //## CONFIG ##########################################################################
 //####################################################################################
 	var $config = array(
-            'start' => "20020730",
+            'cache' => 'pagecount.cache',
+            'start' => '20020730',
             'arrWall' => array('1925'),
             'ppnResolver' => 'http://resolver.sub.uni-goettingen.de/purl/?',
             'metsResolver' => 'http://www.digizeitschriften.de/dms/metsresolver/?PPN=',
@@ -51,6 +52,17 @@ class vgwort {
 //####################################################################################
     function main () {
 
+        if(!is_array($this->cache)) {
+            $str = file_get_contents('./'.$this->config['cache']);
+            if($str) {
+                $this->cache = json_decode($str, true);
+            }
+        }
+        if(!is_array($this->cache)) {
+            $this->cache = array();
+            $this->cache['modified'] = date('Ymd', time());
+        }
+        
         mets::init();
         
         berkeley::init();
@@ -150,9 +162,6 @@ class vgwort {
             } else {
                 $q = $periodicalQuery;
             }
-print_r('<pre>');
-print_r($periodicalQuery."\n");
-print_r('</pre>');
 
             $arrParams = array(
                 'q' => urlencode($q),
@@ -412,6 +421,17 @@ print_r('</pre>');
     
 
     function getInfoFromMets(&$arr) {
+        if($this->cache['mofified'] < $arr['DATEMODIFIED']) {
+            unset($this->cache[$arr['PPN']]);
+            $this->updateCache();
+        } else {
+            if($this->cache[$arr['PPN']]) {
+                foreach($this->cache[$arr['PPN']] as $key=>$val) {
+                    $arr['PPN'][$key] = $val;
+                }
+                return;
+            }
+        }
         $dom = mets::openMetsAsDom($arr['PPN']);
         if(!$dom) {
             return false;
@@ -424,7 +444,38 @@ print_r('</pre>');
         $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:accessCondition[@type="copyright"]');
         if($nodeList->length) {
             $arr['COPYRIGHT'] = trim($nodeList->item(0)->nodeValue);
-        }    
+            $this->cache[$arr['PPN']]['COPYRIGHT'] =  $arr['COPYRIGHT'];
+            $this->updateCache();
+        }
+
+        //scanned pages
+        if(strtolower($arr['DOCSTRCT'])=='periodicalvolume') {
+            $nodeList = $xpath->evaluate('/mets:mets/mets:structMap[@TYPE="PHYSICAL"]/mets:div/mets:div');
+            if($nodeList->length) {
+                $arr['PAGES'] = $nodeList->length;
+                $this->cache[$arr['PPN']]['PAGES'] =  $arr['PAGES'];
+                $this->updateCache();
+            }
+        }
+
+        //first- / last Import
+        if(strtolower($arr['DOCSTRCT'])=='periodical') {
+            $arrParams = array(
+                'q' => urlencode('ISWORK:1 AND IDPARENTDOC:"'.$arr['PPN'].'"'),
+                'start' => 0,
+                'rows' => 9999,
+                'sort' => 'DATINDEXED+asc'
+            );
+            $arrSolr = $this->getSolrResult($arrParams);
+            if($arrSolr['reponse']['docs']) {
+                $arr['FIRSTIMPORT'] = $arrSolr['reponse']['docs'][0]['DATEINDEXED'];
+                $this->cache[$arr['PPN']]['FIRSTIMPORT'] =  $arr['FIRSTIMPORT'];
+                $arr['LASTIMPORT'] = $arrSolr['reponse']['docs'][count($arrSolr['reponse']['docs'])-1]['DATEINDEXED'];
+                $this->cache[$arr['PPN']]['LASTIMPORT'] =  $arr['LASTIMPORT'];
+                $this->updateCache();
+            }
+        }
+        
     }
 
     function getInfoFromCache(&$arr) {
@@ -702,6 +753,11 @@ print_r('</pre>');
             }
         }
         return $arrSolr;
+    }
+    
+    function updateCache() {
+        $this->cache['modofied'] = date('Ymd, time()');
+        file_put_contents('./'.$this->config['cache'],  json_encode($this->cache));
     }
     
     function _unserialize($str) {
