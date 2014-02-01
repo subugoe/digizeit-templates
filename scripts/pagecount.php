@@ -213,7 +213,7 @@ class vgwort {
             }
             // end volumes            
 print_r('<pre>');
-//print_r($this->arrResult);
+print_r($this->arrResult);
 print_r('</pre>');
         }
         /*
