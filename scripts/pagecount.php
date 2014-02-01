@@ -482,12 +482,18 @@ print_r('</pre>');
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
 
-                foreach($arr['PPN']['volumes'] as $volume) {
-                    $arr['PPN']['PAGES'] += $volume['PAGES'];
+print_r('<pre>');
+print_r($volume['PAGES']);
+print_r('</pre>');
+                foreach($arr[$arr['PPN']]['volumes'] as $volume) {
+print_r('<pre>');
+print_r($volume['PAGES']);
+print_r('</pre>');
+                    $arr[$arr['PPN']]['PAGES'] += $volume['PAGES'];
                 }
-                foreach($arr['PPN']['PREDECESSOR'] as $ppn=>$journal) {
+                foreach($arr[$arr['PPN']]['PREDECESSOR'] as $ppn=>$journal) {
                     foreach($journal['volumes'] as $volume) {
-                        $arr['PPN']['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
+                        $arr[$arr['PPN']]['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
                     }
                 }
             }
