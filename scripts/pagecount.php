@@ -184,16 +184,22 @@ class vgwort {
             foreach ($arrPeriodicalSolr['response']['docs'] as $periodical) {
                 if(isset($periodical['SUC'])) {
                     $this->arrPredecessor[$periodical['PPN']] = $periodical;
+                    $this->arrPredecessor[$periodical['PPN']]['PAGES'] = 0;                    
                 } else {
                     $this->arrResult[$periodical['PPN']] = $periodical;
+                    $this->arrResult[$periodical['PPN']]['PAGES'] = 0;                    
                 }
             }
 
             // add volumes to journals
             foreach($arrVolumeSolr['response']['docs'] as $volume) {
                 $this->getInfoFromMets($volume);
-                $this->arrPredecessor[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
-                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                if(isset($this->arrPredecessor[$volume['STRUCTRUN'][0]['PPN']])) { 
+                    $this->arrPredecessor[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                }
+                if(isset($this->arrResult[$volume['STRUCTRUN'][0]['PPN']])) { 
+                    $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                }
             }
             
             // add info to predecessors
@@ -475,18 +481,17 @@ print_r('</pre>');
                     $arr['LASTIMPORT'] = $arrSolr['response']['docs'][count($arrSolr['response']['docs']) - 1]['DATEINDEXED'];
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
-            }
-            
-            foreach($arr['PPN']['volumes'] as $volume) {
-                $arr['PPN']['PAGES'] += $volume['PAGES'];
-            }
-            foreach($arr['PPN']['PREDECESSOR'] as $ppn=>$journal) {
-                foreach($journal['volumes'] as $volume) {
-                    $arr['PPN']['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
+
+                foreach($arr['PPN']['volumes'] as $volume) {
+                    $arr['PPN']['PAGES'] += $volume['PAGES'];
+                }
+                foreach($arr['PPN']['PREDECESSOR'] as $ppn=>$journal) {
+                    foreach($journal['volumes'] as $volume) {
+                        $arr['PPN']['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
+                    }
                 }
             }
-
-            
+                        
             $this->updateCache($arr['PPN']);
         } else {
             if ($this->cache[$arr['PPN']]) {
