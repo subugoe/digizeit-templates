@@ -114,7 +114,7 @@ class vgwort {
                 foreach($this->POST['license'] as $license) {
                     $arrAcl[] = 'ACL:"'.$license.'"';
                 }
-                $arrQuery[] = '('.implode(' AND ',$arrAcl).')';
+                $arrQuery[] = '('.implode(' OR ',$arrAcl).')';
             }
             
             $this->start = $this->POST['start']['year'][0].$this->POST['start']['month'][0].$this->POST['start']['day'][0];
