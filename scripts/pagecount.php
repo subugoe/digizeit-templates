@@ -179,8 +179,8 @@ class vgwort {
 
             foreach ($arrVolumeSolr['response']['docs'] as $volume) {
                 $this->getInfoFromMets($volume);
-                $arrVolumeSolr['response']['docs'][$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
-                $arrVolumeSolr['response']['docs'][$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
+                $arrPeriodicalSolr['response']['docs'][$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                $arrPeriodicalSolr['response']['docs'][$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
             }
             
             // seperating main journals from predecessors
