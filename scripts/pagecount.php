@@ -179,44 +179,44 @@ class vgwort {
 
             foreach ($arrVolumeSolr['response']['docs'] as $volume) {
                 $this->getInfoFromMets($volume);
-                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
-                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
+                $arrVolumeSolr['response']['docs'][$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                $arrVolumeSolr['response']['docs'][$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
             }
             
+            // seperating main journals from predecessors
             $this->arrResult = array();
             $this->arrPredecessor = array();
             foreach ($arrPeriodicalSolr['response']['docs'] as $periodical) {
                 if(isset($periodical['SUC'])) {
                     $this->arrPredecessor[$periodical['PPN']] = $periodical;
+                    $this->getInfoFromMets($this->arrPredecessor[$periodical['PPN']]);
                 } else {
                     $this->arrResult[$periodical['PPN']] = $periodical;
                 }
             }
-
-            foreach ($arrVolumeSolr['response']['docs'] as $volume) {
-                $this->getInfoFromMets($volume);
-                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
-                $this->arrPredecessor[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
-            }
             
-            
-            foreach ($this->arrPredecessor as $id => $periodical) {
+ /*
+             foreach ($this->arrPredecessor as $id => $periodical) {
+  
                 $this->getInfoFromMets($this->arrPredecessor[$id]);
 //                $this->getInfoFromCache($this->arrResult[$id]);
             }
-
+*/
             foreach ($this->arrResult as $ppn => $periodical) {
                 if (isset($periodical['PRE'])) {
                     foreach ($periodical['PRE'] as $_ppn) {
                         $this->getPredecessor($ppn, $_ppn);
                     }
                 }
+                $this->getInfoFromMets($this->arrResult[$ppn]);
             }
 
+/*
             foreach ($this->arrResult as $id => $periodical) {
                 $this->getInfoFromMets($this->arrResult[$id]);
 //                $this->getInfoFromCache($this->arrResult[$id]);
             }
+ */
             // end periodicals
             
 print_r('<pre>');
@@ -481,6 +481,17 @@ print_r('</pre>');
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
             }
+            
+            foreach($arr['PPN']['volumes'] as $volume) {
+                $arr['PPN']['PAGES'] += $volume['PAGES'];
+            }
+            foreach($arr['PPN']['PREDECESSOR'] as $ppn=>$journal) {
+                foreach($journal['volumes'] as $volume) {
+                    $arr['PPN']['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
+                }
+            }
+
+            
             $this->updateCache($arr['PPN']);
         } else {
             if ($this->cache[$arr['PPN']]) {
