@@ -477,7 +477,7 @@ print_r('</pre>');
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
             }
-            $this->updateCache([$arr['PPN']]);
+            $this->updateCache($arr['PPN']);
         } else {
             if ($this->cache[$arr['PPN']]) {
                 foreach ($this->cache[$arr['PPN']] as $key => $val) {
