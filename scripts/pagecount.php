@@ -431,7 +431,7 @@ print_r('</pre>');
         } else {
             if($this->cache[$arr['PPN']]) {
                 foreach($this->cache[$arr['PPN']] as $key=>$val) {
-                    $arr['PPN'][$key] = $val;
+                    $arr[$key] = $val;
                 }
                 return;
             }
