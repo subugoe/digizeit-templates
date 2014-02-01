@@ -219,7 +219,7 @@ class vgwort {
             // end periodicals
             
 print_r('<pre>');
-//print_r($this->arrResult);
+print_r($this->arrResult);
 print_r('</pre>');
         }
 
@@ -493,14 +493,8 @@ print_r('</pre>');
             }
         }
         
-print_r('<pre>');
-print_r($arr['volumes']);
-print_r('</pre>');
         if(is_array($arr['volumes'])) {
             foreach($arr['volumes'] as $volume) {
-print_r('<pre>');
-print_r($volume['PAGES']);
-print_r('</pre>');
                 $arr['PAGES'] += $volume['PAGES'];
             }
             foreach($arr['PREDECESSOR'] as $ppn=>$journal) {
