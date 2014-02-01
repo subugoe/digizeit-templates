@@ -61,6 +61,7 @@ class vgwort {
         if(!is_array($this->cache)) {
             $this->cache = array();
             $this->cache['modified'] = date('Ymd', time());
+            $this->updateCache();
         }
         
         mets::init();
@@ -464,7 +465,7 @@ print_r('</pre>');
                 'q' => urlencode('ISWORK:1 AND IDPARENTDOC:"'.$arr['PPN'].'"'),
                 'start' => 0,
                 'rows' => 9999,
-                'sort' => 'DATINDEXED+asc'
+                'sort' => 'DATEINDEXED+asc'
             );
             $arrSolr = $this->getSolrResult($arrParams);
             if($arrSolr['reponse']['docs']) {
