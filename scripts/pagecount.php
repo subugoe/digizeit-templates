@@ -142,7 +142,7 @@ class vgwort {
             $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . $this->POST['start']['day'][0];
             $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $this->POST['end']['day'][0];
 
-            // volumes
+            // prepare volumes
             $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
 
             if (count($arrQuery)) {
@@ -157,7 +157,7 @@ class vgwort {
                 'sort' => 'CURRENTNOSORT+asc'
             );
             $arrVolumeSolr = $this->getSolrResult($arrParams);
-            // end volumes            
+            // end prepare volumes            
             
             
             //get all periodicals from start!
@@ -177,11 +177,6 @@ class vgwort {
             );
             $arrPeriodicalSolr = $this->getSolrResult($arrParams);
 
-            foreach ($arrVolumeSolr['response']['docs'] as $volume) {
-                $this->getInfoFromMets($volume);
-                $arrPeriodicalSolr['response']['docs'][$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
-                $arrPeriodicalSolr['response']['docs'][$volume['STRUCTRUN'][0]['PPN']]['PAGES'][] += $volume['PAGES'];
-            }
             
             // seperating main journals from predecessors
             $this->arrResult = array();
@@ -189,19 +184,24 @@ class vgwort {
             foreach ($arrPeriodicalSolr['response']['docs'] as $periodical) {
                 if(isset($periodical['SUC'])) {
                     $this->arrPredecessor[$periodical['PPN']] = $periodical;
-                    $this->getInfoFromMets($this->arrPredecessor[$periodical['PPN']]);
                 } else {
                     $this->arrResult[$periodical['PPN']] = $periodical;
                 }
             }
-            
- /*
-             foreach ($this->arrPredecessor as $id => $periodical) {
-  
-                $this->getInfoFromMets($this->arrPredecessor[$id]);
-//                $this->getInfoFromCache($this->arrResult[$id]);
+
+            // add volumes to journals
+            foreach($arrVolumeSolr['response']['docs'] as $volume) {
+                $this->getInfoFromMets($volume);
+                $this->arrPredecessor[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
+                $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
             }
-*/
+            
+            // add info to predecessors
+            foreach ($this->arrPredecessor as $id => $periodical) {
+                  $this->getInfoFromMets($this->arrPredecessor[$id]);
+            }
+
+            // add info and predecessors to journals
             foreach ($this->arrResult as $ppn => $periodical) {
                 if (isset($periodical['PRE'])) {
                     foreach ($periodical['PRE'] as $_ppn) {
@@ -210,19 +210,14 @@ class vgwort {
                 }
                 $this->getInfoFromMets($this->arrResult[$ppn]);
             }
-
-/*
-            foreach ($this->arrResult as $id => $periodical) {
-                $this->getInfoFromMets($this->arrResult[$id]);
-//                $this->getInfoFromCache($this->arrResult[$id]);
-            }
- */
             // end periodicals
             
 print_r('<pre>');
 print_r($this->arrResult);
 print_r('</pre>');
         }
+
+        
         /*
           // create excel sheets
           foreach($this->POST['struct'] as $struct) {
