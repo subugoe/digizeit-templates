@@ -227,6 +227,9 @@ class vgwort {
                     foreach($periodical['ACL'] as $key=>$license) {
                         $periodical['ACL'][$key] = strtolower($license);
                     }
+print_r('<pre>');
+print_r($periodical['ACL']);
+print_r('</pre>');
                     if(!in_array('gesamtabo',$periodical['ACL'])) {
                         continue;
                     }
@@ -246,9 +249,9 @@ class vgwort {
                 
                 
                 
-print_r('<pre>');
-print_r($this->arrResult);
-print_r('</pre>');
+//print_r('<pre>');
+//print_r($this->arrResult);
+//print_r('</pre>');
         } // post
 
     }
