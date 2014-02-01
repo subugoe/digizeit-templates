@@ -150,9 +150,6 @@ class vgwort {
             } else {
                 $q = $periodicalQuery;
             }
-print_r('<pre>');
-print_r($q.'<br />');
-print_r('</pre>');
 
             $arrParams = array(
                 'q' => urlencode($q),
@@ -171,16 +168,7 @@ print_r('</pre>');
                     $this->arrResult[$periodical['PPN']] = $periodical;
                 }
             }
-print_r('<pre>');
-print_r('all: '.count($arrPeriodicalSolr['response']['docs']).'<br />');
-print_r('</pre>');
-print_r('<pre>');
-print_r('master: '.count($this->arrResult).'<br />');
-print_r('</pre>');
-print_r('<pre>');
-print_r('slave: '.count($this->arrPredecessor).'<br />');
-print_r('</pre>');
-exit();
+
             foreach ($this->arrPredecessor as $id => $periodical) {
                 $this->getInfoFromMets($this->arrPredecessor[$id]);
 //                $this->getInfoFromCache($this->arrResult[$id]);
@@ -435,8 +423,8 @@ print_r('</pre>');
 
     function getPredecessor($ppn, $_ppn) {
         $this->arrResult[$ppn]['PREDECESSOR'][$_ppn] = $this->arrPredecessor[$_ppn];
-        if ($this->arrPredecessor[$_ppn]['SUC']) {
-            foreach ($this->arrPredecessor[$_ppn]['SUC'] as $PPN) {
+        if ($this->arrPredecessor[$_ppn]['PRE']) {
+            foreach ($this->arrPredecessor[$_ppn]['PRE'] as $PPN) {
                 $this->getPredecessor($ppn, $PPN);
             }
         }
