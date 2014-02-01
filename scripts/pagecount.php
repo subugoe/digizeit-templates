@@ -483,17 +483,17 @@ print_r('</pre>');
                 }
 
 print_r('<pre>');
-print_r($volume['PAGES']);
+print_r($arr['volumes'][0]['PAGES']);
 print_r('</pre>');
-                foreach($arr[$arr['PPN']]['volumes'] as $volume) {
+                foreach($arr['volumes'] as $volume) {
 print_r('<pre>');
 print_r($volume['PAGES']);
 print_r('</pre>');
-                    $arr[$arr['PPN']]['PAGES'] += $volume['PAGES'];
+                    $arr['PAGES'] += $volume['PAGES'];
                 }
-                foreach($arr[$arr['PPN']]['PREDECESSOR'] as $ppn=>$journal) {
+                foreach($arr['PREDECESSOR'] as $ppn=>$journal) {
                     foreach($journal['volumes'] as $volume) {
-                        $arr[$arr['PPN']]['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
+                        $arr['PREDECESSOR'][$ppn]['PAGES'] += $volume['PAGES'];                
                     }
                 }
             }
