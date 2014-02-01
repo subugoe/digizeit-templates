@@ -113,11 +113,11 @@ class vgwort {
             $arrAcl = array();
             if(!in_array('all', $this->POST['license'])) {
                 foreach($this->POST['license'] as $license) {
-                    if($license == 'digizeitonly') [
+                    if($license == 'digizeitonly') {
                         $arrAcl = array();
                         $arrAcl[] = $this->config[$license];
                         break;
-                    ]
+                    }
                     $arrAcl[] = 'ACL:"'.$license.'"';
                 }
                 $arrQuery[] = '('.implode(' OR ',$arrAcl).')';
