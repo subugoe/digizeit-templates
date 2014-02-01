@@ -162,7 +162,7 @@ class vgwort {
             $this->arrResult = array();
             $this->arrPredecessor = array();
             foreach ($arrPeriodicalSolr['response']['docs'] as $periodical) {
-                if (!isset($periodical['PRE'])) {
+                if (!isset($periodical['SUC'])) {
                     $this->arrResult[$periodical['PPN']] = $periodical;
                 } else {
                     $this->arrPredecessor[$periodical['PPN']] = $periodical;
