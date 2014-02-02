@@ -1,4 +1,5 @@
 <?php
+// wird in typo3conf/realurl_conf.php verwendet
 class tx_drwiki_realurlHelper {
     // character to use instead of spaces
     var $spaceReplacement = '_';
