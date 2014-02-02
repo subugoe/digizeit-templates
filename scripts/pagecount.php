@@ -245,7 +245,7 @@ class vgwort {
                 $arrLines[] = "\n";                    
             }
             header('Content-type: text/csv; charset=UTF-8');
-            header('Content-Disposition: inline; filename="'.date('Y-m-d',time()).'_dz_statistik.csv"');
+            header('Content-Disposition: inline; filename="'.date('Y-m-d',time()).'_dz_statistik_'.$this->POST['start']['year'][0] . $this->POST['start']['month'][0].'-'.$this->POST['end']['year'][0] . $this->POST['end']['month'][0].'.csv"');
             print_r(implode('',$arrLines));                    
             exit();    
                 
