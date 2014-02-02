@@ -187,7 +187,7 @@ class vgwort {
 
             // add volumes to journals
             foreach($arrVolumeSolr['response']['docs'] as $volume) {
-                $this->getInfoFromMets($volume);
+                $this->getInfo($volume);
                 if(isset($this->arrPredecessor[$volume['STRUCTRUN'][0]['PPN']])) { 
                     $this->arrPredecessor[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
                 }
@@ -198,7 +198,7 @@ class vgwort {
             
             // add info to predecessors
             foreach ($this->arrPredecessor as $ppn=> $periodical) {
-                  $this->getInfoFromMets($this->arrPredecessor[$ppn]);
+                  $this->getInfo($this->arrPredecessor[$ppn]);
             }
 
             // add info and predecessors to journals
@@ -208,7 +208,7 @@ class vgwort {
                         $this->getPredecessor($ppn, $_ppn);
                     }
                 }
-                $this->getInfoFromMets($this->arrResult[$ppn]);
+                $this->getInfo($this->arrResult[$ppn]);
             }
             // end periodicals
             
@@ -290,7 +290,7 @@ class vgwort {
         }
     }
 
-    function getInfoFromMets(&$arr) {
+    function getInfo(&$arr) {
         if (!isset($this->cache[$arr['PPN']]['cachemodified']) OR $this->cache[$arr['PPN']]['cachemodified'] < $arr['DATEMODIFIED']) {
             unset($this->cache[$arr['PPN']]);
 
@@ -337,12 +337,24 @@ class vgwort {
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
                 
-                //date run
-                $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateOther');
-                if ($nodeList->length) {
-                    $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue);
-                    $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
-                } else {
+                //date run from otherdate
+                if(!isset($arr['DATERUN'])) {
+                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateOther');
+                    if ($nodeList->length) {  
+                        $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue);
+                        $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
+                    } 
+                }
+                //date run from note
+                if(!isset($arr['DATERUN'])) {
+                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:note[@type="date/sequential designation]"');
+                    if ($nodeList->length) {  
+                        $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue);
+                        $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
+                    } 
+                }
+                //date run from dateIssued start / end
+                if(!isset($arr['DATERUN'])) {
                     $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateIssued[@point="start"]');
                     if ($nodeList->length) {
                         $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue) . ' - ';
@@ -355,8 +367,17 @@ class vgwort {
                             $arr['DATERUN'] .= ' - ' . trim($nodeList->item(0)->nodeValue);
                         }
                     }
-                    $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
                 }
+                //date run from dateIssued
+                if(!isset($arr['DATERUN'])) {
+                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateIssued');
+                    if ($nodeList->length) {  
+                        $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue) . ' - ';
+                        $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
+                    } 
+                }
+
+                $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
                 
             }
                         
