@@ -203,8 +203,7 @@ class vgwort {
             }
 
             // add info and predecessors to journals
-            foreach ($this->arrResult as $ppn => $periodical) {
-                
+            foreach ($this->arrResult as $ppn => $periodical) {                
                 if (isset($periodical['PRE'])) {
                     foreach ($periodical['PRE'] as $_ppn) {
                         $this->getPredecessor($ppn, $_ppn);
