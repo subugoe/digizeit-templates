@@ -378,6 +378,7 @@ class vgwort {
         $arrACL = array_merge(array('digizeitonly' => 'VGWort'), $arrACL);
 
         $i = 0;
+        $selected = false;
         foreach ($arrACL as $acl => $count) {
             $license[$i]['item'] = $acl;
             if ($acl == 'all' || $acl == 'digizeitonly') {
@@ -388,6 +389,7 @@ class vgwort {
             if (isset($this->POST['license'])) {
                 if (in_array($license[$i]['item'], $this->POST['license'])) {
                     $license[$i]['selected'] = 'selected="selected"';
+                    $selected = true;
                 } else {
                     $license[$i]['selected'] = '';
                 }
@@ -396,7 +398,9 @@ class vgwort {
             }
             $i++;
         }
-
+        if(!$selected) {
+            $license[0]['selected'] = 'selected="selected"';
+        }
         reset($license);
         $this->content .= '<select name="license[]" size="10" multiple>' . "\n";
         foreach ($license as $val) {
