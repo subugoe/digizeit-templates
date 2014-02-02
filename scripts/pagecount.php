@@ -195,10 +195,6 @@ class vgwort {
                     $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
                 }
             }
-print_r('<pre>');
-print_r($this->arrResult['PPN514402342']);
-print_r('</pre>');
-exit();
             
             
             // add info to predecessors
@@ -210,21 +206,14 @@ exit();
             foreach ($this->arrResult as $ppn => $periodical) {
                 
                 if (isset($periodical['PRE'])) {
-print_r('<pre>');
-print_r($ppn.'<br />');
-print_r('</pre>');
                     foreach ($periodical['PRE'] as $_ppn) {
                         $this->getPredecessor($ppn, $_ppn);
                     }
-print_r('<pre>');
-print_r($this->arrResult[$ppn]['PREDECESSOR']);
-print_r('</pre>');
                 }
                 $this->getInfo($this->arrResult[$ppn]);
             }
 
             // end periodicals
-exit();            
             
             //output
             
@@ -295,10 +284,12 @@ exit();
     }
     
     function getPredecessor($ppn, $_ppn) {
-        $this->arrResult[$ppn]['PREDECESSOR'][$_ppn] = $this->arrPredecessor[$_ppn];
-        if ($this->arrPredecessor[$_ppn]['PRE']) {
-            foreach ($this->arrPredecessor[$_ppn]['PRE'] as $PPN) {
-                $this->getPredecessor($ppn, $PPN);
+        if(isset($this->arrPredecessor[$_ppn])) {
+            $this->arrResult[$ppn]['PREDECESSOR'][$_ppn] = $this->arrPredecessor[$_ppn];
+            if ($this->arrPredecessor[$_ppn]['PRE']) {
+                foreach ($this->arrPredecessor[$_ppn]['PRE'] as $PPN) {
+                    $this->getPredecessor($ppn, $PPN);
+                }
             }
         }
     }
