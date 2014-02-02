@@ -66,11 +66,6 @@ class vgwort {
             $this->cache = array();
         }
 
-
-        berkeley::init();
-
-
-
         $this->config['end'] = date("Ymd", time());
 
         $this->POST = t3lib_div::_POST();
