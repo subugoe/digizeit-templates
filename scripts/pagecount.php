@@ -220,8 +220,8 @@ class vgwort {
             $arrLines = array();
             //legend
             $arrLines[] = "\t" . 'DigiZeitschriften: ' . "\t" . $this->POST['start']['month'][0] . '/' . $this->POST['start']['year'][0] . ' bis ' . $this->POST['end']['month'][0] . '/' . $this->POST['end']['year'][0] . "\n"; 
-            $arrLines[] = "\n\n\n\n\n\n";
-            $arrLines[] = "\t\t\t\t\t" . 'Importierte Seiten: ' . "\t\t" . 'Band Importe' . "\t\n";
+            $arrLines[] = "\n\n\n";
+            $arrLines[] = "\t\t\t\t\t" . 'Importierte Seiten: ' . "\t\t" . 'Band Importe:' . "\t\n";
             $arrLines[] = 'Anzahl Zss.' . "\t" . 'Titel inkl. Vorgänger' . "\t" . 'Persistent URL' . "\t" . 'Verlag.' . "\t" . 'Erscheiniungsverlauf.' . "\t" . 'vor 1926' . "\t" . 'nach 1926' . "\t" . 'erster' . "\t" . 'letzter' . "\t" . 'Downloads' . "\n";
             $arrLines[] = "\n";
             foreach ($this->arrResult as $periodical) {
