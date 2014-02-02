@@ -686,7 +686,7 @@ print_r('</pre>');
                     $ppn = trim(substr(trim($node->nodeValue), $start, $length));
                     if($ppn) {
                         for($col=7; $col<=18; $col++) {
-                            $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $parent);
+                            $cellList = $xpath->evaluate('/cell[@col="'.$col.'"]', $parent);
 print_r('<pre>');
 print_r($cellList->length.'<br />');
 print_r('</pre>');
