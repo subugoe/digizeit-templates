@@ -282,7 +282,7 @@ class vgwort {
         }
         $column[7] = trim($this->dateFormat($periodical['FIRSTIMPORT']));
         $column[8] = trim($this->dateFormat($periodical['LASTIMPORT']));
-        $column[8] = trim($this->downloads[$periodical['PPN']]);
+        $column[9] = trim($this->downloads[$periodical['PPN']]);
         return implode("\t",$column)."\n";
     }
     
