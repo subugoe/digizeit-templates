@@ -689,7 +689,7 @@ exit();
             }            
         }
 print_r('<pre>');
-print_r($arrDate.'<br />');
+print_r($arrDate);
 print_r('</pre>');
 exit();        
         
