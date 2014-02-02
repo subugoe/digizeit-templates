@@ -691,18 +691,11 @@ exit();
             for($month=$startmonth; $month<=$endmonth; $month++) {
                 $arrDate[$startyear . substr('0' . $endmonth,-2)][] = $month + 6;
             }            
-        }
-print_r('<pre>');
-print_r($arrDate);
-print_r('</pre>');
-        
+        }        
         
         $xml = new DOMDocument('1.0', 'UTF-8');
         foreach($arrDate as $date=>$arrMonth) {
             $test = $xml->load($this->config['counter'].'/'.$date.'/xml/all.xml');
-print_r('<pre>');
-print_r($this->config['counter'].'/'.$date.'/xml/all.xml'.'<br />');
-print_r('</pre>');
             if($test) {
                 $xpath = new DOMXpath($xml);
                 // title nodes: "title text (PPN)"
@@ -711,37 +704,36 @@ print_r('</pre>');
                     foreach($nodeList as $node) {
                         $parent = $node->parentNode;
                         $_parent = $parent->nextSibling;
-    print_r('<pre>');
-    print_r($_parent->nodeName.'<br />');
-    print_r('</pre>');
                         while($_parent && $_parent->nodeType != XML_ELEMENT_NODE) {
                             $_parent = $_parent->nextSibling;
-    print_r('<pre>');
-    print_r($_parent->nodeName.'<br />');
-    print_r('</pre>');
                         }    
                         $start = strrpos(trim($node->nodeValue),'(') + 1;
                         $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(') - 1;
                         $ppn = trim(substr(trim($node->nodeValue), $start, $length));
+                        if(!isset($this->downloads[$ppn])) {
+                            $this->downloads[$ppn] = 0;
+                        }
                         if($ppn) {
                             foreach($arrMonth as $col) {
                                 $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $parent);
                                 if($cellList->length) {
-                                    $this->downloads[$ppn][$col]['pdf'] = trim($cellList->item(0)->nodeValue);
+                                    //$this->downloads[$ppn][$col]['pdf'] = trim($cellList->item(0)->nodeValue);
+                                    $this->downloads[$ppn] += trim($cellList->item(0)->nodeValue);
                                 }
                                 $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $_parent);
                                 if($cellList->length) {
-                                    $this->downloads[$ppn][$col]['img'] = trim($cellList->item(0)->nodeValue);
+                                    //$this->downloads[$ppn][$col]['img'] = trim($cellList->item(0)->nodeValue);
+                                    $this->downloads[$ppn] += trim($cellList->item(0)->nodeValue);
                                 }
                             }
                         }
                     }
-    print_r('<pre>');
-    print_r($this->downloads);
-    print_r('</pre>');
                 }
             }
         }
+print_r('<pre>');
+print_r($this->downloads);
+print_r('</pre>');
     }
 
 }
