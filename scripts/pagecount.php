@@ -132,8 +132,6 @@ class vgwort {
                 $arrQuery[] = '(' . implode(' OR ', $arrAcl) . ')';
             }
 
-//            $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . $this->POST['start']['day'][0];
-//            $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $this->POST['end']['day'][0];
             $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . '01';
             $lastdayofmonth = date("t",mktime(0, 0, 0, intval($this->POST['end']['month'][0]), 1, $this->POST['end']['year'][0]));            
             $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $lastdayofmonth;
@@ -220,9 +218,9 @@ class vgwort {
             $count = 0;
             $arrLines = array();
             //legend
-            $arrLines[] = 'DigiZeitschriften: '.$this->POST['start']['month'][0] . '/' . $this->POST['start']['year'][0] . ' bis ' . $this->POST['end']['month'][0] . '/' . $this->POST['end']['year'][0] . "\n"; 
+            $arrLines[] = 'DigiZeitschriften: ' . "\t\t" . $this->POST['start']['month'][0] . '/' . $this->POST['start']['year'][0] . ' bis ' . $this->POST['end']['month'][0] . '/' . $this->POST['end']['year'][0] . "\n"; 
             $arrLines[] = "\n\n\n\n\n\n";
-            $arrLines[] = "\t\t\t\t" . ' importierte Seiten: ' . "\t" . 'Band Importe' . "\t\n";
+            $arrLines[] = "\t\t\t\t" . ' importierte Seiten: ' . "\t\t" . 'Band Importe' . "\t\n";
             $arrLines[] = 'Anzahl Zss.' . "\t" . 'Titel inkl Vorgänger' . "\t" . 'Persistent URL' . "\t" . 'Verlag.' . "\t" . 'vor 1926' . "\t" . 'nach 1926' . "\t" . 'erster' . "\t" . 'letzter' . "\t" . 'Downloads' . "\n";
             $arrLines[] = "\n";
             foreach ($this->arrResult as $periodical) {
