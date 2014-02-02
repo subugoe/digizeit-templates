@@ -195,6 +195,11 @@ class vgwort {
                     $this->arrResult[$volume['STRUCTRUN'][0]['PPN']]['volumes'][] = $volume;
                 }
             }
+print_r('<pre>');
+print_r($this->arrPredecessor['PPN514402342'].'<br />');
+print_r('</pre>');
+exit();
+            
             
             // add info to predecessors
             foreach ($this->arrPredecessor as $ppn=> $periodical) {
