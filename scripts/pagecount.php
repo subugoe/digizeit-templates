@@ -214,12 +214,11 @@ class vgwort {
             }
             // end periodicals
             
-$this->downloads = array();
-$this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0], $this->POST['end']['year'][0] . $this->POST['end']['month'][0]);
-exit();
+            // get downloads from counter
+            $this->downloads = array();
+            $this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0], $this->POST['end']['year'][0] . $this->POST['end']['month'][0]);
 
-            //output
-            
+            //output            
             $count = 0;
             $arrLines = array();
             //legend
@@ -283,6 +282,7 @@ exit();
         }
         $column[7] = trim($this->dateFormat($periodical['FIRSTIMPORT']));
         $column[8] = trim($this->dateFormat($periodical['LASTIMPORT']));
+        $column[8] = trim($this->downloads[$periodical['PPN']]);
         return implode("\t",$column)."\n";
     }
     
@@ -739,11 +739,7 @@ exit();
                 }
             }
         }
-print_r('<pre>');
-print_r($this->downloads);
-print_r('</pre>');
     }
-
 }
 
 $vgwort = new vgwort;
