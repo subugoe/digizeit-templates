@@ -141,8 +141,11 @@ class vgwort {
                 $arrQuery[] = '(' . implode(' OR ', $arrAcl) . ')';
             }
 
-            $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . $this->POST['start']['day'][0];
-            $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $this->POST['end']['day'][0];
+//            $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . $this->POST['start']['day'][0];
+//            $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $this->POST['end']['day'][0];
+            $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . '01';
+            $lastdayofmonth = date("t",mktime(0, 0, 0, intval($this->POST['end']['month'][0]), 1, $this->POST['end']['year'][0]));            
+            $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $lastdayofmonth;
 
             // prepare volumes
             $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
@@ -492,6 +495,7 @@ class vgwort {
     }
 
     function getDateForm($name) {
+/*
         $this->content .= '<select name="' . $name . '[day][]" size="1">' . "\n";
         for ($day = 1; $day <= 31; $day++) {
             if (isset($this->POST[$name]['day'])) {
@@ -510,7 +514,7 @@ class vgwort {
             $this->content .= '<option value="' . substr(('0' . $day), -2) . '" ' . $selected . '>' . substr(('0' . $day), -2) . '</option>' . "\n";
         }
         $this->content .= '</select>' . "\n";
-
+*/
         $this->content .= '<select name="' . $name . '[month][]" size="1">' . "\n";
         for ($month = 1; $month <= 12; $month++) {
             if (isset($this->POST[$name]['month'])) {
