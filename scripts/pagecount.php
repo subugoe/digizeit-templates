@@ -136,9 +136,6 @@ class vgwort {
             $this->start = $this->POST['start']['year'][0] . $this->POST['start']['month'][0] . '01';
             $lastdayofmonth = date("t",mktime(0, 0, 0, intval($this->POST['end']['month'][0]), 1, $this->POST['end']['year'][0]));            
             $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $lastdayofmonth;
-
-$this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0]);
-exit();
             
             // prepare volumes
             $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
@@ -215,9 +212,12 @@ exit();
                 }
                 $this->getInfo($this->arrResult[$ppn]);
             }
-
             // end periodicals
             
+$this->downloads = array();
+$this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0]);
+exit();
+
             //output
             
             $count = 0;
@@ -680,13 +680,21 @@ print_r('</pre>');
             $nodeList = $xpath->evaluate('/excel_workbook/sheets/sheet[2]/rows/row/cell[@col="0"]');
             if($nodeList->length) {
                 foreach($nodeList as $node) {
-                    $start = strrpos(trim($node->nodeValue),'(');
-                    $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(');
-                    $ppn = substr(trim($node->nodeValue), $start, $length);
-print_r('<pre>');
-print_r($ppn.'<br />');
-print_r('</pre>');
+                    $start = strrpos(trim($node->nodeValue),'(') + 1;
+                    $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(') - 1;
+                    $ppn = trim(substr(trim($node->nodeValue), $start, $length));
+                    if($ppn) {
+                        for($col=7; $col<=18; $col++) {
+                            $cellList = $xpath->evaluate('../cell[@col="'.$col.'"', $node);
+                            if($cellList->length) {
+                                $this->downloads[$ppn][$col-6]['pdf'] = trim($cellList->nodeValue);
+                            }
+                        }
+                    }
                 }
+print_r('<pre>');
+print_r($this->downloads);
+print_r('</pre>');
             }
         }
     }
