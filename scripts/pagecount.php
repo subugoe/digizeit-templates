@@ -680,12 +680,13 @@ print_r('</pre>');
             $nodeList = $xpath->evaluate('/excel_workbook/sheets/sheet[2]/rows/row/cell[@col="0"]');
             if($nodeList->length) {
                 foreach($nodeList as $node) {
+                    $parent = $node->parentNode;
                     $start = strrpos(trim($node->nodeValue),'(') + 1;
                     $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(') - 1;
                     $ppn = trim(substr(trim($node->nodeValue), $start, $length));
                     if($ppn) {
                         for($col=7; $col<=18; $col++) {
-                            $cellList = $xpath->evaluate('../cell[@col="'.$col.'"', $node);
+                            $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $parent);
                             if($cellList->length) {
                                 $this->downloads[$ppn][$col-6]['pdf'] = trim($cellList->nodeValue);
                             }
