@@ -674,6 +674,13 @@ exit();
         $endmonth = intval(substr($start,4,2));
         $endyear = substr($start,0,4);
         $arrDate = array();
+print_r('<pre>');
+print_r($startmonth . '<br />');
+print_r($startyear . '<br />');
+print_r($endmonth . '<br />');
+print_r($endyear . '<br />');
+print_r('</pre>');
+
         if($startyear<$endyear) {
             for($year=$startyear; $year<$endyear; $year++) {
                 for($month=$startmonth; $month<=12; $month++) {
