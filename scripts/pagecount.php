@@ -674,76 +674,72 @@ exit();
         $endmonth = intval(substr($end,4,2));
         $endyear = substr($end,0,4);
         $arrDate = array();
-print_r('<pre>');
-print_r($startmonth . '<br />');
-print_r($startyear . '<br />');
-print_r($endmonth . '<br />');
-print_r($endyear . '<br />');
-print_r('</pre>');
 
         if($startyear<$endyear) {
             for($month=$startmonth; $month<=12; $month++) {
-                $arrDate[$startyear . '12'][] = $month;
+                $arrDate[$startyear . '12'][] = $month + 6;
             }
             for($year=$startyear+1; $year<$endyear; $year++) {
                 for($month=1; $month<=12; $month++) {
-                    $arrDate[$year . '12'][] = $month;
+                    $arrDate[$year . '12'][] = $month + 6;
                 }
             }
             for($month=1; $month<=$endmonth; $month++) {
-                $arrDate[$endyear . substr('0' . $endmonth,-2)][] = $month;
+                $arrDate[$endyear . substr('0' . $endmonth,-2)][] = $month + 6;
             }
         } else {
             for($month=$startmonth; $month<=$endmonth; $month++) {
-                $arrDate[$startyear . substr('0' . $endmonth,-2)][] = $month;
+                $arrDate[$startyear . substr('0' . $endmonth,-2)][] = $month + 6;
             }            
         }
 print_r('<pre>');
 print_r($arrDate);
 print_r('</pre>');
-exit();        
+        
         
         $xml = new DOMDocument('1.0', 'UTF-8');
-        $test = $xml->load($this->config['counter'].'/'.$date.'/xml/all.xml');
+        foreach($arrDate as $date=>$arrMonth) {
+            $test = $xml->load($this->config['counter'].'/'.$date.'/xml/all.xml');
 print_r('<pre>');
 print_r($this->config['counter'].'/'.$date.'/xml/all.xml'.'<br />');
 print_r('</pre>');
-        if($test) {
-            $xpath = new DOMXpath($xml);
-            // title nodes: "title text (PPN)"
-            $nodeList = $xpath->evaluate('/excel_workbook/sheets/sheet[2]/rows/row/cell[@col="0"]');
-            if($nodeList->length) {
-                foreach($nodeList as $node) {
-                    $parent = $node->parentNode;
-                    $_parent = $parent->nextSibling;
-print_r('<pre>');
-print_r($_parent->nodeName.'<br />');
-print_r('</pre>');
-                    while($_parent && $_parent->nodeType != XML_ELEMENT_NODE) {
-                        $_parent = $_parent->nextSibling;
-print_r('<pre>');
-print_r($_parent->nodeName.'<br />');
-print_r('</pre>');
-                    }    
-                    $start = strrpos(trim($node->nodeValue),'(') + 1;
-                    $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(') - 1;
-                    $ppn = trim(substr(trim($node->nodeValue), $start, $length));
-                    if($ppn) {
-                        for($col=7; $col<=18; $col++) {
-                            $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $parent);
-                            if($cellList->length) {
-                                $this->downloads[$ppn][$col-6]['pdf'] = trim($cellList->item(0)->nodeValue);
-                            }
-                            $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $_parent);
-                            if($cellList->length) {
-                                $this->downloads[$ppn][$col-6]['img'] = trim($cellList->item(0)->nodeValue);
+            if($test) {
+                $xpath = new DOMXpath($xml);
+                // title nodes: "title text (PPN)"
+                $nodeList = $xpath->evaluate('/excel_workbook/sheets/sheet[2]/rows/row/cell[@col="0"]');
+                if($nodeList->length) {
+                    foreach($nodeList as $node) {
+                        $parent = $node->parentNode;
+                        $_parent = $parent->nextSibling;
+    print_r('<pre>');
+    print_r($_parent->nodeName.'<br />');
+    print_r('</pre>');
+                        while($_parent && $_parent->nodeType != XML_ELEMENT_NODE) {
+                            $_parent = $_parent->nextSibling;
+    print_r('<pre>');
+    print_r($_parent->nodeName.'<br />');
+    print_r('</pre>');
+                        }    
+                        $start = strrpos(trim($node->nodeValue),'(') + 1;
+                        $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(') - 1;
+                        $ppn = trim(substr(trim($node->nodeValue), $start, $length));
+                        if($ppn) {
+                            foreach($arrMonth as $col) {
+                                $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $parent);
+                                if($cellList->length) {
+                                    $this->downloads[$ppn][$col]['pdf'] = trim($cellList->item(0)->nodeValue);
+                                }
+                                $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $_parent);
+                                if($cellList->length) {
+                                    $this->downloads[$ppn][$col]['img'] = trim($cellList->item(0)->nodeValue);
+                                }
                             }
                         }
                     }
+    print_r('<pre>');
+    print_r($this->downloads);
+    print_r('</pre>');
                 }
-print_r('<pre>');
-print_r($this->downloads);
-print_r('</pre>');
             }
         }
     }
