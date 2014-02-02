@@ -687,6 +687,9 @@ print_r('</pre>');
                     if($ppn) {
                         for($col=7; $col<=18; $col++) {
                             $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $parent);
+print_r('<pre>');
+print_r($cellList->length.'<br />');
+print_r('</pre>');
                             if($cellList->length) {
                                 $this->downloads[$ppn][$col-6]['pdf'] = trim($cellList->nodeValue);
                             }
