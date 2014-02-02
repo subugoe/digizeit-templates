@@ -681,11 +681,11 @@ exit();
                 }
             }
             for($month=1; $month<=$endmonth; $month++) {
-                $arrDate[$endyear . substr('0' . $endmonth,-2)] = $month;
+                $arrDate[$endyear . substr('0' . $endmonth,-2)][] = $month;
             }
         } else {
             for($month=$startmonth; $month<=$endmonth; $month++) {
-                $arrDate[$startyear . substr('0' . $endmonth,-2)] = $month;
+                $arrDate[$startyear . substr('0' . $endmonth,-2)][] = $month;
             }            
         }
 print_r('<pre>');
