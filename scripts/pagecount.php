@@ -670,7 +670,7 @@ exit();
     
     function getDownloads($date) {
         $xml = new DOMDocument('1.0', 'UTF-8');
-        $test = $xml->load(realpath(__DZROOT__.$this->config['counter']).'/'.$date.'/xml/all.xml');
+        $test = $xml->load(__DZROOT__.$this->config['counter'].'/'.$date.'/xml/all.xml');
 print_r('<pre>');
 print_r($this->config['counter'].'/'.$date.'/xml/all.xml'.'<br />');
 print_r('</pre>');
