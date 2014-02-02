@@ -682,8 +682,14 @@ print_r('</pre>');
                 foreach($nodeList as $node) {
                     $parent = $node->parentNode;
                     $_parent = $parent->nextSibling;
-                    while($_parent && $parent->nodeType != XML_ELEMENT_NODE) {
+print_r('<pre>');
+print_r($_parent->nodeName.'<br />');
+print_r('</pre>');
+                    while($_parent && $_parent->nodeType != XML_ELEMENT_NODE) {
                         $_parent = $_parent->nextSibling;
+print_r('<pre>');
+print_r($_parent->nodeName.'<br />');
+print_r('</pre>');
                     }    
                     $start = strrpos(trim($node->nodeValue),'(') + 1;
                     $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(') - 1;
