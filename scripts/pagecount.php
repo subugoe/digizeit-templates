@@ -218,10 +218,10 @@ class vgwort {
             $count = 0;
             $arrLines = array();
             //legend
-            $arrLines[] = 'DigiZeitschriften: ' . "\t\t" . $this->POST['start']['month'][0] . '/' . $this->POST['start']['year'][0] . ' bis ' . $this->POST['end']['month'][0] . '/' . $this->POST['end']['year'][0] . "\n"; 
+            $arrLines[] = "\t" . 'DigiZeitschriften: ' . "\t" . $this->POST['start']['month'][0] . '/' . $this->POST['start']['year'][0] . ' bis ' . $this->POST['end']['month'][0] . '/' . $this->POST['end']['year'][0] . "\n"; 
             $arrLines[] = "\n\n\n\n\n\n";
-            $arrLines[] = "\t\t\t\t" . ' importierte Seiten: ' . "\t\t" . 'Band Importe' . "\t\n";
-            $arrLines[] = 'Anzahl Zss.' . "\t" . 'Titel inkl Vorgänger' . "\t" . 'Persistent URL' . "\t" . 'Verlag.' . "\t" . 'vor 1926' . "\t" . 'nach 1926' . "\t" . 'erster' . "\t" . 'letzter' . "\t" . 'Downloads' . "\n";
+            $arrLines[] = "\t\t\t\t\t" . 'Importierte Seiten: ' . "\t\t" . 'Band Importe' . "\t\n";
+            $arrLines[] = 'Anzahl Zss.' . "\t" . 'Titel inkl. Vorgänger' . "\t" . 'Persistent URL' . "\t" . 'Verlag.' . "\t" . 'Erscheiniungsverlauf.' . "\t" . 'vor 1926' . "\t" . 'nach 1926' . "\t" . 'erster' . "\t" . 'letzter' . "\t" . 'Downloads' . "\n";
             $arrLines[] = "\n";
             foreach ($this->arrResult as $periodical) {
                 if(in_array('digizeitonly', $this->POST['license'])) {
@@ -266,17 +266,18 @@ class vgwort {
         $column[1] = trim($periodical['TITLE']);
         $column[2] = $this->config['ppnResolver'].trim($periodical['PPN']);
         $column[3] = trim($periodical['COPYRIGHT']);
-        $column[4] = 0;
+        $column[4] = trim($periodical['DATERUN']);
         $column[5] = 0;
+        $column[6] = 0;
         foreach($periodical['volumes'] as $volume) {
             if($volume['YEARPUBLISH'] <= $this->config['strWall']) {
-                $column[4] += $volume['PAGES'];
-            } else {
                 $column[5] += $volume['PAGES'];
+            } else {
+                $column[6] += $volume['PAGES'];
             }
         }
-        $column[6] = trim($this->dateFormat($periodical['FIRSTIMPORT']));
-        $column[7] = trim($this->dateFormat($periodical['LASTIMPORT']));
+        $column[7] = trim($this->dateFormat($periodical['FIRSTIMPORT']));
+        $column[8] = trim($this->dateFormat($periodical['LASTIMPORT']));
         return implode("\t",$column)."\n";
     }
     
@@ -335,6 +336,28 @@ class vgwort {
                     $arr['LASTIMPORT'] = $arrSolr['response']['docs'][count($arrSolr['response']['docs']) - 1]['DATEINDEXED'];
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
+                
+                //date run
+                $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateOther');
+                if ($nodeList->length) {
+                    $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue);
+                    $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
+                } else {
+                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateIssued[@point="start"]');
+                    if ($nodeList->length) {
+                        $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue) . ' - ';
+                    }                    
+                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateIssued[@point="end"]');
+                    if ($nodeList->length) {
+                        if($arr['DATERUN']) {
+                            $arr['DATERUN'] .= trim($nodeList->item(0)->nodeValue);
+                        } else {
+                            $arr['DATERUN'] .= ' - ' . trim($nodeList->item(0)->nodeValue);
+                        }
+                    }
+                    $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
+                }
+                
             }
                         
             $this->updateCache($arr['PPN']);
