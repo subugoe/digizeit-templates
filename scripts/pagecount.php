@@ -28,10 +28,6 @@
 /* +++++++++++++++++++++++++++++++++++++++++++++ */
 define('__DZROOT__', realpath(__DIR__ . '/../../../'));
 
-
-include_once ('class.berkeley.php');
-include_once ('class.excel.php');
-
 class vgwort {
 
 //####################################################################################
@@ -225,8 +221,15 @@ class vgwort {
             
             
             //output
+            
             $count = 0;
             $arrLines = array();
+            //legend
+            $arrLines[] = 'DigiZeitschriften: '.$this->POST['start']['month'][0] . '/' . $this->POST['start']['year'][0] . ' bis ' . $this->POST['end']['month'][0] . '/' . $this->POST['end']['year'][0] . "\n"; 
+            $arrLines[] = "\n\n\n\n\n\n";
+            $arrLines[] = "\t\t\t\t" . ' importierte Seiten: ' . "\t" . 'Band Importe' . "\t\n";
+            $arrLines[] = 'Anzahl Zss.' . "\t" . 'Titel inkl Vorgänger' . "\t" . 'Persistent URL' . "\t" . 'Verlag.' . "\t" . 'vor 1926' . "\t" . 'nach 1926' . "\t" . 'erster' . "\t" . 'letzter' . "\t" . 'Downloads' . "\n";
+            $arrLines[] = "\n";
             foreach ($this->arrResult as $periodical) {
                 if(in_array('digizeitonly', $this->POST['license'])) {
                     foreach($periodical['ACL'] as $key=>$license) {
@@ -247,8 +250,10 @@ class vgwort {
                 }
                 $arrLines[] = "\n";                    
             }
-            file_put_contents('test.csv',$arrLines);                    
-                
+            header('Content-type: text/csv; charset=UTF-8');
+            header('Content-Disposition: inline; filename="'.date('Y-m-d',time()).'_dz_statistik.csv"');
+            print_r(implode('',$arrLines));                    
+            exit();    
                 
                 
 //print_r('<pre>');
