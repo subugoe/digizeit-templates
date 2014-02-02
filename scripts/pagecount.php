@@ -215,7 +215,7 @@ class vgwort {
             // end periodicals
             
 $this->downloads = array();
-$this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0]);
+$this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0], $this->POST['end']['year'][0] . $this->POST['end']['month'][0]);
 exit();
 
             //output
@@ -668,7 +668,31 @@ exit();
         unset($attribute);
     }
     
-    function getDownloads($date) {
+    function getDownloads($start, $end) {
+        $startmonth = intval(substr($start,4,2));
+        $startyear = substr($start,0,4);
+        $endmonth = intval(substr($start,4,2));
+        $endyear = substr($start,0,4);
+        $arrDate = array();
+        if($startyear<$endyear) {
+            for($year=$startyear; $year<$endyear; $year++) {
+                for($month=$startmonth; $month<=12; $month++) {
+                    $arrDate[$year . '12'][] = $month;
+                }
+            }
+            for($month=1; $month<=$endmonth; $month++) {
+                $arrDate[$endyear . substr('0' . $endmonth,-2)] = $month;
+            }
+        } else {
+            for($month=$startmonth; $month<=$endmonth; $month++) {
+                $arrDate[$startyear . substr('0' . $endmonth,-2)] = $month;
+            }            
+        }
+print_r('<pre>');
+print_r($arrDate.'<br />');
+print_r('</pre>');
+exit();        
+        
         $xml = new DOMDocument('1.0', 'UTF-8');
         $test = $xml->load($this->config['counter'].'/'.$date.'/xml/all.xml');
 print_r('<pre>');
