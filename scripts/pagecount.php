@@ -682,8 +682,11 @@ print_r($endyear . '<br />');
 print_r('</pre>');
 
         if($startyear<$endyear) {
-            for($year=$startyear; $year<$endyear; $year++) {
-                for($month=$startmonth; $month<=12; $month++) {
+            for($month=$startmonth; $month<=12; $month++) {
+                $arrDate[$startyear . '12'][] = $month;
+            }
+            for($year=$startyear+1; $year<$endyear; $year++) {
+                for($month=1; $month<=12; $month++) {
                     $arrDate[$year . '12'][] = $month;
                 }
             }
