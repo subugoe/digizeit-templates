@@ -196,7 +196,7 @@ class vgwort {
                 }
             }
 print_r('<pre>');
-print_r($this->arrPredecessor['PPN514402342'].'<br />');
+print_r($this->arrResult['PPN514402342'].'<br />');
 print_r('</pre>');
 exit();
             
