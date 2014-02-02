@@ -672,7 +672,7 @@ exit();
         $xml = new DOMDocument('1.0', 'UTF-8');
         $test = $xml->load(realpath(__DZROOT__.$this->config['counter']).'/'.$date.'/xml/all.xml');
 print_r('<pre>');
-print_r(realpath(__DZROOT__.$this->config['counter']).'/'.$date.'/xml/all.xml'.'<br />');
+print_r($this->config['counter'].'/'.$date.'/xml/all.xml'.'<br />');
 print_r('</pre>');
         if($test) {
             $xpath = new DOMXpath($xml);
