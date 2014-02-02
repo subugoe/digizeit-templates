@@ -137,6 +137,9 @@ class vgwort {
             $lastdayofmonth = date("t",mktime(0, 0, 0, intval($this->POST['end']['month'][0]), 1, $this->POST['end']['year'][0]));            
             $this->end = $this->POST['end']['year'][0] . $this->POST['end']['month'][0] . $lastdayofmonth;
 
+$this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0]);
+exit();
+            
             // prepare volumes
             $volumeQuery = 'ISWORK:1 AND DATEINDEXED:[' . $this->start . ' TO ' . $this->end . ']';
 
@@ -663,6 +666,26 @@ class vgwort {
         unset($xqueryList);
         unset($node);
         unset($attribute);
+    }
+    
+    function getDownloads($date) {
+        $xml = new DOMDocument('1.0', 'UTF-8');
+        $test = $xml->load(realpath(__DZROOT__.$this->config['counter']).'/'.$date.'/xml/all.xml');
+        if($test) {
+            $xpath = new DOMXpath($xml);
+            // title nodes: "title text (PPN)"
+            $nodeList = $xpath->evaluate('/excel_workbook/sheets/sheet[2]/rows/row/cell[@col="0"]');
+            if($nodeList->length) {
+                foreach($nodeList as $node) {
+                    $start = strrpos(trim($node->nodeValue),'(');
+                    $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(');
+                    $ppn = substr(trim($node->nodeValue), $start, $length);
+print_r('<pre>');
+print_r($ppn.'<br />');
+print_r('</pre>');
+                }
+            }
+        }
     }
 
 }
