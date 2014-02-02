@@ -337,17 +337,17 @@ class vgwort {
                     $this->cache[$arr['PPN']]['LASTIMPORT'] = $arr['LASTIMPORT'];
                 }
                 
-                //date run from otherdate
+                //date run from note
                 if(!isset($arr['DATERUN'])) {
-                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateOther');
+                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:note[@type="date/sequential designation"]');
                     if ($nodeList->length) {  
                         $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue);
                         $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
                     } 
                 }
-                //date run from note
+                //date run from otherdate
                 if(!isset($arr['DATERUN'])) {
-                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:note[@type="date/sequential designation]"');
+                    $nodeList = $xpath->evaluate('/mets:mets/mets:dmdSec/mets:mdWrap[@MDTYPE="MODS"]/mets:xmlData/mods:mods/mods:originInfo/mods:dateOther');
                     if ($nodeList->length) {  
                         $arr['DATERUN'] = trim($nodeList->item(0)->nodeValue);
                         $this->cache[$arr['PPN']]['DATERUN'] = $arr['DATERUN'];
