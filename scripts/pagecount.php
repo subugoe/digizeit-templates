@@ -671,8 +671,8 @@ exit();
     function getDownloads($start, $end) {
         $startmonth = intval(substr($start,4,2));
         $startyear = substr($start,0,4);
-        $endmonth = intval(substr($start,4,2));
-        $endyear = substr($start,0,4);
+        $endmonth = intval(substr($end,4,2));
+        $endyear = substr($end,0,4);
         $arrDate = array();
 print_r('<pre>');
 print_r($startmonth . '<br />');
