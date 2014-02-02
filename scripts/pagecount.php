@@ -681,6 +681,12 @@ print_r('</pre>');
             if($nodeList->length) {
                 foreach($nodeList as $node) {
                     $parent = $node->parentNode;
+                    while(1) {
+                        $_parent = $parent->nextSibling;
+                        if(!$_parent || $parent->nodeType == XML_ELEMENT_NODE){
+                            break;
+                        }
+                    }    
                     $start = strrpos(trim($node->nodeValue),'(') + 1;
                     $length = strrpos(trim($node->nodeValue),')') - strrpos(trim($node->nodeValue),'(') - 1;
                     $ppn = trim(substr(trim($node->nodeValue), $start, $length));
@@ -690,11 +696,7 @@ print_r('</pre>');
                             if($cellList->length) {
                                 $this->downloads[$ppn][$col-6]['pdf'] = trim($cellList->item(0)->nodeValue);
                             }
-                            $parent = $parent->nextSibling;
-print_r('<pre>');
-print_r($parent->nextSibling->nodeName.'<br />');
-print_r('</pre>');
-                            $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $parent);
+                            $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $_parent);
                             if($cellList->length) {
                                 $this->downloads[$ppn][$col-6]['img'] = trim($cellList->item(0)->nodeValue);
                             }
