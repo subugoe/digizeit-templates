@@ -691,6 +691,9 @@ print_r('</pre>');
                                 $this->downloads[$ppn][$col-6]['pdf'] = trim($cellList->item(0)->nodeValue);
                             }
                             $parent = $parent->nextSibling;
+print_r('<pre>');
+print_r($parent->nextSibling->nodeName.'<br />');
+print_r('</pre>');
                             $cellList = $xpath->evaluate('cell[@col="'.$col.'"]', $parent);
                             if($cellList->length) {
                                 $this->downloads[$ppn][$col-6]['img'] = trim($cellList->item(0)->nodeValue);
