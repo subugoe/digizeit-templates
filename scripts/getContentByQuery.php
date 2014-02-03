@@ -32,6 +32,12 @@ if(!isset($q)) {
     exit();
 }
 
+if(isset($_GET['format'])) {
+    $format = 'csv';
+} else {
+    $format = '';
+}
+
 $params = array();
 $params['q'] = urlencode(htmlentities(trim($q), ENT_QUOTES, "UTF-8"));
 if(isset($rows)) {
@@ -65,7 +71,7 @@ foreach($arrSolr['response']['docs'] as $key=>$val) {
 //print_r($arrStruct);
 //exit;
 
-if($_GET['format'] == 'csv') {
+if($format == 'csv') {
     header('Content-type: text/csv; charset=UTF-8');
     header('Content-Disposition: inline; filename="'.date('Y-m-d',time()).'_dz_'.$namepart.'.csv"');
     echo 'URL'."\t";
