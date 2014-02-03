@@ -26,7 +26,7 @@ set_time_limit(0);
 error_reporting(0);
 $scriptPath = dirname(__FILE__);
 
-$solrPhpsUrl = "http://localhost:8080/digizeit/select/?wt=phps";
+$solrPhpsUrl = 'http://localhost:8080/digizeit/select/?wt=phps';
 
 if(!isset($q)) {
     exit();
