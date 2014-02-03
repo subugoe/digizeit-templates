@@ -2,8 +2,8 @@
 /* **************************************************************
  *  Copyright notice
  *
- *  (c) 2010 Niedersächsische Staats- und Universitätsbibliothek
- *  (c) 2010 Jochen Kothe (kothe@sub.uni-goettingen.de) (jk@profi-php.de)
+ *  (c) 2014 Niedersächsische Staats- und Universitätsbibliothek
+ *  (c) 2014 Jochen Kothe (kothe@sub.uni-goettingen.de) (jk@profi-php.de)
  *  All rights reserved
  *
  *  This script is free software; you can redistribute it and/or modify
