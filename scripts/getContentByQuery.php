@@ -65,7 +65,7 @@ foreach($arrSolr['response']['docs'] as $key=>$val) {
 //print_r($arrStruct);
 //exit;
 
-if($format == 'csv') {
+if($_GET['format'] == 'csv') {
     header('Content-type: text/csv; charset=UTF-8');
     header('Content-Disposition: inline; filename="'.date('Y-m-d',time()).'_dz_'.$namepart.'.csv"');
     echo 'URL'."\t";
