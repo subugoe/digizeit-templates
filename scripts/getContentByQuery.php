@@ -39,6 +39,9 @@ foreach ($params as $key => $val) {
     $strSolr .='&' . $key . '=' . $val;
 }
 
+print_r($strSolr);
+
+
 if(isset($namepart)) {
     $namepart = str_replace('/','__',htmlentities(trim($rows), ENT_QUOTES, "UTF-8"));
 } else {
