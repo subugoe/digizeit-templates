@@ -22,8 +22,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 set_time_limit(0);
-error_reporting(E_ALL);
-//error_reporting(0);
+//error_reporting(E_ALL);
+error_reporting(0);
 $scriptPath = dirname(__FILE__);
 
 $solrPhpsUrl = "http://localhost:8080/digizeit/select/?wt=phps";
@@ -65,7 +65,7 @@ foreach($arrSolr['response']['docs'] as $key=>$val) {
 //print_r($arrStruct);
 //exit;
 
-if($_GET['format'] == 'csv') {
+if($format == 'csv') {
     header('Content-type: text/csv; charset=UTF-8');
     header('Content-Disposition: inline; filename="'.date('Y-m-d',time()).'_dz_'.$namepart.'.csv"');
     echo 'URL'."\t";
