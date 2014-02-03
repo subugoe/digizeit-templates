@@ -21,6 +21,12 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
+set_time_limit(0);
+error_reporting(E_ALL);
+//error_reporting(0);
+$scriptPath = dirname(__FILE__);
+
+$solrPhpsUrl = "http://localhost:8080/digizeit/select/?wt=phps&q=";
 
 if(isset($q)) {
     exit();
@@ -47,17 +53,6 @@ if(isset($namepart)) {
 } else {
     $namepart = 'misc';
 }
-
-
-set_time_limit(0);
-error_reporting(E_ALL);
-//error_reporting(0);
-$scriptPath = dirname(__FILE__);
-
-$solrPhpsUrl = "http://localhost:8080/digizeit/select/?wt=phps&q=";
-
-$strVolumeAboQuery = urlencode($query);
-//$strVolumeAboQuery = urlencode('PPN:PPN522562264_0052');
 
 $arrStruct = array();
 
