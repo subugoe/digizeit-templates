@@ -28,7 +28,7 @@ $scriptPath = dirname(__FILE__);
 
 $solrPhpsUrl = "http://localhost:8080/digizeit/select/?wt=phps&q=";
 
-if(isset($q)) {
+if(!isset($q)) {
     exit();
 }
 
@@ -45,7 +45,7 @@ foreach ($params as $key => $val) {
     $strSolr .='&' . $key . '=' . $val;
 }
 
-print_r($strSolr);
+//print_r($strSolr);
 
 
 if(isset($namepart)) {
