@@ -45,7 +45,7 @@ foreach ($params as $key => $val) {
     $strSolr .='&' . $key . '=' . $val;
 }
 
-//print_r($strSolr);
+print_r($strSolr);
 
 
 if(isset($namepart)) {
