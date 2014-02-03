@@ -23,25 +23,20 @@
  * ************************************************************* */
 
 set_time_limit(0);
-error_reporting(E_ALL);
-//error_reporting(0);
+//error_reporting(E_ALL);
+error_reporting(0);
 $scriptPath = dirname(__FILE__);
 
-#######################################################################
-function _unserialize($str) {
-    $ret = json_decode($str,true);
-    if(!is_array($ret)) {
-        $ret = unserialize($str);
-    }
-    return $ret;
-}
-########################################################################
 
 $solrPhpsUrl = "http://localhost:8080/digizeit/select/?wt=phps&q=";
 
 $strVolumeAboQuery = urlencode('ISWORK:1 AND ACL:gesamtabo AND NOT(ACL: free OR ACL:ubheidelberg OR ACL:ubtuebingen OR ACL:ubfrankfurt)');
-//$strVolumeAboQuery = urlencode('PPN:PPN522562264_0052');
 
+if(isset($_GET['format'])) {
+    $format = 'csv';
+} else {
+    $format = '';
+}
 $arrStruct = array();
 
 $solrResult = file_get_contents($solrPhpsUrl.$strVolumeAboQuery.'&rows=99999&sort=BYTITLE+asc,CURRENTNOSORT+asc');
@@ -59,7 +54,7 @@ foreach($arrSolr['response']['docs'] as $key=>$val) {
     }     
 }
 
-if($_GET['format'] == 'csv') {
+if($format == 'csv') {
     header('Content-type: text/csv; charset=UTF-8');
     header('Content-Disposition: inline; filename="'.date('Y-m-d',time()).'_ArticleByACL.csv"');
     echo 'URL'."\t";
@@ -83,6 +78,7 @@ if($_GET['format'] == 'csv') {
         echo substr(trim($struct['DATEMODIFIED']),-2).'.'.substr(trim($struct['DATEMODIFIED']),2,-4).'.'.substr(trim($struct['DATEMODIFIED']),0,4)."\t";
         echo '<b>Importdatum: </b>'.substr(trim($struct['DATEINDEXED']),-2).'.'.substr(trim($struct['DATEINDEXED']),2,-4).'.'.substr(trim($struct['DATEINDEXED']),0,4)."\n";
     }
+    exit();
 } else {
     echo '<div id="mydigizeit_filter">'."\n";
     echo '<br /><hr />'."\n";
@@ -102,4 +98,15 @@ if($_GET['format'] == 'csv') {
     }
     echo '</div>'."\n";
 }
+
+#######################################################################
+function _unserialize($str) {
+    $ret = json_decode($str,true);
+    if(!is_array($ret)) {
+        $ret = unserialize($str);
+    }
+    return $ret;
+}
+########################################################################
+
 ?>

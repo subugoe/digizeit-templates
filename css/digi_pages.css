@@ -1,36 +1,36 @@
 /*
 
 CSS-Datei für die Gestaltung der Ansichts-Seite.
-	- Gestaltet die Seitennav
-	- positioniert das Bildelement
-	- Diese Datei wird nur bei Ansicht eingebunden!
-	
+        - Gestaltet die Seitennav
+        - positioniert das Bildelement
+        - Diese Datei wird nur bei Ansicht eingebunden!
+        
 */
 
 #piccontainer {
-	margin:-90px 0 0 0;
-	padding:110px 0 80px 0;
-	width:100%;
-	text-align:center;
-	background:#989188;
+    margin:-90px 0 0 0;
+    padding:110px 0 80px 0;
+    width:100%;
+    text-align:center;
+    background:#989188;
 }
 
 #pagenav {
-	position:relative;
-	top:0;
-	left:0;
-	width:950px;
-	clear:left;
-	height:90px;
-	background:url(../images/tempborder.png) no-repeat top center;
+    position:relative;
+    top:0;
+    left:0;
+    width:950px;
+    clear:left;
+    height:90px;
+    background:url(../images/tempborder.png) no-repeat top center;
 }
-	
+
 #pagenav #buttons {
-	position:absolute;
-	top:36px;
-	right:180px;
-	width:400px;
-	height:32px;
+    position:absolute;
+    top:36px;
+    right:180px;
+    width:400px;
+    height:32px;
 }
 
 #pagenav li { float:left; }
@@ -42,11 +42,11 @@ CSS-Datei für die Gestaltung der Ansichts-Seite.
 #pagenav #p_zoom,
 #pagenav #p_rotate,
 #pagenav #p_pdf {
-	position:absolute;
-	top:0px;
-	height:20px;
-	border-right:1px dotted #666;
-	display:block;
+    position:absolute;
+    top:0px;
+    height:20px;
+    border-right:1px dotted #666;
+    display:block;
 }
 
 
@@ -87,11 +87,11 @@ CSS-Datei für die Gestaltung der Ansichts-Seite.
 #p_site #sendsite { height:20px; width:10px; border:none; background:transparent url(../images/pagenavgo.gif) no-repeat 0 0; text-indent:-2000px; overflow:hidden; display:block; font-size:0em; color:#ccc; margin:0 3px; float:left; }
 
 #pageborder_end {
-	position:relative;
-	top:0;
-	left:0;
-	width:950px;
-	height:60px;
-	margin:-60px 0 0 0;
-	background:url(../images/tempheadborder.png) no-repeat bottom center;
+    position:relative;
+    top:0;
+    left:0;
+    width:950px;
+    height:60px;
+    margin:-60px 0 0 0;
+    background:url(../images/tempheadborder.png) no-repeat bottom center;
 }

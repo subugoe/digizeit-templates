@@ -41,11 +41,11 @@ a:hover {
     border-bottom:1px solid #900;
     background:#900;	
 }
-    
+
 ul {
     list-style-type:none;
 }
-    
+
 strong {
     font-weight:bold;
 }
@@ -100,7 +100,7 @@ img {
     height:114px;
     background:url(/fileadmin/layout/linebook.gif) no-repeat 0 0;
 }
-    
+
 #headborder {
     position:relative;
     top:0;
@@ -118,7 +118,7 @@ img {
     height:164px;
     background:url(/fileadmin/layout/headerpic.jpg) no-repeat 0 0;
 }
-    
+
 #homelink {
     position:absolute;
     top:10px;
@@ -130,7 +130,7 @@ img {
     overflow:hidden;
     border-bottom:none;
 }
-    
+
 #welcome,
 #breadcrumb {
     position:relative;
@@ -138,15 +138,15 @@ img {
     background:#f3ecd5;
     margin-bottom:10px;
 }
-    
+
 #breadcrumb {
     height:30px;
 }
-    
+
 #welcome p strong {
     color:#900;
 }
-    
+
 #cnose {
     position:absolute;
     bottom:-11px;
@@ -156,24 +156,24 @@ img {
     background:url(/fileadmin/layout/cnose.gif) no-repeat 0 0;
     clear:left;
 }
-    
+
 #breadcrumb dl {
     position:absolute;
     top:7px;
     left:60px;
 }
-    
+
 #breadcrumb dl dd,
 #breadcrumb dl dt {
     float:left;
     margin:0 2px 0 0;
 }
-    
+
 #breadcrumb dl dd .breadsep {
     margin:0 0 0 2px;
     color:#222;
 }
-    
+
 #breadcrumb a { border-bottom:none; font-weight:bold;color:#222; padding:1px 2px; }
 
 #breadcrumb a:hover { border-bottom:none; background:#222; font-weight:bold;color:#fff; padding:1px 2px; }
@@ -200,14 +200,14 @@ img {
     position:relative;
     top:0;
     left:0;
-/*    margin:20px 0 0px 65px */;
+    /*    margin:20px 0 0px 65px */;
     margin:0px 0 0px 65px;
     line-height:1.6em;
     font-size:1.2em;
     color:#222;
     min-height:30px;
 }
-    
+
 #maincol { width:560px; float:left; padding:0 0 50px 0; }
 
 #maincol_full { width:800px; padding:0; }
@@ -280,7 +280,7 @@ img {
     height:35px;
     display:block;
 }
-    
+
 #nav li {
     position:relative;
     top:0;
@@ -290,7 +290,7 @@ img {
     height:35px;
     width:auto;
 }
-    
+
 #nav li a {
     position:relative;
     top:0;
@@ -318,22 +318,22 @@ img {
 
 /* ----------------- [ / SubMenu ] -------------------------- */
 #submenu {
-        position:relative;
-        top:0;
-        left:0;
-        width:auto;
-        height:30px;
-        overflow:hidden;
-        margin:20px 0 0 60px;
-        font-size:1.2em;
+    position:relative;
+    top:0;
+    left:0;
+    width:auto;
+    height:30px;
+    overflow:hidden;
+    margin:20px 0 0 60px;
+    font-size:1.2em;
 }
 
 #submenu li {
-        position:relative;
-        top:0;
-        left:0;
-        float:left;
-        margin:0 5px 0 0;
+    position:relative;
+    top:0;
+    left:0;
+    float:left;
+    margin:0 5px 0 0;
 }
 
 #submenu li a { border-bottom:none; color:#222; float:left; }
@@ -342,14 +342,14 @@ img {
 #submenu li a.sub_act:hover { font-weight:bold; background:#900; color:#fff; }
 
 #submenu li .subnavsep {
-        position:relative;
-        top:2px;
-        left:0;
-        width:5px;
-        height:14px;
-        border-right:1px solid #222;
-        display:block;
-        float:left;
+    position:relative;
+    top:2px;
+    left:0;
+    width:5px;
+    height:14px;
+    border-right:1px solid #222;
+    display:block;
+    float:left;
 }
 
 /* ----------------- [ / SubMenu ] -------------------------- */
@@ -413,9 +413,9 @@ img {
     color: #a99;
     border-bottom:none;
     padding: 0 30px 0 0;
-/*    background:url(../images/totop.gif) no-repeat right center; */
+    /*    background:url(../images/totop.gif) no-repeat right center; */
 }
-    
+
 #endborder #sysnav {
     position:absolute;
     top:20px;
@@ -423,7 +423,7 @@ img {
     height:20px;
     border-left:1px dotted #999;
 }
-    
+
 #endborder #sysnav li {
     position:relative;
     float:left;
@@ -434,13 +434,13 @@ img {
     border-right:1px dotted #999;
     text-align:center;
 }
-    
+
 #endborder #sysnav li a {
     font-weight:bold;
     border-bottom:none;
     color:#999;
 }
-    
+
 #endborder #sysnav li a:hover { color:#fff; }
 
 #endborder #dfglink {
@@ -485,17 +485,17 @@ img {
 }
 */
 #fastsearch #introtxt {
-	position:absolute;
-	top:7px;
-	left:16px;
-	width:222px;
-	height:12px;
-	font-size: 10px;
-	color: #baa;
-	overflow:hidden;
+    position:absolute;
+    top:7px;
+    left:16px;
+    width:222px;
+    height:12px;
+    font-size: 10px;
+    color: #baa;
+    overflow:hidden;
 }
 
-    
+
 #fastsearch #searchstring {
     position:absolute;
     right:15px;
@@ -508,7 +508,7 @@ img {
     color:#fff;
     padding:6px 0 0 10px;
 }
-    
+
 #fastsearch #send {
     position:absolute;
     top:13px;
@@ -554,8 +554,8 @@ img {
 }
 #login #loginsubmit {
     border:none;
-/*    width:33px;
-    height:14px; */
+    /*    width:33px;
+        height:14px; */
     font-size:1.1em;
     padding-left: 2px;
     padding-right: 2px;

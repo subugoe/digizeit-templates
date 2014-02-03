@@ -15,10 +15,10 @@ body {
     font-family:Verdana,Arial,Helvetica,Sans-Serif;
     font-size:0.625em;
     color:#222;
-	margin-left: 0.5cm;
-	margin-right: 0.5cm;
-	margin-top: 0.5cm;
-	margin-bottom: 1,5cm;
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
+    margin-top: 0.5cm;
+    margin-bottom: 1,5cm;
     width: 21cm;
 }
 
@@ -40,11 +40,11 @@ a:hover {
     border-bottom:1px solid #900;
     background:#900;	
 }
-    
+
 ul {
     list-style-type:none;
 }
-    
+
 strong {
     font-weight:bold;
 }
@@ -84,15 +84,15 @@ img {
     position:relative;
     top:0;
     left:0;
-/*    margin:20px 0 0px 65px */;
+    /*    margin:20px 0 0px 65px */;
     margin:0px 0 0px 65px;
-/*    margin:0px 0px 0px 0px; */
+    /*    margin:0px 0px 0px 0px; */
     line-height:1.6em;
     font-size:1.2em;
     color:#222;
     min-height:30px;
 }
-    
+
 #maincol { width:560px; float:left; padding:0 0 50px 0; }
 
 #maincol_full { width:800px; padding:0; }
@@ -101,48 +101,48 @@ img {
 /*
 
 CSS-Datei für die Gestaltung der Inhaltselemente.
-	- Schriftarten, Abstände und Anordnungen diverser Inhaltselemente
-	- Spaltendefinition
-	
+        - Schriftarten, Abstände und Anordnungen diverser Inhaltselemente
+        - Spaltendefinition
+        
 */
 
 
 /* ----------------- [ Textdefinitionen ] ----------------------------------- */
 
- h3 {
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-style:italic;
-	color:#900;
-	padding:0 0 5px 0;
-	border-bottom:1px dotted #ccc;
+h3 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-style:italic;
+    color:#900;
+    padding:0 0 5px 0;
+    border-bottom:1px dotted #ccc;
 }
 
 #maincol h3,
 #maincol_full h3 {
-	font-size:2em;
-	line-height:1.2em;
-	max-width:650px;
+    font-size:2em;
+    line-height:1.2em;
+    max-width:650px;
 }
 
 #maincol h4,
 #maincol_full h4 {
-	font-size:1.3em;
-	line-height:1.2em;
-	max-width:650px;
-	margin:0px 0 0px 0;
-	font-weight:normal;
-	color:#222;
-	font-style:italic;
-	margin:10px 0 0 0;
+    font-size:1.3em;
+    line-height:1.2em;
+    max-width:650px;
+    margin:0px 0 0px 0;
+    font-weight:normal;
+    color:#222;
+    font-style:italic;
+    margin:10px 0 0 0;
 }
 
 #maincol h5,
 #maincol_full h5 {
-	font-size:1em;
-	line-height:1.2em;
-	max-width:650px;
-	font-weight:bold;
-	margin:10px 0 0 0;
+    font-size:1em;
+    line-height:1.2em;
+    max-width:650px;
+    font-weight:bold;
+    margin:10px 0 0 0;
 }
 
 #maincol p,
@@ -166,9 +166,9 @@ li {
 }
 
 .list li {
-	background:url(/fileadmin/layout/listelement.gif) no-repeat 0 5px;
-	padding:0 0 0 15px;
-	line-height:1.6em;
+    background:url(/fileadmin/layout/listelement.gif) no-repeat 0 5px;
+    padding:0 0 0 15px;
+    line-height:1.6em;
 }
 
 /* ----------------- [ / Textdefinitionen ] --------------------------------- */
@@ -242,8 +242,8 @@ li {
     font-size:1.2em;
     overflow:hidden;
     padding:6px 0 10px 10px;
-/*    border-left:1px dotted #ccc;
-    border-bottom:1px dotted #ccc; */
+    /*    border-left:1px dotted #ccc;
+        border-bottom:1px dotted #ccc; */
     z-index:999;
 }
 
@@ -325,7 +325,7 @@ li {
     margin-left: 30px;
     padding-top: 15px;
     padding-bottom: 15px;
-/*    border: solid 1px #000; */
+    /*    border: solid 1px #000; */
 }
 
 #tx-goobit3-met_section .tx-goobit3-met_hr {
@@ -338,7 +338,7 @@ li {
     margin-right: 75px;
 }
 
- .comment {
+.comment {
     margin-left: 75px;
     margin-right: 75px;
 }
@@ -349,7 +349,7 @@ li {
 }
 
 #tx-goobit3-img_form {
-/*    margin-left: 75px; */
+    /*    margin-left: 75px; */
 }
 #tx-goobit3-img_form_bottom {
     text-align: right;
@@ -373,7 +373,7 @@ li {
 }
 
 #tx-goobit3-img_image  {
-/*    margin-left: 75px; */
+    /*    margin-left: 75px; */
 }
 
 #tx-goobit3-img_image .image {
@@ -381,8 +381,8 @@ li {
 }
 
 #tx-goobi-img_head {
-/*    margin-left: 75px;
-    margin-right: 75px; */
+    /*    margin-left: 75px;
+        margin-right: 75px; */
 }
 #tx-goobi-img_head .struct {
 }
