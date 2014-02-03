@@ -52,7 +52,7 @@ foreach ($params as $key => $val) {
 }
 
 if(isset($namepart)) {
-    $namepart = str_replace('/','__',htmlentities(trim($rows), ENT_QUOTES, "UTF-8"));
+    $namepart = str_replace('/','__',htmlentities(trim($namepart), ENT_QUOTES, "UTF-8"));
 } else {
     $namepart = 'misc';
 }
