@@ -68,7 +68,7 @@ foreach($arrSolr['response']['docs'] as $key=>$val) {
     $val['SUC'] = _unserialize($val['SUC']);
     $arrStruct[] = $val;         
 }
-//print_r($arrStruct);
+print_r($arrStruct);
 //exit;
 
 if($format == 'csv') {
