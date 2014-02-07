@@ -85,8 +85,8 @@ if($format == 'csv') {
         echo trim($struct['TITLE'])."\t";
         echo implode(', ',$struct['ACL'])."\t";
         echo $struct['DC']."\t";
-        echo substr(trim($struct['DATEMODIFIED']),-2).'.'.substr(trim($struct['DATEMODIFIED']),2,-4).'.'.substr(trim($struct['DATEMODIFIED']),0,4)."\t";
-        echo substr(trim($struct['DATEINDEXED']),-2).'.'.substr(trim($struct['DATEINDEXED']),2,-4).'.'.substr(trim($struct['DATEINDEXED']),0,4)."\n";
+        echo substr(trim($struct['DATEMODIFIED']),-2).'.'.substr(trim($struct['DATEMODIFIED']),2,-2).'.'.substr(trim($struct['DATEMODIFIED']),0,4)."\t";
+        echo substr(trim($struct['DATEINDEXED']),-2).'.'.substr(trim($struct['DATEINDEXED']),2,-2).'.'.substr(trim($struct['DATEINDEXED']),0,4)."\n";
     }
     exit();
 } else {
@@ -98,8 +98,8 @@ if($format == 'csv') {
         echo '<b>Titel: </b><a href="'.$link.'">'.trim($struct['TITLE']).'</a><br />'."\n";
         echo '<b>Lizenzen: </b>'.implode(', ',$struct['ACL']).'<br />'."\n";
         echo '<b>Kollektion: </b>'.$struct['DC'].'<br />'."\n";
-        echo '<b>Änderungsdatum: </b>'.substr(trim($struct['DATEMODIFIED']),-2).'.'.substr(trim($struct['DATEMODIFIED']),2,-4).'.'.substr(trim($struct['DATEMODIFIED']),0,4).'<br />'."\n";
-        echo '<b>Importdatum: </b>'.substr(trim($struct['DATEINDEXED']),-2).'.'.substr(trim($struct['DATEINDEXED']),2,-4).'.'.substr(trim($struct['DATEINDEXED']),0,4).'<br /><br />'."\n";
+        echo '<b>Änderungsdatum: </b>'.substr(trim($struct['DATEMODIFIED']),-2).'.'.substr(trim($struct['DATEMODIFIED']),2,-2).'.'.substr(trim($struct['DATEMODIFIED']),0,4).'<br />'."\n";
+        echo '<b>Importdatum: </b>'.substr(trim($struct['DATEINDEXED']),-2).'.'.substr(trim($struct['DATEINDEXED']),2,-2).'.'.substr(trim($struct['DATEINDEXED']),0,4).'<br /><br />'."\n";
         echo '</li>'."\n";
         echo '<hr />'."\n";
     }
