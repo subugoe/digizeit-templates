@@ -46,9 +46,9 @@ header("Content-type: text/xml");
 print_r($xml->oai->saveXML());
 
 // delete expired resumption tokens
-$time = time() - $conf['MAIN']['expirationDate'];
+$time = time() - $xml->conf['MAIN']['expirationDate'];
 $time = time();
-$d = dir($conf['MAIN']['tmpDir']);
+$d = dir($xml->conf['MAIN']['tmpDir']);
 while (false !== ($entry = $d->read())) {
     if (is_file($oaiTokenDir . $entry) && substr($entry,0,3) == 'oai') {
         if (filemtime($oaiTokenDir . $entry) < $time) {
