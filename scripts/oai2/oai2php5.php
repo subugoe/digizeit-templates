@@ -31,7 +31,7 @@ class oai2 {
         $this->conf = $conf;
         error_reporting($this->conf['MAIN']['error_reporting']);
         // get temp diretory
-        if(!trim($this->conf['MAIN']['tmpDir'])) {
+        if(!trim($this->conf['MAIN']['tmpDir']) || !is_dir(trim($this->conf['MAIN']['tmpDir']))) {
             $this->conf['MAIN']['tmpDir'] = sys_get_temp_dir();
         }
         // connect to lucene
