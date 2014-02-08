@@ -49,7 +49,7 @@ print_r($xml->oai->saveXML());
 $time = time() - $xml->conf['MAIN']['expirationDate'];
 $d = dir($xml->conf['MAIN']['tmpDir']);
 while (false !== ($entry = $d->read())) {
-    if (is_file($xml->conf['MAIN']['tmpDir'] . $entry) && substr($entry,0,3) == 'oai') {
+    if (is_file($xml->conf['MAIN']['tmpDir'] . $entry) && substr($entry,0,3) == 'oai_') {
         if (filemtime($xml->conf['MAIN']['tmpDir'] . $entry) < $time) {
             unlink($xml->conf['MAIN']['tmpDir'] . $entry);
         }
