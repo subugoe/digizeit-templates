@@ -47,12 +47,9 @@ print_r($xml->oai->saveXML());
 
 // delete expired resumption tokens
 $time = time() - $xml->conf['MAIN']['expirationDate'];
-$time = time();
 $d = dir($xml->conf['MAIN']['tmpDir']);
-file_put_contents($xml->conf['MAIN']['tmpDir'].'bla.log',$xml->conf['MAIN']['tmpDir']."\n",FILE_APPEND);
 while (false !== ($entry = $d->read())) {
     if (is_file($xml->conf['MAIN']['tmpDir'] . $entry) && substr($entry,0,3) == 'oai') {
-file_put_contents($xml->conf['MAIN']['tmpDir'].'bla.log',$entry."\n",FILE_APPEND);
         if (filemtime($xml->conf['MAIN']['tmpDir'] . $entry) < $time) {
             unlink($xml->conf['MAIN']['tmpDir'] . $entry);
         }
