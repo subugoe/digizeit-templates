@@ -44,4 +44,17 @@ include('./oai2php5.php');
 $xml = new oai2($conf);
 header("Content-type: text/xml");
 print_r($xml->oai->saveXML());
+
+// delete expired resumption tokens
+$time = time() - $conf['MAIN']['expirationDate'];
+$time = time();
+$d = dir($conf['MAIN']['tmpDir']);
+while (false !== ($entry = $d->read())) {
+    if (is_file($oaiTokenDir . $entry) && substr($entry,0,3) == 'oai') {
+        if (filemtime($oaiTokenDir . $entry) < $time) {
+            unlink($oaiTokenDir . $entry);
+        }
+    }
+}
+$d->close();
 ?>
