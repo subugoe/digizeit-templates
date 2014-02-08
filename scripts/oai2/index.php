@@ -51,6 +51,7 @@ $time = time();
 $d = dir($xml->conf['MAIN']['tmpDir']);
 while (false !== ($entry = $d->read())) {
     if (is_file($oaiTokenDir . $entry) && substr($entry,0,3) == 'oai') {
+file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log',$entry."n",FILE_APPEND);
         if (filemtime($oaiTokenDir . $entry) < $time) {
             unlink($oaiTokenDir . $entry);
         }
