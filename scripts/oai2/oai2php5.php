@@ -32,7 +32,7 @@ class oai2 {
         error_reporting($this->conf['MAIN']['error_reporting']);
         // get temp diretory
         if(!trim($this->conf['MAIN']['tmpDir']) || !is_dir(trim($this->conf['MAIN']['tmpDir']))) {
-            $this->conf['MAIN']['tmpDir'] = sys_get_temp_dir();
+            $this->conf['MAIN']['tmpDir'] = sys_get_temp_dir().'/';
         }
         // connect to lucene
         if ($this->conf['DB']['engine'] == 'lucene') {
