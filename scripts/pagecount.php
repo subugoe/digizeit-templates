@@ -213,11 +213,6 @@ class vgwort {
             }
             // end periodicals
             
-print_r('<pre>');
-print_r($this->arrResult);
-print_r('</pre>');
-exit();
-
             // get downloads from counter
             $this->downloads = array();
             $this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0], $this->POST['end']['year'][0] . $this->POST['end']['month'][0]);
