@@ -61,11 +61,12 @@ class vgwort {
             if ($str) {
                 $this->cache = json_decode($str, true);
             }
+            
         }
         if (!is_array($this->cache)) {
             $this->cache = array();
         }
-
+unset($this->cache['PPN522563589']);
         $this->config['end'] = date("Ymd", time());
 
         $this->POST = t3lib_div::_POST();
