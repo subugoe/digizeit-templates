@@ -213,6 +213,11 @@ class vgwort {
             }
             // end periodicals
             
+print_r('<pre>');
+print_r($this->arrResult);
+print_r('</pre>');
+exit();
+
             // get downloads from counter
             $this->downloads = array();
             $this->getDownloads($this->POST['start']['year'][0] . $this->POST['start']['month'][0], $this->POST['end']['year'][0] . $this->POST['end']['month'][0]);
@@ -611,7 +616,6 @@ class vgwort {
         foreach ($arr as $key => $val) {
             $strSolr .='&' . $key . '=' . $val;
         }
-file_put_contents(__DZROOT__.'/tmp/bla.log',$strSolr."\n");
         $arrSolr = unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
         foreach ($arrSolr['response']['docs'] as $key => $val) {
             foreach ($val as $k => $v) {
