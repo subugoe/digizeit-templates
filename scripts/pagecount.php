@@ -611,7 +611,7 @@ class vgwort {
         foreach ($arr as $key => $val) {
             $strSolr .='&' . $key . '=' . $val;
         }
-
+file_put_contents(_DZROOT_.'/tmp/bla.log',$strSolr."\n");
         $arrSolr = unserialize(file_get_contents($this->config['solrPhpsUrl'] . $strSolr));
         foreach ($arrSolr['response']['docs'] as $key => $val) {
             foreach ($val as $k => $v) {
