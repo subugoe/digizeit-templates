@@ -66,7 +66,12 @@ class vgwort {
         if (!is_array($this->cache)) {
             $this->cache = array();
         }
-unset($this->cache['PPN522563589']);
+unset($this->cache['PPN523141513']);
+unset($this->cache['PPN522562264']);
+unset($this->cache['PPN523132190']);
+unset($this->cache['PPN523131127']);
+unset($this->cache['PPN513339353']);
+
         $this->config['end'] = date("Ymd", time());
 
         $this->POST = t3lib_div::_POST();
