@@ -115,7 +115,7 @@ class vgwort {
                 foreach ($this->POST['collect'] as $collect) {
                     $arrCol[] = 'DC:"' . $collect . '"';
                 }
-                $arrQuery[] = '(' . implode(' AND ', $arrCol) . ')';
+                $arrQuery[] = '(' . implode(' OR ', $arrCol) . ')';
             }
 
             //Licenses
