@@ -43,5 +43,5 @@ if (strtolower($arrParts[0]) == 'file:') {
 $start = microtime(true);
 header('Content-type: image/jpg');
 passthru($global['convert'] . ' -compress jpeg -quality 80 ' . urldecode($img) . ' JPG:-');
-file_put_contents($globals['logPath'] . 'tif2jpg.log', 'Compress ' . $arrParts[(count($arrParts) - 1)] . ' - ' . number_format((microtime(true) - $start), 2, ',', '.') . ' sec' . "\n", FILE_APPEND);
+file_put_contents($global['logPath'] . 'tif2jpg.log', 'Compress ' . $arrParts[(count($arrParts) - 1)] . ' - ' . number_format((microtime(true) - $start), 2, ',', '.') . ' sec' . "\n", FILE_APPEND);
 ?>
