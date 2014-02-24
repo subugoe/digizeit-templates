@@ -224,8 +224,8 @@ class vgwort {
             //legend
             $arrLines[] = "\t" . 'DigiZeitschriften: ' . "\t" . $this->POST['start']['month'][0] . '/' . $this->POST['start']['year'][0] . ' bis ' . $this->POST['end']['month'][0] . '/' . $this->POST['end']['year'][0] . "\n"; 
             $arrLines[] = "\n\n\n";
-            $arrLines[] = "\t\t\t\t\t" . 'Importierte Seiten: ' . "\t\t" . 'Band Importe:' . "\t\n";
-            $arrLines[] = 'Anzahl Zss.' . "\t" . 'Titel inkl. Vorgänger' . "\t" . 'Persistent URL' . "\t" . 'Verlag.' . "\t" . 'Erscheiniungsverlauf.' . "\t" . 'vor 1926' . "\t" . 'nach 1926' . "\t" . 'erster' . "\t" . 'letzter' . "\t" . 'Downloads' . "\n";
+            $arrLines[] = "\t\t\t\t\t" . 'Importierte Seiten: ' . "\t\t\t\t" . 'Band Importe:' . "\t\n";
+            $arrLines[] = 'Anzahl Zss.' . "\t" . 'Titel inkl. Vorgänger' . "\t" . 'Persistent URL' . "\t" . 'Verlag.' . "\t" . 'Erscheiniungsverlauf.' . "\t" . 'vor 1926' . "\t" . 'Bände' . "\t" . 'nach 1926' . "\t" . 'Bände' . "\t" . 'erster' . "\t" . 'letzter' . "\t" . 'Downloads' . "\n";
             $arrLines[] = "\n";
             foreach ($this->arrResult as $periodical) {
                 if(in_array('digizeitonly', $this->POST['license'])) {
@@ -273,16 +273,19 @@ class vgwort {
         $column[4] = trim($periodical['DATERUN']);
         $column[5] = 0;
         $column[6] = 0;
+        $column[7] = 0;
+        $column[8] = 0;        
         foreach($periodical['volumes'] as $volume) {
             if($volume['YEARPUBLISH'] <= $this->config['strWall']) {
                 $column[5] += $volume['PAGES'];
+                $column[6] ++;
             } else {
-                $column[6] += $volume['PAGES'];
-            }
+                $column[7] += $volume['PAGES'];
+                $column[8] ++;
         }
-        $column[7] = trim($this->dateFormat($periodical['FIRSTIMPORT']));
-        $column[8] = trim($this->dateFormat($periodical['LASTIMPORT']));
-        $column[9] = trim($this->downloads[$periodical['PPN']]);
+        $column[9] = trim($this->dateFormat($periodical['FIRSTIMPORT']));
+        $column[10] = trim($this->dateFormat($periodical['LASTIMPORT']));
+        $column[11] = trim($this->downloads[$periodical['PPN']]);
         return implode("\t",$column)."\n";
     }
     
