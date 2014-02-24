@@ -224,7 +224,7 @@ class vgwort {
             //legend
             $arrLines[] = "\t" . 'DigiZeitschriften: ' . "\t" . $this->POST['start']['month'][0] . '/' . $this->POST['start']['year'][0] . ' bis ' . $this->POST['end']['month'][0] . '/' . $this->POST['end']['year'][0] . "\n"; 
             $arrLines[] = "\n\n\n";
-            $arrLines[] = "\t\t\t\t\t" . 'Importierte Seiten: ' . "\t\t\t\t" . 'Band Importe:' . "\t\n";
+            $arrLines[] = "\t\t\t\t\t" . 'Importierte Seiten / Bände: ' . "\t\t\t\t" . 'Band Importe:' . "\t\n";
             $arrLines[] = 'Anzahl Zss.' . "\t" . 'Titel inkl. Vorgänger' . "\t" . 'Persistent URL' . "\t" . 'Verlag.' . "\t" . 'Erscheiniungsverlauf.' . "\t" . 'vor 1926' . "\t" . 'Bände' . "\t" . 'nach 1926' . "\t" . 'Bände' . "\t" . 'erster' . "\t" . 'letzter' . "\t" . 'Downloads' . "\n";
             $arrLines[] = "\n";
             foreach ($this->arrResult as $periodical) {
@@ -282,6 +282,7 @@ class vgwort {
             } else {
                 $column[7] += $volume['PAGES'];
                 $column[8] ++;
+            }
         }
         $column[9] = trim($this->dateFormat($periodical['FIRSTIMPORT']));
         $column[10] = trim($this->dateFormat($periodical['LASTIMPORT']));
