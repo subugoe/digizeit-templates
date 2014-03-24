@@ -54,11 +54,6 @@ $arrTmp = explode('/', $strUrlQuery);
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
 
-if(is_file($imgCachePath.$strUrlQuery)) {
-    header('Content-type: image/' . $arrQuery['format']);
-    echo(file_get_contents($imgCachePath.$strUrlQuery));
-    exit();
-}
 
 ################################################################################
 // es werden nur URIs mit folgendem Aufbau verarbeitet
@@ -98,6 +93,12 @@ if (count($arrTmp) != 4) {
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //###############################################################################
 
+    if(is_file($imgCachePath.$strUrlQuery)) {
+        header('Content-type: image/' . $arrQuery['format']);
+        echo(file_get_contents($imgCachePath.$strUrlQuery));
+        exit();
+    }
+    
     //sourcepath
     $arrQuery['sourcepath'] = $arrTmp[0] . '/' . substr($arrTmp[3], 0, -3) . 'tif';
 
