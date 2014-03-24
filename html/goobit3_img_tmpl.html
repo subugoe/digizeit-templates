@@ -37,6 +37,7 @@
                     <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='www.zbw.eu.digire']" mode="comment" />
                     <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="comment" />
                     <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='europeana.ub.uni-frankfurt.de']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='goobiweb.bbf.dipf.de']" mode="comment" />
                     <xsl:apply-templates select="mods:mods[last()]/mods:titleInfo[1]/mods:title" mode="maintitle" />
                     <xsl:apply-templates select="mods:mods[last()]/mods:extension/goobi:type" mode="maintitle"/>
                     <xsl:apply-templates select="mods:mods/mods:extension/goobi:type" mode="structrun"/>
@@ -72,6 +73,10 @@
                 </xsl:template>
 
                 <xsl:template match="mods:mods[1]/mods:note[@ID='europeana.ub.uni-frankfurt.de']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='goobiweb.bbf.dipf.de']" mode="comment">
                     <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
                 </xsl:template>
 
