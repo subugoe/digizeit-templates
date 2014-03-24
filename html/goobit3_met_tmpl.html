@@ -128,6 +128,14 @@
                 </xsl:choose>
             </xsl:template>
 
+            <xsl:template match="mods:note[@ID='goobiweb.bbf.dipf.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+
             <xsl:template match="/mods:mods">
                 <xsl:apply-templates select="mods:note[@ID='MGH']" mode="periodicalvolume" />
                 <xsl:apply-templates select="mods:note[@ID='destatis.de']" mode="periodicalvolume" />
@@ -137,6 +145,7 @@
                 <xsl:apply-templates select="mods:note[@ID='www.zbw.eu.digire']" mode="periodicalvolume" />
                 <xsl:apply-templates select="mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="periodicalvolume" />
                 <xsl:apply-templates select="mods:note[@ID='europeana.ub.uni-frankfurt.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='goobiweb.bbf.dipf.de']" mode="periodicalvolume" />
 <!--                <div id="tx-goobit3-met_met"> -->
                 <ul>
                     <!-- Structurtyp -->
@@ -528,6 +537,19 @@
                                     </strong></span>
                                     <span>
                                         <a href ="{$swb-link}{$ppn}"><xsl:value-of select="." /></a>
+                                    </span>
+                                </li>
+                            </xsl:when>
+                            <xsl:when test="attribute::source='zdb-id'">
+                                <li>
+                                    <xsl:variable name="ppn">
+                                        <xsl:value-of select="." />
+                                    </xsl:variable>
+                                    <span><strong>
+                                        <xsl:text>PURL: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <a href="{$ppnresolverurl}{$ppn}" target="_blank"><xsl:value-of select="$ppnresolverurl" /><xsl:value-of select="." /></a>
                                     </span>
                                 </li>
                             </xsl:when>

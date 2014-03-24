@@ -102,6 +102,14 @@
                 </xsl:choose>
             </xsl:template>
 
+            <xsl:template match="mods:note[@ID='egoobiweb.bbf.dipf.de']" mode="periodicalvolume">
+                <xsl:choose>
+                    <xsl:when test="$docstrct='Zeitschrift' or $docstrct='Periodical' or $docstrct='multivolume_work'">
+                        <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:template>
+
             <xsl:template match="mods:note[@ID='preImport']" mode="periodicalvolume">
                 <xsl:choose>
                     <xsl:when test="$docstrct='Zeitschriftenband' or $docstrct='Periodical Volume'">
@@ -175,6 +183,7 @@
                 <xsl:apply-templates select="mods:note[@ID='www.zbw.eu.digire']" mode="periodicalvolume" />
                 <xsl:apply-templates select="mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="periodicalvolume" />
                 <xsl:apply-templates select="mods:note[@ID='europeana.ub.uni-frankfurt.de']" mode="periodicalvolume" />
+                <xsl:apply-templates select="mods:note[@ID='goobiweb.bbf.dipf.de']" mode="periodicalvolume" />
                 <xsl:apply-templates select="mods:note[@ID='preImport']" mode="periodicalvolume" />
 
                    <!-- Main title line -->
