@@ -28,12 +28,22 @@ define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 error_reporting(0);
 $serverUrl = $_SERVER['HTTPS'] ? 'https://' . $_SERVER['SERVER_NAME'] : 'http://' . $_SERVER['SERVER_NAME'];
 $scriptPath = dirname(__FILE__);
-$logPath = realpath($scriptPath . '/../../logs/');
+$logFile = __DZROOT__.'/logs/digizeit-content_log';
 
 $csBaseUrl = 'http://localhost:8080/gcs/cs';
 $restrictImg = $serverUrl . '/fileadmin/images/restrict.png';
 $authServer = $serverUrl . '/dms/authserver/?';
 $imgCachePath = '/storage/digizeit/cache/jpg/';
+
+
+if($logFile) {
+    if (is_writable($logFile)) {
+        $logging = true;
+    } else {
+        $logging = false;
+    }
+}
+
 
 $arrQuery['action'] = 'image';
 
@@ -93,12 +103,6 @@ if (count($arrTmp) != 4) {
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //###############################################################################
 
-    if(is_file($imgCachePath.$strUrlQuery)) {
-        header('Content-type: image/' . $arrQuery['format']);
-        echo(file_get_contents($imgCachePath.$strUrlQuery));
-        exit();
-    }
-    
     //sourcepath
     $arrQuery['sourcepath'] = $arrTmp[0] . '/' . substr($arrTmp[3], 0, -3) . 'tif';
 
@@ -117,61 +121,54 @@ if (count($arrTmp) != 4) {
     foreach ($arrQuery as $k => $v) {
         $strQuery .= $k . '=' . $v . '&';
     }
-    $img = file_get_contents($csBaseUrl . '?' . $strQuery);
-
-
-    //write cache
-    @mkdir(dirname($imgCachePath.$strUrlQuery), 0775 , true);
-    file_put_contents($imgCachePath.$strUrlQuery, $img);
     
-    header('Content-type: image/' . $arrQuery['format']);
-    echo($img);
+    $imgURL = $csBaseUrl . '?' . $strQuery;
+
+    if(is_file($imgCachePath . $strUrlQuery)) {
+        header('Content-type: image/' . $arrQuery['format']);
+        echo(file_get_contents($imgCachePath . $strUrlQuery));
+    } else {
+
+        $img = file_get_contents($imgURL);
+
+        //write cache
+        @mkdir(dirname($imgCachePath . $strUrlQuery), 0775, true);
+        file_put_contents($imgCachePath . $strUrlQuery, $img);
+
+        header('Content-type: image/' . $arrQuery['format']);
+        echo($img);
+    }
+
+    //Content Logging
+    //http://localhost:8080/gcs/gcs?action=metsImage&format=jpg&metsFile=PPN366382810_1993_0068&divID=phys344&width=800&rotate=0
+    if($logging) {
+        $log['remote_addr'] = $_SERVER['REMOTE_ADDR'];
+        $log['auth_passwd'] = '-';
+        if (isset($_SERVER['PHP_AUTH_USER'])) {
+            $log['auth_user'].= $_SERVER['PHP_AUTH_USER'];
+        } else {
+            $log['auth_user'] = '-';
+        }
+        $log['date'] = date('[d/M/Y:H:i:s O] ', $_SERVER['REQUEST_TIME']);
+        $log['request'] = '"GET ';
+        $log['request'] .= $imgURL . ' ';
+        $log['request'] .= $_SERVER['SERVER_PROTOCOL'] . '"';
+        $log['redirect_status'] = $_SERVER['REDIRECT_STATUS'];
+        $log['filesize'] = 0;
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $log['referrer'] = '"' . $_SERVER['HTTP_REFERER'] . '"';
+        } else {
+            $log['referrer'] = '""';
+        }
+        $log ['user_agent'] = '"' . $_SERVER['HTTP_USER_AGENT'] . '"';
+        file_put_contents($logFile,$log."\n",FILE_APPEND);
+    }
     exit();
 }
-
 
 function id2name($id) {
     return str_replace('/', '___', trim($id));
 }
 
 
-//Content Logging
-//http://localhost:8080/gcs/gcs?action=metsImage&format=jpg&metsFile=PPN366382810_1993_0068&divID=phys344&width=800&rotate=0
-/*
-function contentlogging(  ) {
-
-if ($this->conf['contentlogfile']) {
-    if (!is_file($this->conf['contentlogfile'])) {
-        if (file_put_contents($this->conf['contentlogfile'], '')) {
-            $logging = true;
-        } else {
-            $logging = false;
-        }
-    } else if (is_writable($this->conf['contentlogfile'])) {
-        $logging = true;
-    } else {
-        $logging = false;
-    }
-} 
-
-    
-    $log['remote_addr'] = $_SERVER['REMOTE_ADDR'];
-    $log['auth_passwd'] = '-';
-    if (isset($_SERVER['PHP_AUTH_USER']))
-        $log['auth_user'].= $_SERVER['PHP_AUTH_USER'];
-    else
-        $log['auth_user'] = '-';
-    $log['date'] = date('[d/M/Y:H:i:s O] ', $_SERVER['REQUEST_TIME']);
-    $log['request'] = '"GET ';
-    $log['request'] .= $imgURL . ' ';
-    $log['request'] .= $_SERVER['SERVER_PROTOCOL'] . '"';
-    $log['redirect_status'] = $_SERVER['REDIRECT_STATUS'];
-    $log['filesize'] = 0;
-    if (isset($_SERVER['HTTP_REFERER']))
-        $log['referrer'] = '"' . $_SERVER['HTTP_REFERER'] . '"';
-    else
-        $log['referrer'] = '""';
-    $log ['user_agent'] = '"' . $_SERVER['HTTP_USER_AGENT'] . '"';
-}
-*/
 ?>
