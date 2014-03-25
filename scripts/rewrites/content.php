@@ -145,7 +145,7 @@ if (count($arrTmp) != 4) {
         $log['remote_addr'] = $_SERVER['REMOTE_ADDR'];
         $log['auth_passwd'] = '-';
         if (isset($_SERVER['PHP_AUTH_USER'])) {
-            $log['auth_user'].= $_SERVER['PHP_AUTH_USER'];
+            $log['auth_user'] = $_SERVER['PHP_AUTH_USER'];
         } else {
             $log['auth_user'] = '-';
         }
@@ -161,7 +161,7 @@ if (count($arrTmp) != 4) {
             $log['referrer'] = '""';
         }
         $log ['user_agent'] = '"' . $_SERVER['HTTP_USER_AGENT'] . '"';
-        file_put_contents($logFile,$log."\n",FILE_APPEND);
+        file_put_contents($logFile,implode(' ',$log)."\n",FILE_APPEND);
     }
     exit();
 }
