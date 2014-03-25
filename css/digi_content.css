@@ -564,12 +564,12 @@ dt.tx-irfaq-pi1 {
 }
 
 #tx-goobit3-img_image  {
+/*    width: 802px;
+    overflow-x: scroll; */
     margin-left: 75px;
 }
 
 #tx-goobit3-img_image .image {
-    width: 800px;
-    overflow-x: scroll;
     border: solid 1px #000;
 }
 
