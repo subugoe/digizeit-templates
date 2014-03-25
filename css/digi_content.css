@@ -565,7 +565,7 @@ dt.tx-irfaq-pi1 {
 
 #tx-goobit3-img_image  {
     width: 802px;
-    overflow-x: scroll;
+    overflow: scroll;
     margin-left: 75px;
 }
 
