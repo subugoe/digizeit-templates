@@ -568,6 +568,7 @@ dt.tx-irfaq-pi1 {
 /*    overflow: scroll; */
     overflow: auto;
     margin-left: 75px;
+    align: center;
 }
 
 #tx-goobit3-img_image .image {
