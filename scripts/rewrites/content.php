@@ -68,9 +68,6 @@ $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8")
 
 $arrTmp = explode('/', $strUrlQuery);
 
-print_r($arrTmp);
-exit;
-
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
 
