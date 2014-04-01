@@ -115,6 +115,9 @@ if (count($arrTmp) != 4) {
     
     // remove highlight parameter
     $arrTmp[3] = substr($arrTmp[3],0,strpos($arrTmp[3],'?'));
+print_r($arrTmp);
+exit;
+
     $arrQuery['sourcepath'] = $arrTmp[0] . '/' . substr($arrTmp[3], 0, -3) . 'tif';
 
     //width
