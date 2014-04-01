@@ -43,14 +43,13 @@ $ppn = urldecode(htmlentities($ppn, ENT_QUOTES, "UTF-8"));
 $physid = urldecode(htmlentities($physid, ENT_QUOTES, "UTF-8"));
 $rotate = htmlentities($rotate, ENT_QUOTES, "UTF-8");
 
-print_r($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
-exit();
-
-
-$acl = 0;
-$imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
-$acl = file_get_contents($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
-
+if(substr($ppn,0,3) == 'PPN') {
+    $acl = 0;
+    $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
+    $acl = file_get_contents($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
+} else {
+    $acl = 1;
+}
 
 if (!$acl) {
     $arrInfo = getimagesize($restrictImg);
