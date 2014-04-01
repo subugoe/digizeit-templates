@@ -57,12 +57,13 @@ $arrQuery['action'] = 'image';
 // &width=200
 // &highlight=10,50,80,150|60,80,160,200  (nicht umgesetzt!!!)
 
-parse_str($_SERVER['REQUEST_URI'],$arr);
-print_r($arr);
-exit;
+// get highlight paramter before rewrite
+$arrTmp = explode('?', $_SERVER['REQUEST_URI']);
+parse_str($arrTmp[1]);
+$arrQuery['highlight'] = htmlentities($highlight, ENT_QUOTES, "UTF-8");
+unset($arrTmp);
 
 $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
-
 
 $arrTmp = explode('/', $strUrlQuery);
 
@@ -130,7 +131,7 @@ if (count($arrTmp) != 4) {
     
     $imgURL = $csBaseUrl . '?' . $strQuery;
 
-    if(is_file($imgCachePath . $strUrlQuery)) {
+    if(is_file($imgCachePath . $strUrlQuery) && !trim($arrQuery['highlight'])) {
         header('Content-type: image/' . $arrQuery['format']);
         echo(file_get_contents($imgCachePath . $strUrlQuery));
     } else {
@@ -139,8 +140,11 @@ if (count($arrTmp) != 4) {
 
         //write cache
         @mkdir(dirname($imgCachePath . $strUrlQuery), 0775, true);
-        file_put_contents($imgCachePath . $strUrlQuery, $img);
-
+        
+        if(!trim($arrQuery['highlight'])) {
+            file_put_contents($imgCachePath . $strUrlQuery, $img);
+        }
+        
         header('Content-type: image/' . $arrQuery['format']);
         echo($img);
     }
