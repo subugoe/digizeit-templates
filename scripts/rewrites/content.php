@@ -59,7 +59,7 @@ $arrQuery['action'] = 'image';
 
 // get highlight paramter before rewrite
 $arrTmp = explode('?', $_SERVER['REQUEST_URI']);
-parse_str($arrTmp[1]);
+parse_str($arrTmp[count($arrTmp-1)]);
 $arrQuery['highlight'] = htmlentities($highlight, ENT_QUOTES, "UTF-8");
 unset($arrTmp);
 
