@@ -69,7 +69,7 @@ $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8")
 
 $arrTmp = explode('/', $strUrlQuery);
 
-print_($arrTmp);
+print_r($arrTmp);
 exit;
 
 //format
