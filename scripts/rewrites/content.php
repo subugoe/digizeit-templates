@@ -70,7 +70,10 @@ $arrTmp = explode('/', $strUrlQuery);
 
 
 // remove highlight parameter
-$arrTmp[3] = substr($arrTmp[3],0,strpos($arrTmp[3],'?'));
+$pos = strpos($arrTmp[3],'?');
+if($pos !== false) {
+    $arrTmp[3] = substr($arrTmp[3],0,$pos);
+}
 print_r($arrTmp);
 exit;
 
