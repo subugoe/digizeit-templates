@@ -21,7 +21,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
-define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
+define('__DZROOT__', realpath(__DIR__ . '/../../../'));
 
 set_time_limit(0);
 error_reporting(E_ALL);
@@ -42,13 +42,14 @@ $imgurl = urldecode($imgurl);
 $ppn = urldecode($ppn);
 $physid = urldecode($physid);
 
+print_r($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
+exit();
+
 
 $acl = 0;
 $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
 $acl = file_get_contents($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
 
-print_r($acl);
-exit();
 
 if (!$acl) {
     $arrInfo = getimagesize($restrictImg);
