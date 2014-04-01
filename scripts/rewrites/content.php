@@ -75,9 +75,6 @@ if($pos !== false) {
     $arrTmp[3] = substr($arrTmp[3],0,$pos);
 }
 
-print_r($arrTmp);
-exit;
-
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
 
@@ -147,6 +144,8 @@ if (count($arrTmp) != 4) {
         header('Content-type: image/' . $arrQuery['format']);
         echo(file_get_contents($imgCachePath . $strUrlQuery));
     } else {
+print_r($imgURL);
+exit;
 
         $img = file_get_contents($imgURL);
 
