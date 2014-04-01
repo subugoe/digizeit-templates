@@ -57,10 +57,12 @@ $arrQuery['action'] = 'image';
 // &width=200
 // &highlight=10,50,80,150|60,80,160,200  (nicht umgesetzt!!!)
 
-// get highlight paramter before rewrite
+// get highlight paramter 
 $arrTmp = explode('?', $_SERVER['REQUEST_URI']);
-parse_str($arrTmp[count($arrTmp-1)]);
+$strTmp = array_pop($arrTmp);
+parse_str($strTmp);
 $arrQuery['highlight'] = htmlentities($highlight, ENT_QUOTES, "UTF-8");
+$_SERVER['REQUEST_URI'] = implode('?',$strTmp);
 unset($arrTmp);
 
 $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
