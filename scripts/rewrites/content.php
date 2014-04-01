@@ -68,6 +68,10 @@ $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8")
 
 $arrTmp = explode('/', $strUrlQuery);
 
+
+// remove highlight parameter
+$arrTmp[3] = substr($arrTmp[3],0,strpos($arrTmp[3],'?'));
+
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
 
@@ -113,9 +117,6 @@ if (count($arrTmp) != 4) {
 
     //sourcepath
     
-    // remove highlight parameter
-    $arrTmp[3] = substr($arrTmp[3],0,strpos($arrTmp[3],'?'));
-
     $arrQuery['sourcepath'] = $arrTmp[0] . '/' . substr($arrTmp[3], 0, -3) . 'tif';
 
     //width
