@@ -28,7 +28,7 @@ error_reporting(E_ALL);
 $strTmpName = tempnam(sys_get_temp_dir(),'TMP');
 file_put_contents($strTmpName,file_get_contents(urldecode($_GET['url'])));
 header('Content-type: image/jpg');
-passthru('/usr/bin/convert -rotate '.$_GET['rotate'].' '.$strTmpName."\n".'rm -rf '.$strTmpName);
+passthru('/usr/bin/convert -rotate '.$_GET['rotate'].' '.$strTmpName.' JPG:-'."\n".'rm -rf '.$strTmpName);
 
 ?>
 
