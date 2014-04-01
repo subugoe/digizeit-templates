@@ -21,12 +21,37 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
+define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
+
 set_time_limit(0);
 error_reporting(E_ALL);
 //error_reporting(0);
 
-//print_r($_SERVER);
-//exit;
+$serverUrl = $_SERVER['HTTPS'] ? 'https://' . $_SERVER['SERVER_NAME'] : 'http://' . $_SERVER['SERVER_NAME'];
+$scriptPath = dirname(__FILE__);
+
+$restrictImg = $serverUrl . '/fileadmin/images/restrict.png';
+
+$authServer = $serverUrl . '/dms/authserver/?';
+
+$strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
+
+parse_str($strUrlQuery);
+
+$imgurl = urldecode($imgurl);
+
+$acl = 0;
+$imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
+$acl = file_get_contents($authServer . 'PPN=' . $metsfile . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
+
+if (!$acl) {
+    $arrInfo = getimagesize($restrictImg);
+    $img = file_get_contents($restrictImg);
+    header('Content-type: ' . $arrInfo['mime']);
+    header('HTTP/1.0 401 Unauthorized');
+    echo $img;
+    exit();
+}
 
 $strTmpName = tempnam(sys_get_temp_dir(),'TMP');
 file_put_contents($strTmpName,file_get_contents(urldecode($_GET['url'])));
