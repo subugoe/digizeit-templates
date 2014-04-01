@@ -62,7 +62,6 @@ $arrTmp = explode('?', $_SERVER['REQUEST_URI']);
 $strTmp = array_pop($arrTmp);
 parse_str($strTmp);
 $arrQuery['highlight'] = htmlentities($highlight, ENT_QUOTES, "UTF-8");
-$_SERVER['REQUEST_URI'] = implode('?',$strTmp);
 unset($arrTmp);
 
 $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
@@ -116,6 +115,9 @@ if (count($arrTmp) != 4) {
     //###############################################################################
 
     //sourcepath
+    
+    // remove highlight parameter
+    $arrTmp[3] = substr($arrTmp[3],0,strpos($arrTmp[3],'?'));
     $arrQuery['sourcepath'] = $arrTmp[0] . '/' . substr($arrTmp[3], 0, -3) . 'tif';
 
     //width
