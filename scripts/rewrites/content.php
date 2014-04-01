@@ -57,7 +57,7 @@ $arrQuery['action'] = 'image';
 // &width=200
 // &highlight=10,50,80,150|60,80,160,200  (nicht umgesetzt!!!)
 
-parse_str($_SERVER['QUERY_STRING'],$arr);
+parse_str($_SERVER['REQUEST_URI'],$arr);
 print_r($arr);
 exit;
 
