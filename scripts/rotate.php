@@ -36,9 +36,7 @@ $authServer = $serverUrl . '/dms/authserver/?';
 
 $strUrlQuery = trim($_SERVER['QUERY_STRING']);
 
-parse_str($strUrlQuery,$arr);
-print_r($arr);
-
+parse_str($strUrlQuery);
 
 $imgurl = urldecode(htmlentities($imgurl, ENT_QUOTES, "UTF-8"));
 $ppn = urldecode(htmlentities($ppn, ENT_QUOTES, "UTF-8"));
