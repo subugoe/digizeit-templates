@@ -42,7 +42,7 @@ $imgurl = urldecode($imgurl);
 
 $acl = 0;
 $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
-$acl = file_get_contents($authServer . 'PPN=' . $metsfile . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
+$acl = file_get_contents($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
 
 if (!$acl) {
     $arrInfo = getimagesize($restrictImg);
@@ -56,7 +56,7 @@ if (!$acl) {
 $strTmpName = tempnam(sys_get_temp_dir(),'TMP');
 file_put_contents($strTmpName,file_get_contents(urldecode($_GET['url'])));
 header('Content-type: image/jpg');
-passthru('/usr/bin/convert -rotate '.$_GET['rotate'].' '.$strTmpName.' JPG:-'."\n".'rm -rf '.$strTmpName);
+passthru('/usr/bin/convert -rotate '.$rotate.' '.$strTmpName.' JPG:-'."\n".'rm -rf '.$strTmpName);
 
 ?>
 
