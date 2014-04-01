@@ -62,6 +62,9 @@ $arrTmp = explode('?', $_SERVER['REQUEST_URI']);
 $strTmp = array_pop($arrTmp);
 parse_str($strTmp);
 $arrQuery['highlight'] = htmlentities($highlight, ENT_QUOTES, "UTF-8");
+if(!trim($arrQuery['highlight'])) {
+    unset($arrQuery['highlight']);
+}
 unset($arrTmp);
 
 $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
