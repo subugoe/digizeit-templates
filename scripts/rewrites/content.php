@@ -142,13 +142,13 @@ if (count($arrTmp) != 4) {
     }
     
     $imgURL = $csBaseUrl . '?' . $strQuery;
+print_r($imgURL);
+exit;
 
     if(is_file($imgCachePath . $strUrlQuery) && !trim($arrQuery['highlight'])) {
         header('Content-type: image/' . $arrQuery['format']);
         echo(file_get_contents($imgCachePath . $strUrlQuery));
     } else {
-print_r($imgURL);
-exit;
 
         $img = file_get_contents($imgURL);
 
