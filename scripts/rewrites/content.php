@@ -59,6 +59,9 @@ $arrQuery['action'] = 'image';
 
 $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
 
+print_r($strUrlQuery);
+exit;
+
 $arrTmp = explode('/', $strUrlQuery);
 
 //format
