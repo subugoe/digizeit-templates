@@ -34,15 +34,16 @@ $restrictImg = $serverUrl . '/fileadmin/images/restrict.png';
 
 $authServer = $serverUrl . '/dms/authserver/?';
 
-$strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
+$strUrlQuery = trim($_SERVER['QUERY_STRING']);
 
 parse_str($strUrlQuery,$arr);
 print_r($arr);
 
 
-$imgurl = urldecode($imgurl);
-$ppn = urldecode($ppn);
-$physid = urldecode($physid);
+$imgurl = urldecode(htmlentities($imgurl, ENT_QUOTES, "UTF-8"));
+$ppn = urldecode(htmlentities($ppn, ENT_QUOTES, "UTF-8"));
+$physid = urldecode(htmlentities($physid, ENT_QUOTES, "UTF-8"));
+$rotate = htmlentities($rotate, ENT_QUOTES, "UTF-8");
 
 print_r($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
 exit();
