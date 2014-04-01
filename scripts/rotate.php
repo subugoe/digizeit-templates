@@ -39,10 +39,16 @@ $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8")
 parse_str($strUrlQuery);
 
 $imgurl = urldecode($imgurl);
+$ppn = urldecode($ppn);
+$physid = urldecode($physid);
+
 
 $acl = 0;
 $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
 $acl = file_get_contents($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
+
+print_r($acl);
+exit();
 
 if (!$acl) {
     $arrInfo = getimagesize($restrictImg);
@@ -54,7 +60,7 @@ if (!$acl) {
 }
 
 $strTmpName = tempnam(sys_get_temp_dir(),'TMP');
-file_put_contents($strTmpName,file_get_contents(urldecode($_GET['url'])));
+file_put_contents($strTmpName,file_get_contents($imgurl));
 header('Content-type: image/jpg');
 passthru('/usr/bin/convert -rotate '.$rotate.' '.$strTmpName.' JPG:-'."\n".'rm -rf '.$strTmpName);
 
