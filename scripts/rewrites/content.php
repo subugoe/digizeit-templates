@@ -86,8 +86,8 @@ if (count($arrTmp) != 4) {
     if (!$acl) {
         $arrInfo = getimagesize($restrictImg);
         $img = file_get_contents($restrictImg);
-        header('HTTP/1.0 401 Unauthorized');
         header('Content-type: ' . $arrInfo['mime']);
+        header('HTTP/1.0 401 Unauthorized');
         echo $img;
         exit();
     }
