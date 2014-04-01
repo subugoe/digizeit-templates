@@ -57,7 +57,8 @@ $arrQuery['action'] = 'image';
 // &width=200
 // &highlight=10,50,80,150|60,80,160,200  (nicht umgesetzt!!!)
 
-print_r($_SERVER);
+parse_str($_SERVER['QUERY_STRING'],$arr);
+print_r($arr);
 exit;
 
 $strUrlQuery = htmlentities(trim($_SERVER['QUERY_STRING']), ENT_QUOTES, "UTF-8");
