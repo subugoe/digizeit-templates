@@ -74,8 +74,6 @@ $pos = strpos($arrTmp[3],'?');
 if($pos !== false) {
     $arrTmp[3] = substr($arrTmp[3],0,$pos);
 }
-print_r($arrTmp);
-exit;
 
 //format
 $arrQuery['format'] = substr($arrTmp[3], -3);
