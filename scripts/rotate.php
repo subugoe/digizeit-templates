@@ -47,7 +47,7 @@ $acl = 0;
 if(trim($ppn)) {
     $acl = 0;
     $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
-    $acl = file_get_contents($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
+    $acl = file_get_contents($authServer . 'PPN=' . $ppn . '&PHYSID=' . $physid . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
 }
 
 if (!$acl) {
