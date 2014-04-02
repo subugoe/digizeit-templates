@@ -101,7 +101,7 @@ if (count($arrTmp) != 4) {
     //##############################################################################
     $acl = 0;
     $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
-    $acl = file_get_contents($authServer . 'PPN=' . $arrTmp[0] . '&imagenumber=' . $imagenumber . '&ipaddress=' . $_SERVER['REMOTE_ADDR']);
+    $acl = file_get_contents($authServer . 'PPN=' . $arrTmp[0] . '&imagenumber=' . $imagenumber . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
 
     if (!$acl) {
         $arrInfo = getimagesize($restrictImg);
