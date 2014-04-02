@@ -25,7 +25,8 @@
  * ************************************************************* */
 define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 
-file_put_contents(_DZROOT_.'/tmp/bla.log',json_encode($_COOKIE)."\n",FILE_APPEND);
+file_put_contents(_DZROOT_.'/tmp/bla.log', json_encode($_COOKIE)."\n",FILE_APPEND);
+file_put_contents(_DZROOT_.'/tmp/bla1.log', json_encode($_SERVER)."\n",FILE_APPEND);
 
 error_reporting(0);
 $serverUrl = $_SERVER['HTTPS'] ? 'https://' . $_SERVER['SERVER_NAME'] : 'http://' . $_SERVER['SERVER_NAME'];
