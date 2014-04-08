@@ -148,10 +148,10 @@ if (count($arrTmp) != 4) {
 
     //clear corrupt cache files
     if(is_file($imgCachePath . $strUrlQuery)) {
-        if (filesize(is_file($imgCachePath . $strUrlQuery)) < 4096) {
-            unlink(is_file($imgCachePath . $strUrlQuery));
-        } else if (!getimagesize(is_file($imgCachePath . $strUrlQuery))) {
-            unlink(is_file($imgCachePath . $strUrlQuery));
+        if (filesize($imgCachePath . $strUrlQuery) < 4096) {
+            unlink($imgCachePath . $strUrlQuery);
+        } else if (!getimagesize($imgCachePath . $strUrlQuery)) {
+            unlink($imgCachePath . $strUrlQuery);
         }
     }
 
