@@ -146,6 +146,15 @@ if (count($arrTmp) != 4) {
     
     $imgURL = $csBaseUrl . '?' . $strQuery;
 
+    //clear corrupt cache files
+    if(is_file($imgCachePath . $strUrlQuery)) {
+        if (filesize(is_file($imgCachePath . $strUrlQuery)) < 4096) {
+            unlink(is_file($imgCachePath . $strUrlQuery));
+        } else if (!getimagesize(is_file($imgCachePath . $strUrlQuery))) {
+            unlink(is_file($imgCachePath . $strUrlQuery));
+        }
+    }
+
     if(is_file($imgCachePath . $strUrlQuery) && !trim($arrQuery['highlight'])) {
         header('Content-type: image/' . $arrQuery['format']);
         echo(file_get_contents($imgCachePath . $strUrlQuery));
