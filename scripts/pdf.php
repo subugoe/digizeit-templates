@@ -94,6 +94,13 @@ $status = '200';
 
 
 if(count($arrAccess)) {
+    
+    //kaputte Cachefiles loeschen
+    if(is_file($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf')) {
+        if (filesize($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf') < 20480) {
+            unlink($cachePath.'pdf/'.enc_str($_REQUEST['PPN']).'/'.enc_str($_REQUEST['logID']).'.pdf');
+        }
+    }
 
     if(substr(strtolower($_REQUEST['PPN']),0,3) !='ppn') {
         //################# Jochen's pdfwriter ######################################
