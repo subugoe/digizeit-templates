@@ -647,7 +647,28 @@
                         </xsl:when>
 
                         
-                        
+                        <!-- Links - other PIs-->
+                        <xsl:otherwise>
+                            <xsl:for-each select="mods:identifier" >
+                           <!--     <xsl:choose>
+                                    <xsl:when test="attribute::type='urn'"> -->
+                                        <li>
+                                            <span><strong>
+                                                <xsl:text>Links: </xsl:text>
+                                            </strong></span>
+                                            <span>
+                                                <a href="{$metsresolverurl}{$PPN}" target="_blank" title="METS-Download"><img src="/fileadmin/layout/mets.png" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                <xsl:choose>
+                                                    <xsl:when test="$dfgv-link!=''">
+                                                        <a href="{$dfgv-link}{$PPN}" target="_blank" title="DFG-Viewer"><img src="/fileadmin/layout/dfgv_icon1.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                    </xsl:when>
+                                                </xsl:choose>
+                                            </span>
+                                        </li>
+                                    <!-- </xsl:when>
+                                </xsl:choose> -->
+                            </xsl:for-each>
+                        </xsl:otherwise>
                     </xsl:choose>
 
                </ul>
