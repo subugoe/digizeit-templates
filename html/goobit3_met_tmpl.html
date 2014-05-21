@@ -595,7 +595,7 @@
                                 <xsl:choose>
                                     <xsl:when test="attribute::source='gbv-ppn'">
                                         <li>
-                                            <xsl:if test="starts-with(.,'PPN')">
+                                            <xsl:if test="starts-with(.,'PPN') or starts-with(.,'ZDB')">
                                                 <xsl:variable name="ppn">
                                                     <xsl:value-of select="." />
                                                 </xsl:variable>
