@@ -401,6 +401,8 @@
 
                     <!-- Identifier -->
                     <xsl:for-each select="mods:identifier" >
+                        
+                        <xsl:if test="attribute::type!='ADBID'">
                         <li>
                             <xsl:choose>
                                 <xsl:when test="attribute::type='PPN' or attribute::type='gbv-ppn'">
@@ -504,7 +506,9 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </li>
+                        </xsl:if>
                     </xsl:for-each>
+                    
     
                     <xsl:for-each select="mods:recordInfo/mods:recordIdentifier">
                         <xsl:choose>
