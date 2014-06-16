@@ -494,7 +494,13 @@
                                         <a href="http://rzblx1.uni-regensburg.de/ezeit/?{$zdbid}" target="_blank" title="ZDB"><xsl:value-of select="." /></a>
                                     </span>
                                 </xsl:when>
-                                <xsl:when test="attribute::type='ADBID'">
+                                <xsl:when test="attribute::type='ISSN'">
+                                    <span><strong>
+                                        ISSN<xsl:text>: </xsl:text>
+                                    </strong></span>
+                                    <span>
+                                        <xsl:value-of select="." />
+                                    </span>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <span><strong>
