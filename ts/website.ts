@@ -8,6 +8,9 @@ temp.maincaption {
     30 = HTML
     30.value = </h3>
 }
+[globalVar = TSFE:id=239]
+    temp.maincaption >
+[else]
 
 # Default PAGE object:
 page = PAGE
