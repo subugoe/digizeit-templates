@@ -10,7 +10,7 @@ temp.maincaption {
 }
 [globalVar = TSFE:id=239]
     temp.maincaption >
-[else]
+[global]
 
 # Default PAGE object:
 page = PAGE
