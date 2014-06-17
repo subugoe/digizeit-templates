@@ -4,8 +4,9 @@
         <h4>###SEARCHTITLE###</h4>
         <form id="tx-goobit3-search_form" action="###FORM_ACTION###" method="post">
             ###HIDDEN###
-            <input id="searchforminput" size="25" name="formquery" value="###FORM_SQUERY_VALUE###" />
+            <input id="searchforminput" size="25" name="formquery" value="###FORM_SQUERY_VALUE###" onKeyup="tx_goobit3_searchproposallist(xajax.getFormValues('tx-goobit3-search_form'))" />
             <input id="send" type="submit" value="Suchen" />
+            <div id="tx-goobit3-search_proposal"></div>
         </form>
         <br />
     </div>
