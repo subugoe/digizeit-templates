@@ -344,11 +344,11 @@ dt.tx-irfaq-pi1 {
 /****** Searchform Startpage begin *****/
 #tx-goobit3-search_formstartpage {
     position:relative;
-    top:20px;
+    top:10px;
     bottom: 20px;
     right:0;
     width:560px;
-    height:90px;
+    height:80px;
     /*border-left:1px dotted #ccc;*/
 }
 #tx-goobit3-search_formstartpage #searchforminput {
