@@ -325,6 +325,23 @@ dt.tx-irfaq-pi1 {
     color:#fff;
     /*    padding:6px 0px 0px 10px; */
 }
+#tx-goobit3-search_form #searchforminput-startpage {
+    position:absolute;
+    right:15px;
+    top:20px;
+    width:420px;
+    height:28px;
+    /*    background:url(/fileadmin/layout/inpbg_fastsearch.gif) no-repeat 0 0; */
+    background: #8f8471;
+    border-top: 1px solid #6b6355;
+    border-left: 1px solid #6b6355;
+    border-bottom: 1px solid #b4aea3;
+    border-right: 1px solid #b4aea3;    
+    font-size:1.2em;
+    color:#fff;
+    /*    padding:6px 0px 0px 10px; */
+}
+
 #tx-goobit3-search_form #send {
     position:absolute;
     top:13px;
