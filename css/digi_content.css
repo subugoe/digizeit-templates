@@ -302,18 +302,18 @@ dt.tx-irfaq-pi1 {
 
 #tx-goobit3-search_form {
     position:relative;
-    top:20px;
+    top:5px;
     bottom: 20px;
     right:0;
-    width:420px;
-    height:90px;
-    border-left:1px dotted #ccc;
+    width:560px;
+    height:75px;
+    /*border-left:1px dotted #ccc;*/
 }
 #tx-goobit3-search_form #searchforminput {
     position:absolute;
     right:15px;
     top:20px;
-    width:390px;
+    width:530px;
     height:28px;
     /*    background:url(/fileadmin/layout/inpbg_fastsearch.gif) no-repeat 0 0; */
     background: #8f8471;
