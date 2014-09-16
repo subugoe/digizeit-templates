@@ -529,8 +529,10 @@ img {
 #login {
     position:absolute;
     top:20px;
-    right:330px;
-    width:220px;
+/*    right:330px; */
+    right:0px;
+/*    width:220px; */
+    width:320px;
     height:68px;
     border-left:1px dotted #ccc;
     padding-left: 16px;
@@ -538,6 +540,7 @@ img {
 }
 #login #logintable {
     width: 170px;
+    width: 260px;
 }
 
 #login label, p {
@@ -545,7 +548,8 @@ img {
 }
 #login #pass,
 #login #user {
-    width:84px;
+/*    width:84px; */
+    width:104px;
     height:17px;
     background:url(/fileadmin/layout/inpbg_login.gif) no-repeat right;
     border:none;
@@ -557,8 +561,10 @@ img {
     /*    width:33px;
         height:14px; */
     font-size:1.1em;
-    padding-left: 2px;
-    padding-right: 2px;
+/*    padding-left: 2px;
+    padding-right: 2px; */
+    padding-left: 5px;
+    padding-right: 5px;
     padding-top: 2px;
     padding-bottom: 2px;
     background:url(/fileadmin/layout/inpbg_login.gif) no-repeat right;
