@@ -529,7 +529,8 @@ img {
 #login {
     position:absolute;
     top:20px;
-    right:330px;
+/*    right:330px; */
+    right:0px;
     width:220px;
     height:68px;
     border-left:1px dotted #ccc;
