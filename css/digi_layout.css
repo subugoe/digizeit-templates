@@ -530,8 +530,9 @@ img {
     position:absolute;
     top:20px;
 /*    right:330px; */
-    right:0px;
+    right:10px;
     width:220px;
+    width:320px;
     height:68px;
     border-left:1px dotted #ccc;
     padding-left: 16px;
