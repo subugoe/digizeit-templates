@@ -624,6 +624,11 @@ dt.tx-irfaq-pi1 {
 #tx-goobit3-img_image .fulltext  {
     color: #000;
     border: solid 1px #000;
+    padding: 5px 5px 5px 5px;
+}
+
+#tx-goobit3-img_image .fulltext p {
+    color: #000;
 }
 
 #tx-goobi-img_head {
