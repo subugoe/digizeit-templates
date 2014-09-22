@@ -630,7 +630,7 @@ dt.tx-irfaq-pi1 {
 #tx-goobit3-img_image .fulltext p {
     color: #000;
 }
-#tx-goobit3-img_image .highlight span {
+#tx-goobit3-img_image .highlight p span {
     color: #900;
     font-weight: bold;
     text-decoration: none;
