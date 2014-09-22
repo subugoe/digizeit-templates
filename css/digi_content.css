@@ -621,9 +621,9 @@ dt.tx-irfaq-pi1 {
     border: solid 1px #000;
 }
 
-#tx-goobit3-img_image #fulltext  {
-    color:#000;
-    border: 1px;
+#tx-goobit3-img_image .fulltext  {
+    color: #000;
+    border: solid 1px #000;
 }
 
 #tx-goobi-img_head {
