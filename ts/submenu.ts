@@ -31,6 +31,11 @@ temp.submenu {
                 15.data = GP:PHYSID
                 15.if.isTrue.data = GP:PHYSID
                 15.wrap = &PHYSID=|
+
+                20 = TEXT
+                20.data = GP:highlight
+                20.if.isTrue.data = GP:highlight
+                20.wrap = &highlight=|
                     
             }
             # Normal state properties
@@ -60,6 +65,11 @@ temp.submenu {
                 15.data = GP:PHYSID
                 15.if.isTrue.data = GP:PHYSID
                 15.wrap = &PHYSID=|
+
+                20 = TEXT
+                20.data = GP:highlight
+                20.if.isTrue.data = GP:highlight
+                20.wrap = &highlight=|
                     
             }
     #        ACT.doNotLinkIt = 1

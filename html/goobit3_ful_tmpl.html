@@ -1,0 +1,394 @@
+<!-- ###NOSEARCHINDEX### BEGIN-->
+<span class="warning">###WARNMESSAGE###</span>
+<!-- ###NOSEARCHINDEX### END-->
+
+<!-- ###IMAGEVIEW## BEGIN -->
+<!--  ###HEAD### BEGIN -->
+<a href="http://www.digizeitschriften.de/informationen/subskription/" ><img id="lock" src="###LOCKBUTTON###" title="###LOCKTEXT###" /></a>
+</div>
+</div>
+<ul id="collection">
+    <li class="coll_object">
+        <div class="objsep"></div>
+        <div id="tx-goobi-img_head">
+            <!-- ###HEADSECTION### BEGIN-->
+            <?xml version="1.0" encoding="utf-8"?>
+            <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:goobi="http://www.goobi.org/">
+
+                <xsl:output method="html"/>
+                <xsl:param name="link" value=''/>
+                <xsl:param name="pdflink" value="0" />
+                <xsl:param name="pdficon" value="0" />
+                <xsl:param name="firstpage" value="0" />
+                <xsl:param name="lastpage" value="0" />
+                <xsl:param name="rotate" value="0" />
+
+                <xsl:template name="style">
+                    <!-- Platz fuer StyleSheets -->
+                    <xsl:call-template name='xmlstyle' />
+                </xsl:template>
+
+                <xsl:template match="/mods:modsCollection">
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='MGH']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='destatis.de']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='diglit.ub.uni-heidelberg.de']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='digi.ub.uni-heidelberg.de']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='idb.ub.uni-tuebingen.de']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='www.zbw.eu.digire']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='europeana.ub.uni-frankfurt.de']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[1]/mods:note[@ID='goobiweb.bbf.dipf.de']" mode="comment" />
+                    <xsl:apply-templates select="mods:mods[last()]/mods:titleInfo[1]/mods:title" mode="maintitle" />
+                    <xsl:apply-templates select="mods:mods[last()]/mods:extension/goobi:type" mode="maintitle"/>
+                    <xsl:apply-templates select="mods:mods/mods:extension/goobi:type" mode="structrun"/>
+                    <xsl:apply-templates select="mods:mods[last()]/mods:extension/goobi:purl" mode="purl"/>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='MGH']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='destatis.de']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='diglit.ub.uni-heidelberg.de']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='digi.ub.uni-heidelberg.de']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='idb.ub.uni-tuebingen.de']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='www.zbw.eu.digire']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='www.uni-weimar.de.ubweimar']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='europeana.ub.uni-frankfurt.de']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <xsl:template match="mods:mods[1]/mods:note[@ID='goobiweb.bbf.dipf.de']" mode="comment">
+                    <div class="comment"><xsl:value-of disable-output-escaping="yes" select="normalize-space(string(.))"  /><hr /></div>
+                </xsl:template>
+
+                <!--  Main Title -->
+                <xsl:template match="mods:mods[last()]/mods:titleInfo[1]/mods:title" mode="maintitle">
+                    <a name="navi"></a>
+                    <xsl:choose>
+                        <xsl:when test="string-length(normalize-space(string(.))) &lt;= 180">
+                            <xsl:choose>
+                                <xsl:when test="$pdflink">
+                                    <div class="maintitle_pdf">
+                                        <!--	
+                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
+                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
+                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                        </form>
+                                        //-->
+                                        <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                    </div>
+                                </xsl:when>
+                            </xsl:choose>
+                            <div class="maintitle">
+                                <xsl:value-of select="normalize-space(string(.))" />
+                            </div>
+                        </xsl:when>
+                        <xsl:when test="string-length(normalize-space(string(current()))) &gt; 180">
+                            <xsl:choose>
+                                <xsl:when test="$pdflink">
+                                    <div class="maintitle_pdf">
+                                        <!--	
+                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
+                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
+                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                        </form>
+                                        //-->
+                                        <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                    </div>
+                                </xsl:when>
+                            </xsl:choose>
+                            <div class="maintitle">
+                                <xsl:value-of select="concat(substring(normalize-space(string(.)),0,180),'...')" />
+                            </div>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:template>
+                <xsl:template match="mods:mods[last()]/mods:extension/goobi:type" mode="maintitle">
+                    <a name="navi"></a>
+                    <xsl:choose>
+                        <xsl:when test="not(/mods:modsCollection/mods:mods[last()]/mods:titleInfo[1]/mods:title)">
+                            <xsl:choose>
+                                <xsl:when test="$pdflink">
+                                    <div class="maintitle_pdf">
+                                        <!--	
+                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
+                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
+                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                        </form>
+                                        //-->
+                                        <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                    </div>
+                                </xsl:when>
+                            </xsl:choose>
+                            <div class="maintitle">
+                                <xsl:value-of select="normalize-space(string(.))" />
+                            </div>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:template>
+
+                <!-- StructRun -->
+                <xsl:template match="mods:mods/mods:extension/goobi:type"  mode="structrun">
+                    <xsl:choose>
+                        <xsl:when test="position()=last()">
+                            <span class="struct">
+                                <xsl:value-of select="." />
+                                <xsl:if test="$firstpage">
+                                    <xsl:text>&#160;/&#160;</xsl:text><xsl:value-of select="$firstpage" />
+                                    <xsl:if test="$lastpage and $lastpage!=$firstpage">
+                                        <xsl:text>&#160;-&#160;</xsl:text><xsl:value-of select="$lastpage" />          						    
+                                    </xsl:if>
+                                </xsl:if>    						
+                            </span>
+                        </xsl:when>
+                        <xsl:when test="position()=1 and string-length(normalize-space(string(../../mods:titleInfo[1]/mods:title))) &lt;= 100">
+                            <span class="struct">
+                                <a>
+                                    <xsl:attribute name="href"><xsl:value-of select="../goobi:link" /></xsl:attribute>
+                                    <xsl:attribute name="title"><xsl:value-of select="../../mods:titleInfo[1]/mods:title" /></xsl:attribute>
+                                    <xsl:value-of select="../../mods:titleInfo[1]/mods:title" />
+                                </a><xsl:text>&#160;/&#160;</xsl:text>
+                            </span>
+                        </xsl:when>
+                        <xsl:when test="position()=1 and string-length(normalize-space(string(../../mods:titleInfo[1]/mods:title))) &gt; 100">
+                            <span class="struct">
+                                <a>
+                                    <xsl:attribute name="href"><xsl:value-of select="../goobi:link" /></xsl:attribute>
+                                    <xsl:attribute name="title"><xsl:value-of select="../../mods:titleInfo[1]/mods:title" /></xsl:attribute>
+                                    <xsl:value-of select="concat(substring(../../mods:titleInfo[1]/mods:title,0,97),'...')" />
+                                </a><xsl:text>&#160;/&#160;</xsl:text>
+                            </span>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <span class="struct">
+                                <a>
+                                    <xsl:attribute name="href"><xsl:value-of select="../goobi:link" /></xsl:attribute>
+                                    <xsl:attribute name="title"><xsl:value-of select="../../mods:titleInfo[1]/mods:title" /></xsl:attribute>
+                                    <xsl:value-of select="." />
+                                    <xsl:if test="../../mods:originInfo/mods:dateIssued[1]">
+                                        <xsl:text>&#160;(</xsl:text><xsl:value-of select="../../mods:originInfo/mods:dateIssued[1]" /><xsl:text>)&#160;</xsl:text>
+                                    </xsl:if>
+                                </a><xsl:text>&#160;/&#160;</xsl:text>
+                            </span>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:template>
+
+                <!-- PURL -->
+                <xsl:template match="mods:mods[last()]/mods:extension/goobi:purl" mode="purl">
+                    <div class="purl">
+                        <a>
+                            <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
+                            <xsl:attribute name="title"><xsl:text>PURL</xsl:text></xsl:attribute>
+                            <xsl:value-of select="." />
+                        </a>
+                    </div>
+                </xsl:template>
+
+
+            </xsl:stylesheet>
+            <!--  ###HEADSECTION### END> --><?xml version="1.0" encoding="utf-8"?>
+        </div>
+    </li>
+</ul>
+<!-- ###HEAD### END -->
+
+
+<ul id="collection">
+    <li class="coll_object">
+        <div class="objsep"></div>
+        <!-- ###PAGETURN### BEGIN-->
+        <?xml version="1.0" encoding="utf-8"?>
+    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:mets="http://www.loc.gov/METS/">
+
+        <xsl:output method="html"/>
+
+        <xsl:variable name="newline">
+            <xsl:text>
+            </xsl:text>
+        </xsl:variable>
+
+        <xsl:template name="style">
+            <!-- Platz fuer StyleSheets -->
+            <xsl:call-template name='xmlstyle' />
+        </xsl:template>
+
+        <xsl:template match="/mets:div">
+            <div id="tx-goobit3-img_pageturn">
+                <form action="{$action}?PPN={$ppn}&amp;DMDID={$dmdid}&amp;LOGID={$logid}&amp;PHYSID={$physid}#navi" id="tx-goobit3-img_form" method="post">
+                    <input type="hidden" name="PHYSID" value="{$physid}" />
+
+                    <!-- first page -->
+                    <div><br/>
+                        <xsl:if test="$startbookphysid!=$physid">
+                            <input class="form_input" src="{$startbookbutton}" name="startbookPHYSID" value="{$startbookphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
+                                    document.forms['tx-goobit3-img_form'].submit();" type="image" title="{$startbooktype}" />
+                        </xsl:if>
+                        <xsl:if test="$startbookphysid=$physid">
+                            <img class="form_input" src="{$startbookbuttoninactive}" />
+                        </xsl:if>
+                    </div>
+                    <!--  previous struct -->
+                    <div><br/>
+                        <xsl:if test="$startphysid!=$physid">
+                            <input class="form_input" src="{$startbutton}" name="startPHYSID" value="{$startphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
+                                    document.forms['tx-goobit3-img_form'].submit();" type="image" title="{$starttype}" />
+                        </xsl:if>
+                        <xsl:if test="$startphysid=$physid">
+                            <img class="form_input" src="{$startbuttoninactive}" />
+                        </xsl:if>
+                    </div>
+                    <!--  previous page -->
+                    <div><br/>
+                        <xsl:if test="$backphysid!=$physid">
+                            <input class="form_input" src="{$backbutton}" name="backPHYSID" value="{$backphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
+                                        document.forms['tx-goobit3-img_form'].submit();" type="image"   title="previous page" />
+                        </xsl:if>
+                        <xsl:if test="$backphysid=$physid">
+                            <img class="form_input" src="{$backbuttoninactive}" />
+                        </xsl:if>
+                    </div>
+                    <!--  pageturner -->
+                    <div>Image : Page<br/>
+                        <select class="form_select" name="selectPHYSID" onchange="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value; document.forms['tx-goobit3-img_form'].submit();">
+                            <!--  <option disabled="disabled">Image : Page</option> -->
+                            <xsl:for-each select="mets:div[@TYPE='page']">	   	  	         	
+                                <xsl:choose>
+                                    <xsl:when test="attribute::ID=$physid">
+                                        <option selected="selected"><xsl:attribute name="value"><xsl:value-of select="attribute::ID" /></xsl:attribute><xsl:value-of select="attribute::ORDER" /><xsl:text> : </xsl:text><xsl:value-of select="attribute::ORDERLABEL" /></option>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <option><xsl:attribute name="value"><xsl:value-of select="attribute::ID" /></xsl:attribute><xsl:value-of select="attribute::ORDER" /><xsl:text> : </xsl:text><xsl:value-of select="attribute::ORDERLABEL" /></option>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:for-each>
+                        </select>
+                    </div>
+                    <div><br/>
+                        <input class="form_input" src="{$gotobutton}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = document.forms['tx-goobit3-img_form'].selectPHYSID.value;
+                                                document.forms['tx-goobit3-img_form'].submit();" type="image"   title="goto page"  />
+                    </div>
+                    <!--  after pageturner -->
+                    <!--  next page -->
+                    <div><br/>
+                        <xsl:if test="$forwardphysid!=$physid">
+                            <input class="form_input" src="{$forwardbutton}" name="forwardPHYSID" value="{$forwardphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
+                                    document.forms['tx-goobit3-img_form'].submit();" type="image"  title="next page" />
+                        </xsl:if>
+                        <xsl:if test="$forwardphysid=$physid">
+                            <img class="form_input" src="{$forwardbuttoninactive}" />
+                        </xsl:if>
+                    </div>
+                    <!--  next struct -->
+                    <div><br/>
+                        <xsl:if test="$endphysid!=$physid">
+                            <input class="form_input" src="{$endbutton}" name="endPHYSID" value="{$endphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
+                                    document.forms['tx-goobit3-img_form'].submit();" type="image" title="{$endtype}" />
+                        </xsl:if>
+                        <xsl:if test="$endphysid=$physid">
+                            <img class="form_input" src="{$endbuttoninactive}" />
+                        </xsl:if>
+                    </div>
+                    <!-- last page -->
+                    <div><br/>
+                        <xsl:if test="$endbookphysid!=$physid">
+                            <input class="form_input" src="{$endbookbutton}" name="endbookPHYSID" value="{$endbookphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
+                                    document.forms['tx-goobit3-img_form'].submit();" type="image" title="{$endbooktype}" />
+                        </xsl:if>
+                        <xsl:if test="$endbookphysid=$physid">
+                            <img class="form_input" src="{$endbookbuttoninactive}" />
+                        </xsl:if>
+                    </div>
+                </form>
+            </div>
+            <div style="clear: both;"></div>				
+
+            <div id="tx-goobit3-img_image">
+            </div>
+
+            <div style="clear: both;"></div>				
+            <div id="tx-goobit3-img_pageturn">
+                <form action="{$action}?PPN={$ppn}&amp;DMDID={$dmdid}&amp;LOGID={$logid}&amp;PHYSID={$physid}#navi" id="tx-goobit3-img_form_bottom" method="post">
+                    <input type="hidden" name="PHYSID" value="{$physid}" />
+                    <!-- first page -->
+                    <xsl:if test="$startbookphysid!=$physid">
+                        <input class="form_input" src="{$startbookbutton}" name="startbookPHYSID" value="{$startbookphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
+                                                document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" title="{$startbooktype}" />
+                    </xsl:if>
+                    <xsl:if test="$startbookphysid=$physid">
+                        <img class="form_input" src="{$startbookbuttoninactive}" />
+                    </xsl:if>
+                    <!--  previous struct -->
+                    <xsl:if test="$startphysid!=$physid">
+                        <input class="form_input" src="{$startbutton}" name="startPHYSID" value="{$startphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
+                                                document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" title="{$starttype}" />
+                    </xsl:if>
+                    <xsl:if test="$startphysid=$physid">
+                        <img class="form_input" src="{$startbuttoninactive}" />
+                    </xsl:if>
+                    <!--  previous page -->
+                    <xsl:if test="$backphysid!=$physid">
+                        <input class="form_input" src="{$backbutton}" name="backPHYSID" value="{$backphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
+                                                        document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" />
+                    </xsl:if>
+                    <xsl:if test="$backphysid=$physid">
+                        <img class="form_input" src="{$backbuttoninactive}" />
+                    </xsl:if>
+                    <!--  after pageturner -->
+                    <!--  next page -->
+                    <xsl:if test="$forwardphysid!=$physid">
+                        <input class="form_input" src="{$forwardbutton}" name="forwardPHYSID" value="{$forwardphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
+                                                document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" />
+                    </xsl:if>
+                    <xsl:if test="$forwardphysid=$physid">
+                        <img class="form_input" src="{$forwardbuttoninactive}" />
+                    </xsl:if>
+                    <!--  next struct -->
+                    <xsl:if test="$endphysid!=$physid">
+                        <input class="form_input" src="{$endbutton}" name="endPHYSID" value="{$endphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
+                                                        document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" title="{$endtype}" />
+                    </xsl:if>
+                    <xsl:if test="$endphysid=$physid">
+                        <img class="form_input" src="{$endbuttoninactive}" />
+                    </xsl:if>
+                    <!-- last page -->
+                    <xsl:if test="$endbookphysid!=$physid">
+                        <input class="form_input" src="{$endbookbutton}" name="endbookPHYSID" value="{$endbookphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
+                                                        document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" title="{$endbooktype}" />
+                    </xsl:if>
+                    <xsl:if test="$endbookphysid=$physid">
+                        <img class="form_input" src="{$endbookbuttoninactive}" />
+                    </xsl:if>
+                </form>
+            </div>
+        </xsl:template>
+
+    </xsl:stylesheet>
+    <!-- ###PAGETURN### END -->
+</li>
+</ul>
+<ul id="collection">
+    <li class="coll_object">
+        <div class="objsep"></div>
+    </li>
+</ul>
+<!--  ###IMAGEVIEW### END -->		
