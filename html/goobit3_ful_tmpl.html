@@ -269,8 +269,7 @@
                     </div>
                     <!--  pageturner -->
                     <div>Image : Page<br/>
-                        <select class="form_select" name="selectPHYSID" onchange="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
-                                document.forms['tx-goobit3-img_form'].submit();">
+                        <select class="form_select" name="selectPHYSID" onchange="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value; document.forms['tx-goobit3-img_form'].submit();">
                             <!--  <option disabled="disabled">Image : Page</option> -->
                             <xsl:for-each select="mets:div[@TYPE='page']">	   	  	         	
                                 <xsl:choose>
