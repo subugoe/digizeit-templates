@@ -32,6 +32,11 @@ temp.submenu {
                 15.if.isTrue.data = GP:PHYSID
                 15.wrap = &PHYSID=|
 
+                17 = TEXT
+                17.data = GP:imagenumber
+                17.if.isTrue.data = GP:imagenumber
+                17.wrap = &imagenumber=|
+
                 20 = TEXT
                 20.data = GP:highlight
                 20.if.isTrue.data = GP:highlight
@@ -65,6 +70,11 @@ temp.submenu {
                 15.data = GP:PHYSID
                 15.if.isTrue.data = GP:PHYSID
                 15.wrap = &PHYSID=|
+
+                17 = TEXT
+                17.data = GP:imagenumber
+                17.if.isTrue.data = GP:imagenumber
+                17.wrap = &imagenumber=|
 
                 20 = TEXT
                 20.data = GP:highlight
