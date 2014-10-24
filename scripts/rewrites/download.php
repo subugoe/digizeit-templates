@@ -125,7 +125,7 @@ if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
 $tmp = file_get_contents($gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage);    
     file_put_contents($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf', $tmp);
     
-file_put_contents(__DZROOT__.'/tmp/bla.log', $tmp."\n", FILE_APPEND);
+file_put_contents(__DZROOT__.'/tmp/bla.log', $pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf'."\n", FILE_APPEND);
 file_put_contents(__DZROOT__.'/tmp/bla.log', filesize($pdfCachePath.enc_str(metsFile).'/'.enc_str($divID).'.pdf').' - '.$pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf'."\n", FILE_APPEND);
 //exit();
     
