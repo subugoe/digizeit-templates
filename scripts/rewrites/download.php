@@ -122,6 +122,9 @@ if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
     mkdir($pdfCachePath.enc_str($metsFile), 0775, true);
     file_put_contents($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf', file_get_contents($gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage));
 
+file_put_contents(__DZROOT__.'/tmp/bla.log', $pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf'."\n", FILE_APPEND);
+//exit();
+    
     @exec('chmod -R g+w '.$pdfCachePath.enc_str($metsFile));
     //check PDF
     $size = filesize($pdfCachePath.enc_str(metsFile).'/'.enc_str($divID).'.pdf');
