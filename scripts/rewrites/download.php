@@ -96,7 +96,7 @@ unset($_arrTmp);
 // dazu muss sichergestellt werden das die $csBaseUrl nicht direkt erreichbar ist sondern nur von diesem Server!
 //##############################################################################
 $acl = 0;
-$acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
+//$acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
 
 if (!$acl) {
 file_put_contents(__DZROOT__.'/tmp/bla.log', $restrictPdf."\n", FILE_APPEND);
