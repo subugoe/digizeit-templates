@@ -99,6 +99,8 @@ $acl = 0;
 $acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
 
 if (!$acl) {
+file_put_contents(__DZROOT__.'/tmp/bla.log', $restrictPdf."\n", FILE_APPEND);
+//exit();
     $pdf = file_get_contents($restrictPdf);
     header('Content-type: application/pdf');
     header('HTTP/1.0 401 Unauthorized');
@@ -115,8 +117,6 @@ if(is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
     }
 }
 
-//file_put_contents(__DZROOT__.'/tmp/bla.log', $gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage."\n", FILE_APPEND);
-//exit();
 //################# ContentServer ############################################
 if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
     mkdir($pdfCachePath.enc_str($metsFile), 0775, true);
@@ -133,7 +133,6 @@ if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
         $arrError = array();
         $error = exec($checkCommand.' '.str_replace('file://','',$pdfCachePath).enc_str($metsFile).'/'.enc_str($divID).'.pdf 2>&1',$arrError);
         if(trim(implode("\n",$arrError))) {
-file_put_contents(__DZROOT__.'/tmp/bla.log', trim(implode("\n",$arrError))."\n", FILE_APPEND);
             @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
             $status = '500';
         }
