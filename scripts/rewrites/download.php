@@ -127,7 +127,7 @@ $test =file_put_contents($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.
     
 file_put_contents(__DZROOT__.'/tmp/bla.log', $test."\n", FILE_APPEND);
 file_put_contents(__DZROOT__.'/tmp/bla.log', filesize($pdfCachePath.enc_str(metsFile).'/'.enc_str($divID).'.pdf').' - '.$pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf'."\n", FILE_APPEND);
-//exit();
+exit();
     
     @exec('chmod -R g+w '.$pdfCachePath.enc_str($metsFile));
     //check PDF
