@@ -98,6 +98,8 @@ unset($_arrTmp);
 $acl = 0;
 $acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
 
+file_put_contents(__DZROOT__.'/tmp/bla.log', $acl.' - '.$authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']."\n", FILE_APPEND);
+
 if (!$acl) {
     $pdf = file_get_contents($restrictPdf);
     header("Expires: -1");
@@ -178,7 +180,11 @@ if($status == '200') {
 //print_r($_SERVER);
 //$logline = $_SERVER['REMOTE_ADDR'].' - ';
 $logline = $_SERVER['REMOTE_ADDR'].' - ';
-$logline .= $_COOKIE['fe_typo_user'].' ';
+if(trim($_COOKIE['fe_typo_user'])) {
+    $logline .= trim($_COOKIE['fe_typo_user']).' ';
+} else {
+    $logline .= '- ';
+}
 $logline .= date('[d/M/Y:H:i:s O] ',$_SERVER['REQUEST_TIME']);        
 $logline .= '"GET '.$gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.' HTTP/1.1" ';
 $logline .= $status.' 0 - ';
