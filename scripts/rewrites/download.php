@@ -35,7 +35,7 @@ $scriptPath = dirname(__FILE__);
 $logFile = __DZROOT__.'/logs/digizeit-content_log';
 
 $gcsBaseUrl = 'http://localhost:8080/gcs/gcs?action=pdf&';
-$pdfTitelPageUrl = $serverUrl . '/dms/pdf-titlepage/?';
+$pdfTitelPageUrl = 'http://' . $_SERVER['SERVER_NAME'] . '/dms/pdf-titlepage/?';
 $restrictPdf = $serverUrl . '/fileadmin/images/restrict.pdf';
 $authServer = $serverUrl . '/dms/authserver/?';
 $pdfCachePath = '/storage/digizeit/cache/pdf/';
