@@ -129,8 +129,8 @@ if(substr(strtolower($metsFile),0,3) !='ppn') {
     chdir($pdfwriter);
     //exit();
     if(!is_file($iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml')) {
-        $test = exec('./mets2itext.php '.$serverUrl.'dms/metsresolver/?PPN='.$metsFile.' '.$divID);
-file_put_contents(__DZROOT__.'/tmp/bla.log','./mets2itext.php '.$serverUrl.'dms/metsresolver/?PPN='.$metsFile.' '.$divID."\n",FILE_APPEND);                        
+        $test = exec('./mets2itext.php '.$serverUrl.'/dms/metsresolver/?PPN='.$metsFile.' '.$divID);
+file_put_contents(__DZROOT__.'/tmp/bla.log','./mets2itext.php '.$serverUrl.'/dms/metsresolver/?PPN='.$metsFile.' '.$divID."\n",FILE_APPEND);                        
 
     }
     //exit();
