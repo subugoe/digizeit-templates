@@ -96,12 +96,14 @@ unset($_arrTmp);
 // dazu muss sichergestellt werden das die $csBaseUrl nicht direkt erreichbar ist sondern nur von diesem Server!
 //##############################################################################
 $acl = 0;
-//$acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
+$acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
 
 if (!$acl) {
-file_put_contents(__DZROOT__.'/tmp/bla.log', $restrictPdf."\n", FILE_APPEND);
-//exit();
     $pdf = file_get_contents($restrictPdf);
+    header("Expires: -1");
+    header("Cache-Control: post-check=0, pre-check=0");
+    header("Pragma: no-cache");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
     header('Content-type: application/pdf');
     header('HTTP/1.0 401 Unauthorized');
     echo $pdf;
