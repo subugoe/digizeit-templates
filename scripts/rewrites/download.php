@@ -109,9 +109,9 @@ if (!$acl) {
 $status = '200';
 
 //kaputte Cachefiles loeschen
-if(is_file($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
-    if (filesize($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf') < 20480) {
-        unlink($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
+if(is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
+    if (filesize($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf') < 20480) {
+        unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
     }
 }
 
@@ -119,22 +119,21 @@ if(is_file($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
 //exit();
 //################# ContentServer ############################################
 if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
-    mkdir($cachePath.'pdf/'.enc_str($metsFile), 0775, true);
+    mkdir($pdfCachePath.enc_str($metsFile), 0775, true);
     file_put_contents($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf', file_get_contents($gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage));
 
-    @exec('chmod -R g+w '.$cachePath.'pdf/'.enc_str($metsFile));
+    @exec('chmod -R g+w '.$pdfCachePath.enc_str($metsFile));
     //check PDF
-    $size = filesize($cachePath.'pdf/'.enc_str(metsFile).'/'.enc_str($divID).'.pdf');
+    $size = filesize($pdfCachePath.enc_str(metsFile).'/'.enc_str($divID).'.pdf');
 
     if($size == 0) {
-        @unlink($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
-        @unlink($cachePath.'itext/'.enc_str($metsFile).'/'.enc_str($divID).'.xml');
+        @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
         $status = '500';
     } else {
         $arrError = array();
         $error = exec($checkCommand.' '.str_replace('file://','',$cachePath).'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf 2>&1',$arrError);
         if(trim(implode("\n",$arrError))) {
-            @unlink($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
+            @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
             $status = '500';
         }
     }
@@ -151,11 +150,11 @@ if($status == '200') {
     //header('Content-Disposition: attachment; filename="'.enc_str($metsFile).'_'.enc_str($divID).'.pdf"');
     // inline
     header('Content-Disposition: inline; filename="'.enc_str($metsFile).'_'.enc_str($divID).'.pdf"');
-    header('Content-Length: '.filesize($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf'));  
+    header('Content-Length: '.filesize($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf'));  
     header("Content-Transfer-Encoding: binary");
 
-    if(is_file($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
-        $fpin = fopen($cachePath.'pdf/'.$metsFile.'/'.$divID.'.pdf','r');
+    if(is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
+        $fpin = fopen($pdfCachePath.$metsFile.'/'.$divID.'.pdf','r');
         while(!feof($fpin)) {
             echo(fread($fpin, 8192));
             ob_flush();
