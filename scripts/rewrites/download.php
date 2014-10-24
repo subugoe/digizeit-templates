@@ -44,7 +44,6 @@ $authServer = $serverUrl . '/dms/authserver/?';
 $pdfCachePath = '/storage/digizeit/cache/pdf/';
 $iTextCachePath = '/storage/digizeit/cache/itext/';
 
-$pdfwriter = __DZROOT__.'/htdocs/fileadmin/scripts/pdfwriter/';
 
 if($logFile) {
     if (is_writable($logFile)) {
@@ -131,14 +130,14 @@ if(substr(strtolower($metsFile),0,3) !='ppn') {
     //exit();
     if(!is_file($iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml')) {
         $test = exec('./mets2itext.php '.$serverUrl.'dms/metsresolver/?PPN='.$metsFile.' '.$divID);
+file_put_contents(__DZROOT__.'/tmp/bla.log','./mets2itext.php '.$serverUrl.'dms/metsresolver/?PPN='.$metsFile.' '.$divID."\n",FILE_APPEND);                        
+
     }
     //exit();
     if(!is_file($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
         exec('./itext2pdf.php '.$iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml');    
+file_put_contents(__DZROOT__.'/tmp/bla.log','./itext2pdf.php '.$iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml'."\n",FILE_APPEND);                        
     }
-
-    //file_put_contents($logPath.'bla.log',$metsFile.'_'.$divID.'.pdf'."\n",FILE_APPEND);
-    //############################################################################
 
 } else {
 
