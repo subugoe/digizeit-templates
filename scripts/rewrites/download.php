@@ -34,11 +34,15 @@ $serverUrl = $_SERVER['HTTPS'] ? 'https://' . $_SERVER['SERVER_NAME'] : 'http://
 $scriptPath = dirname(__FILE__);
 $logFile = __DZROOT__.'/logs/digizeit-content_log';
 
+
+
 $gcsBaseUrl = 'http://localhost:8080/gcs/gcs?action=pdf&';
+$pdfwriter = __DZROOT__.'/htdocs/fileadmin/scripts/pdfwriter/';
 $pdfTitelPageUrl = 'http://' . $_SERVER['SERVER_NAME'] . '/dms/pdf-titlepage/?';
 $restrictPdf = $serverUrl . '/fileadmin/images/restrict.pdf';
 $authServer = $serverUrl . '/dms/authserver/?';
 $pdfCachePath = '/storage/digizeit/cache/pdf/';
+$iTextCachePath = '/storage/digizeit/cache/itext/';
 
 $pdfwriter = __DZROOT__.'/htdocs/fileadmin/scripts/pdfwriter/';
 
@@ -53,7 +57,7 @@ if($logFile) {
 //sample call with rewrite: http://www.digizeitschriften.de/download/PPN342672002_0007/log10.pdf
 //sample call without rewrite: http://www.digizeitschriften.de/fileadmin/scripts/rewrites/download.php?PPN342672002_0007/log10.pdf
 //Beispiel:
-//http://localhost:8080/gcs/gcs?action=pdf&metsFile='.$_REQUEST['PPN'].'&divID='.$_REQUEST['logID'].'&pdftitlepage='.urlencode($basehref).'%2Fdms%2Fpdf-titlepage%2F%3FmetsFile%3D'.$_REQUEST['PPN'].'%26divID%3D'.$_REQUEST['logID']));
+//http://localhost:8080/gcs/gcs?action=pdf&metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.urlencode($serverUrl).'%2Fdms%2Fpdf-titlepage%2F%3FmetsFile%3D'.$metsFile.'%26divID%3D'.$divID));
 // &metsFile=PPN342672002_0007
 // &divID=log10
 // &pdftitlepage=urlencode($pdfTitelPageUrl.'metsFile=PPN342672002_0007&divID=log10')
@@ -115,32 +119,55 @@ $status = '200';
 //kaputte Cachefiles loeschen
 if(is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
     if (filesize($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf') < 20480) {
-        unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
+        @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
+        @unlink($iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml');
     }
 }
 
-//################# ContentServer ############################################
-if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
-    mkdir($pdfCachePath.enc_str($metsFile), 0775, true);
-    file_put_contents($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf', file_get_contents($gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage));
-    
-    @exec('chmod -R g+w '.$pdfCachePath.enc_str($metsFile));
-    //check PDF
-    $size = filesize($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
+//###### Fremdimporte ######
+if(substr(strtolower($metsFile),0,3) !='ppn') {
+    //################# Jochen's pdfwriter ######################################
+    chdir($pdfwriter);
+    //exit();
+    if(!is_file($iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml')) {
+        $test = exec('./mets2itext.php '.$serverUrl.'dms/metsresolver/?PPN='.$metsFile.' '.$divID);
+    }
+    //exit();
+    if(!is_file($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
+        exec('./itext2pdf.php '.$iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml');    
+    }
 
-    if($size == 0) {
-        @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
-        $status = '500';
-    } else {
-        $arrError = array();
-        $error = exec($checkCommand.' '.str_replace('file://','',$pdfCachePath).enc_str($metsFile).'/'.enc_str($divID).'.pdf 2>&1',$arrError);
-        if(trim(implode("\n",$arrError))) {
+    //file_put_contents($logPath.'bla.log',$metsFile.'_'.$divID.'.pdf'."\n",FILE_APPEND);
+    //############################################################################
+
+} else {
+
+    //################# ContentServer ############################################
+    if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
+        mkdir($pdfCachePath.enc_str($metsFile), 0775, true);
+        file_put_contents($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf', file_get_contents($gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage));
+
+        @exec('chmod -R g+w '.$pdfCachePath.enc_str($metsFile));
+        //check PDF
+        $size = filesize($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
+
+        if($size == 0) {
             @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
+            @unlink($iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml');
             $status = '500';
+        } else {
+            $arrError = array();
+            $error = exec($checkCommand.' '.str_replace('file://','',$pdfCachePath).enc_str($metsFile).'/'.enc_str($divID).'.pdf 2>&1',$arrError);
+            if(trim(implode("\n",$arrError))) {
+                @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
+                @unlink($iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml');
+                $status = '500';
+            }
         }
     }
+    //############################################################################
 }
-//############################################################################
+
 
 if($status == '200') {
     header("Expires: -1");
