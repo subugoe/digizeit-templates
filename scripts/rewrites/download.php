@@ -98,8 +98,6 @@ unset($_arrTmp);
 $acl = 0;
 $acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
 
-file_put_contents(__DZROOT__.'/tmp/bla.log', $acl.' - '.$authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']."\n", FILE_APPEND);
-
 if (!$acl) {
     $pdf = file_get_contents($restrictPdf);
     header("Expires: -1");
