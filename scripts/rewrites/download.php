@@ -121,22 +121,19 @@ if(is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
 if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
     mkdir($pdfCachePath.enc_str($metsFile), 0775, true);
     file_put_contents($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf', file_get_contents($gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage));
-
-    
-file_put_contents(__DZROOT__.'/tmp/bla.log', filesize($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf').' - '.$pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf'."\n", FILE_APPEND);
     
     @exec('chmod -R g+w '.$pdfCachePath.enc_str($metsFile));
     //check PDF
     $size = filesize($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
-file_put_contents(__DZROOT__.'/tmp/bla.log', $size."\n", FILE_APPEND);
 
     if($size == 0) {
         @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
         $status = '500';
     } else {
         $arrError = array();
-        $error = exec($checkCommand.' '.str_replace('file://','',$cachePath).'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf 2>&1',$arrError);
+        $error = exec($checkCommand.' '.str_replace('file://','',$pdfCachePath).enc_str($metsFile).'/'.enc_str($divID).'.pdf 2>&1',$arrError);
         if(trim(implode("\n",$arrError))) {
+file_put_contents(__DZROOT__.'/tmp/bla.log', trim(implode("\n",$arrError))."\n", FILE_APPEND);
             @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
             $status = '500';
         }
