@@ -115,8 +115,8 @@ if(is_file($cachePath.'pdf/'.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
     }
 }
 
-file_put_contents(__DZROOT__.'/tmp/bla.log', $gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage."\n", FILE_APPEND);
-exit();
+//file_put_contents(__DZROOT__.'/tmp/bla.log', $gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage."\n", FILE_APPEND);
+//exit();
 //################# ContentServer ############################################
 if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
     mkdir($cachePath.'pdf/'.enc_str($metsFile), 0775, true);
