@@ -165,7 +165,7 @@ file_put_contents($global['logPath'] . 'mets2itext.log', $logline, FILE_APPEND);
 $global['iText']->save($global['itextPath'] . enc_str($global['filename']));
 
 file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log', $global['iText']->saveXML()."\n",FILE_APPEND);                        
-file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log', $global['filename']."\n",FILE_APPEND);                        
+file_put_contents('/srv/www/chroot/digizeit/digizeit/tmp/bla.log', $global['itextPath'] . enc_str($global['filename'])."\n",FILE_APPEND);                        
 
 //print_r($global['iText']->saveXML());
 //#### END MAIN #############################################
