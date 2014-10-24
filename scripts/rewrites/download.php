@@ -100,6 +100,10 @@ $acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID .
 
 if (!$acl) {
     $pdf = file_get_contents($restrictPdf);
+    header("Expires: -1");
+    header("Cache-Control: post-check=0, pre-check=0");
+    header("Pragma: no-cache");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
     header('Content-type: application/pdf');
     header('HTTP/1.0 401 Unauthorized');
     echo $pdf;
