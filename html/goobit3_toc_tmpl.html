@@ -42,7 +42,8 @@
             <xsl:param name="volumelist" value="0" />
             <xsl:param name="pdflink" value="0" />
             <xsl:param name="pdficon" value="0" />
- 
+            <xsl:param name="publlink" value="" />
+            
 <!-- schnelle schmutzige Lösung für DigiZeit besser umbauen zu modsCollection siehe tx_goobi_img.php --> 
             <xsl:template match="mods:note[@ID='MGH']" mode="periodicalvolume">
                 <xsl:choose>
