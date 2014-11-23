@@ -23,7 +23,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
+//S3 hosteurope.de
 include(__DZROOT__ . '/.hosteurope.cloud.secrets');
+//S3 dunkel.de
+//include(__DZROOT__ . '/.dunkel.cloud.secrets');
 
 //debug
 //file_put_contents(__DZROOT__.'/tmp/debug.log','key: '.$key."\n".'secret: '.$secret."\n",FILE_APPEND);
@@ -43,7 +46,12 @@ $string = 'GET' . "\n\n\n" . $expire . "\n" . $file;
 
 $signature = urlencode(base64_encode(hash_hmac('sha1', $string, $secret, true)));
 
+//S3 hosteurope.de
 $URL = 'http://digizeit.cs.hosteurope.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
+//S3 dunkel.de
+//$URL = 'http://digizeit.dcs.dunkel.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
+//GWDG subtypo3
+//$URL = http://www.gwdg.de/~subtypo3/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
 
 //debug
 //file_put_contents(__DZROOT__.'tmp/debug.log',$URL."\n",FILE_APPEND);

@@ -99,7 +99,15 @@ unset($_arrTmp);
 // dazu muss sichergestellt werden das die $csBaseUrl nicht direkt erreichbar ist sondern nur von diesem Server!
 //##############################################################################
 $acl = 0;
-$acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
+
+if($_SERVER['HTTP_X_FORWARDED_HOST']=='www.digizeitschriften.de') {
+    $_arrTmp = explode(',',$_SERVER['HTTP_X_FORWARDED_FOR']);
+    $remoteIP = trim(array_pop($_arrTmp));
+    unset($_arrTmp);
+    $acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $remoteIP . '&fe_typo_user='.$_COOKIE['fe_typo_user']);
+} else {
+    $acl = file_get_contents($authServer . 'PPN=' . $metsFile . '&DMDID=' . $divID . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
+}
 
 if (!$acl) {
     $pdf = file_get_contents($restrictPdf);
@@ -142,7 +150,10 @@ if(substr(strtolower($metsFile),0,3) !='ppn') {
     //################# ContentServer ############################################
     if(!is_file($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf')) {
         mkdir($pdfCachePath.enc_str($metsFile), 0775, true);
+file_put_contents(__DZROOT__.'/tmp/bla.log', $gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage."\n", FILE_APPEND);
+
         file_put_contents($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf', file_get_contents($gcsBaseUrl.'metsFile='.$metsFile.'&divID='.$divID.'&pdftitlepage='.$pdftitlepage));
+file_put_contents(__DZROOT__.'/tmp/bla.log', $pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf'."\n", FILE_APPEND);
 
         @exec('chmod -R g+w '.$pdfCachePath.enc_str($metsFile));
         //check PDF
@@ -155,6 +166,7 @@ if(substr(strtolower($metsFile),0,3) !='ppn') {
         } else {
             $arrError = array();
             $error = exec($checkCommand.' '.str_replace('file://','',$pdfCachePath).enc_str($metsFile).'/'.enc_str($divID).'.pdf 2>&1',$arrError);
+file_put_contents(__DZROOT__.'/tmp/bla.log', trim(implode("\n",$arrError))."\n", FILE_APPEND);
             if(trim(implode("\n",$arrError))) {
                 @unlink($pdfCachePath.enc_str($metsFile).'/'.enc_str($divID).'.pdf');
                 @unlink($iTextCachePath.enc_str($metsFile).'/'.enc_str($divID).'.xml');
@@ -201,7 +213,12 @@ if($status == '200') {
 //"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.11) Gecko/20101012 Firefox/3.6.11 ( .NET CLR 3.5.30729; .NET4.0E)"
 //print_r($_SERVER);
 //$logline = $_SERVER['REMOTE_ADDR'].' - ';
-$logline = $_SERVER['REMOTE_ADDR'].' - ';
+if(trim($remoteIP)) {
+    $logline = $log['remote_addr'] = $remoteIP.' - ';
+} else {
+    $logline = $log['remote_addr'] = $_SERVER['REMOTE_ADDR'].' - ';
+}
+
 if(trim($_COOKIE['fe_typo_user'])) {
     $logline .= trim($_COOKIE['fe_typo_user']).' ';
 } else {

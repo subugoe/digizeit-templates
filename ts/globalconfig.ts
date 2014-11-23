@@ -58,7 +58,7 @@ config {
         piwik_idsite = 142
         #????
         trackGoal = 1
-        setDomains = 178.77.73.38,*.digizeitschriften.de,*.digizeitschriften.org,resolver.sub.uni-goettingen.de
+        setDomains = 92.51.150.136,*.digizeitschriften.de,*.digizeitschriften.org,resolver.sub.uni-goettingen.de
         setDownloadClasses = maintitle_pdf,sitepdf
     }
 }

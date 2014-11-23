@@ -28,6 +28,8 @@ define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 //file_put_contents(__DZROOT__.'/tmp/bla.log', json_encode($_COOKIE)."\n", FILE_APPEND);
 //file_put_contents(__DZROOT__.'/tmp/bla1.log', json_encode($GLOBALS)."\n", FILE_APPEND);
 
+//file_put_contents(__DZROOT__.'/tmp/bla1.log', $_SERVER['HTTP_X_FORWARDED_HOST'].' - '.$_SERVER['HTTP_X_FORWARDED_FOR'].' - '.$_SERVER['REMOTE_ADDR']."\n", FILE_APPEND);
+
 error_reporting(0);
 $serverUrl = $_SERVER['HTTPS'] ? 'https://' . $_SERVER['SERVER_NAME'] : 'http://' . $_SERVER['SERVER_NAME'];
 $scriptPath = dirname(__FILE__);
@@ -101,7 +103,16 @@ if (count($arrTmp) != 4) {
     //##############################################################################
     $acl = 0;
     $imagenumber = intval($arrTmp[(count($arrTmp) - 1)]);
-    $acl = file_get_contents($authServer . 'PPN=' . $arrTmp[0] . '&imagenumber=' . $imagenumber . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
+
+
+    if($_SERVER['HTTP_X_FORWARDED_HOST']=='www.digizeitschriften.de') {
+        $_arrTmp = explode(',',$_SERVER['HTTP_X_FORWARDED_FOR']);
+        $remoteIP = trim(array_pop($_arrTmp));
+        unset($_arrTmp);
+        $acl = file_get_contents($authServer . 'PPN=' . $arrTmp[0] . '&imagenumber=' . $imagenumber . '&ipaddress=' . $remoteIP.'&fe_typo_user='.$_COOKIE['fe_typo_user']);
+    } else {
+        $acl = file_get_contents($authServer . 'PPN=' . $arrTmp[0] . '&imagenumber=' . $imagenumber . '&ipaddress=' . $_SERVER['REMOTE_ADDR'].'&fe_typo_user='.$_COOKIE['fe_typo_user']);
+    }
 
     if (!$acl) {
         $arrInfo = getimagesize($restrictImg);
@@ -156,9 +167,11 @@ if (count($arrTmp) != 4) {
     }
 
     if(is_file($imgCachePath . $strUrlQuery) && !trim($arrQuery['highlight'])) {
+//file_put_contents(__DZROOT__.'/tmp/bla.log','Cache: '.$imgCachePath . $strUrlQuery."\n",FILE_APPEND);
         header('Content-type: image/' . $arrQuery['format']);
         echo(file_get_contents($imgCachePath . $strUrlQuery));
     } else {
+//file_put_contents(__DZROOT__.'/tmp/bla.log','CS: '.$imgURL."\n",FILE_APPEND);
 
         $img = file_get_contents($imgURL);
 
@@ -176,7 +189,11 @@ if (count($arrTmp) != 4) {
     //Content Logging
     //http://localhost:8080/gcs/gcs?action=metsImage&format=jpg&metsFile=PPN366382810_1993_0068&divID=phys344&width=800&rotate=0
     if($logging) {
-        $log['remote_addr'] = $_SERVER['REMOTE_ADDR'];
+        if(trim($remoteIP)) {
+            $log['remote_addr'] = $remoteIP;
+        } else {
+            $log['remote_addr'] = $_SERVER['REMOTE_ADDR'];
+        }
         $log['auth_passwd'] = '-';
         if (isset($_SERVER['PHP_AUTH_USER'])) {
             $log['auth_user'] = $_SERVER['PHP_AUTH_USER'];
