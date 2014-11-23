@@ -149,7 +149,8 @@ function setNSprefix(&$xpath, $node = false) {
         if(is_object($node)) {
             if ($node->attributes) {
                 foreach ($node->attributes as $attribute) {
-                    if ($attribute->prefix && !$arrNS[strtolower($attribute->prefix)]) {
+//                    if ($attribute->prefix && !$arrNS[strtolower($attribute->prefix)]) {
+                    if ($attribute->prefix) {
                         $xpath->registerNamespace(strtolower($attribute->prefix), $attribute->namespaceURI);
                     }
                 }
