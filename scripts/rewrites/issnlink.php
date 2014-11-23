@@ -202,7 +202,7 @@ if ($arr['ISSN']) {
             }
         }
         //get Volume from YEAR
-        if (!$arr['Volume'] && $arr['YEAR']) {
+        if (!isset($arr['Volume']) && $arr['YEAR']) {
             $arrSolr = unserialize(file_get_contents($solrPhpsUrl . '&q=' . urlencode('IDPARENTDOC:' . trim($arr['Journal']['PPN']) . ' AND YEARPUBLISH:"' . trim($arr['YEAR']) . '"') . '&rows=1'));
             if ($arrSolr['response']['numFound']) {
                 $arrTmp = $arrSolr['response']['docs'];
