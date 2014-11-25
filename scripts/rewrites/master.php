@@ -47,16 +47,23 @@ $string = 'GET' . "\n\n\n" . $expire . "\n" . $file;
 $signature = urlencode(base64_encode(hash_hmac('sha1', $string, $secret, true)));
 
 //S3 hosteurope.de
-$URL = 'http://digizeit.cs.hosteurope.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
+$URL1 = 'http://digizeit.cs.hosteurope.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
 //S3 dunkel.de
 //$URL = 'http://digizeit.dcs.dunkel.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
 //GWDG subtypo3
-//$URL = http://www.gwdg.de/~subtypo3/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
+$URL2 = 'http://www.gwdg.de/~subtypo3/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
 
+$arrTest = get_headers($URL1);
+if(strpos($arrTest[0],'200')!==false) {
+    $URL = $URL1;
+} else {
+    $URL = $URL2;
+}
+        
 //debug
-//file_put_contents(__DZROOT__.'tmp/debug.log',$URL."\n",FILE_APPEND);
+file_put_contents(__DZROOT__.'tmp/debug.log',$URL."\n",FILE_APPEND);
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
-usleep(30);
+//usleep(30);
 
 header('location: ' . $URL);
 exit();
