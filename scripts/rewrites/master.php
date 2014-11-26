@@ -42,7 +42,7 @@ $img = array_shift($arrQuery);
 
 $file = '/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
 //$expire = time() + 60;
-$expire = time() - 43140;
+$expire = time() + 43260;
 $string = 'GET' . "\n\n\n" . $expire . "\n" . $file;
 
 $signature = urlencode(base64_encode(hash_hmac('sha1', $string, $secret, true)));
