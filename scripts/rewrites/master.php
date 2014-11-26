@@ -24,9 +24,9 @@
  * ************************************************************* */
 define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 //S3 hosteurope.de
-//include(__DZROOT__ . '/.hosteurope.cloud.secrets');
+include(__DZROOT__ . '/.hosteurope.cloud.secrets');
 //S3 dunkel.de
-include(__DZROOT__ . '/.dunkel.cloud.secrets');
+//include(__DZROOT__ . '/.dunkel.cloud.secrets');
 
 //debug
 //file_put_contents(__DZROOT__.'/tmp/debug.log','key: '.$key."\n".'secret: '.$secret."\n",FILE_APPEND);
@@ -41,29 +41,27 @@ $ppn = array_shift($arrQuery);
 $img = array_shift($arrQuery);
 
 $file = '/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
-$expire = time() + 120;
+$expire = time() + 60;
 $string = 'GET' . "\n\n\n" . $expire . "\n" . $file;
 
 $signature = urlencode(base64_encode(hash_hmac('sha1', $string, $secret, true)));
 
 //S3 hosteurope.de
-//$URL1 = 'http://digizeit.cs.hosteurope.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
+$URL1 = 'http://digizeit.cs.hosteurope.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
 //S3 dunkel.de
-$URL = 'http://digizeit.dcs.dunkel.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
+//$URL1 = 'http://digizeit.dcs.dunkel.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
 //GWDG subtypo3
-//$URL2 = 'http://www.gwdg.de/~subtypo3/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
+$URL2 = 'http://www.gwdg.de/~subtypo3/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
 
-/*
 $arrTest = get_headers($URL1);
 if(strpos($arrTest[0],'200')!==false) {
     $URL = $URL1;
 } else {
     $URL = $URL2;
 }
-*/
-
+        
 //debug
-file_put_contents(__DZROOT__.'/tmp/debug.log',$URL."\n",FILE_APPEND);
+//file_put_contents(__DZROOT__.'/tmp/debug.log',$URL."\n",FILE_APPEND);
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
 //usleep(30);
 
