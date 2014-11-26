@@ -68,9 +68,10 @@ if(strpos($arrTest[0],'200')!==false) {
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
 //usleep(30);
 
-//header('location: ' . $URL2);
+header('location: ' . $URL2);
+exit();
 
-
+/*
 //header('Cache-control: private');
 header ('Content-Type: image/tiff');
 header ('Content-transfer-encoding: binary');
@@ -78,4 +79,5 @@ header ('Content-transfer-encoding: binary');
 header ('Content-Disposition: inline; filename = "'.trim($img).'"');
 fpassthru(file_get_contents($URL2));
 exit();
+*/
 ?>
