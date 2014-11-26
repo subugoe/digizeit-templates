@@ -59,7 +59,7 @@ $arrTest = get_headers($URL1);
 if(strpos($arrTest[0],'200')!==false) {
     $URL = $URL1;
 } else {
-    $URL = $URL2;
+    $URL = $URL;
 }
         
 //debug
@@ -70,7 +70,7 @@ if(strpos($arrTest[0],'200')!==false) {
 
 header('Content-Type: image/tiff');
 header('Content-transfer-encoding: binary');
-header('location: ' . $URL1);
+header('location: ' . $URL2);
 exit();
 
 /*
