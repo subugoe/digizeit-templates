@@ -66,8 +66,8 @@ if(strpos($arrTest[0],'200')!==false) {
 //file_put_contents(__DZROOT__.'/tmp/debug.log',$URL."\n",FILE_APPEND);
 //file_put_contents(__DZROOT__.'/tmp/debug.log',$URL1."\n",FILE_APPEND);
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
-usleep(30);
+//usleep(30);
 
-header('location: ' . $URL2);
+header('location: ' . $URL);
 exit();
 ?>
