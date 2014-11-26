@@ -41,8 +41,8 @@ $ppn = array_shift($arrQuery);
 $img = array_shift($arrQuery);
 
 $file = '/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
-//$expire = time() + 60;
-$expire = time() + 43260;
+$expire = time() + 60;
+//$expire = time() + 43260;
 //$expire = time() - 43140;
 $string = 'GET' . "\n\n\n" . $expire . "\n" . $file;
 
