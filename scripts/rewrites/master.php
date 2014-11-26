@@ -70,7 +70,7 @@ if(strpos($arrTest[0],'200')!==false) {
 
 header('Content-Type: image/tiff');
 header('Content-transfer-encoding: binary');
-header('location: ' . $URL2);
+header('location: ' . $URL1);
 exit();
 
 /*
