@@ -23,8 +23,6 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
 define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
-//S3 hosteurope.de
-//include(__DZROOT__ . '/.hosteurope.cloud.secrets');
 //S3 dunkel.de
 include(__DZROOT__ . '/.dunkel.cloud.secrets');
 
@@ -42,14 +40,9 @@ $img = array_shift($arrQuery);
 
 $file = '/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
 $expire = time() + 60;
-//$expire = time() + 43260;
-//$expire = time() - 43140;
 $string = 'GET' . "\n\n\n" . $expire . "\n" . $file;
-
 $signature = urlencode(base64_encode(hash_hmac('sha1', $string, $secret, true)));
 
-//S3 hosteurope.de
-//$URL1 = 'http://digizeit.cs.hosteurope.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
 //S3 dunkel.de
 $URL1 = 'http://digizeit.dcs.dunkel.de/tiff/' . trim($ppn) . '/' . trim($img) . '?AWSAccessKeyId=' . $key . '&Expires=' . $expire . '&Signature=' . $signature;
 //GWDG subtypo3
@@ -57,9 +50,15 @@ $URL2 = 'http://www.gwdg.de/~subtypo3/digizeit/tiff/' . trim($ppn) . '/' . trim(
 
 $arrTest = get_headers($URL1);
 if(strpos($arrTest[0],'200')!==false) {
-    $URL = $URL1;
+    $arrTest = get_headers($URL, 1);
+    if($arrTest['Content-Type'] != 'image/tiff') {
+        $URL = $URL2;
+        file_put_contents(__DZROOT__.'/tmp/todo.log',trim($ppn) . '/' . trim($img)."\n",FILE_APPEND);
+    } else {
+        $URL = $URL1;
+    }
 } else {
-    $URL = $URL;
+    $URL = $URL2;
 }
         
 //debug
@@ -68,18 +67,7 @@ if(strpos($arrTest[0],'200')!==false) {
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
 //usleep(30);
 
-header('Content-Type: image/tiff');
-header('Content-transfer-encoding: binary');
-header('location: ' . $URL2);
+header('location: ' . $URL);
 exit();
 
-/*
-//header('Cache-control: private');
-header ('Content-Type: image/tiff');
-header ('Content-transfer-encoding: binary');
-//header('Content-Length: '.filesize($file));
-header ('Content-Disposition: inline; filename = "'.trim($img).'"');
-fpassthru(file_get_contents($URL2));
-exit();
-*/
 ?>
