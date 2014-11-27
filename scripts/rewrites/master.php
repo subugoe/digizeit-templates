@@ -48,9 +48,8 @@ $URL1 = 'http://digizeit.dcs.dunkel.de/tiff/' . trim($ppn) . '/' . trim($img) . 
 //GWDG subtypo3
 $URL2 = 'http://www.gwdg.de/~subtypo3/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
 
-$arrTest = get_headers($URL1);
+$arrTest = get_headers($URL1, 1);
 if(strpos($arrTest[0],'200')!==false) {
-    $arrTest = get_headers($URL, 1);
     if($arrTest['Content-Type'] != 'image/tiff') {
         $URL = $URL2;
         file_put_contents(__DZROOT__.'/tmp/todo.log',trim($ppn) . '/' . trim($img)."\n",FILE_APPEND);
@@ -62,7 +61,7 @@ if(strpos($arrTest[0],'200')!==false) {
 }
         
 //debug
-//file_put_contents(__DZROOT__.'/tmp/debug.log',$URL."\n",FILE_APPEND);
+file_put_contents(__DZROOT__.'/tmp/debug.log',$URL."\n",FILE_APPEND);
 //file_put_contents(__DZROOT__.'/tmp/debug.log',$URL1."\n",FILE_APPEND);
 // Stupid but without that brake ContentServer an OpenVZ are overfloated
 //usleep(30);
