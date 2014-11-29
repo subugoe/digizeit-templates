@@ -45,9 +45,9 @@ config {
 	linkVars = L
 	sys_language_uid = 0
 	language = de
-#	locale_all = de_DE.UTF-8
+	locale_all = de_DE.UTF-8
 # Stupid solaris config
-	locale_all = de.UTF-8
+#	locale_all = de.UTF-8
 
 	htmlTag_langKey = de
 
