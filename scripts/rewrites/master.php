@@ -48,14 +48,18 @@ $URL1 = 'http://digizeit.dcs.dunkel.de/tiff/' . trim($ppn) . '/' . trim($img) . 
 //GWDG subtypo3
 $URL2 = 'http://www.gwdg.de/~subtypo3/digizeit/tiff/' . trim($ppn) . '/' . trim($img);
 
-$arrTest = get_headers($URL1, 1);
+//$arrTest = get_headers($URL1, 1);
 if(strpos($arrTest[0],'200')!==false) {
+    
+/*
     if($arrTest['Content-Type'] != 'image/tiff') {
         $URL = $URL2;
         file_put_contents(__DZROOT__.'/tmp/todo.log',trim($ppn) . '/' . trim($img)."\n",FILE_APPEND);
     } else {
         $URL = $URL1;
     }
+ */
+    $URL = $URL1;
 } else {
     $URL = $URL2;
 }
