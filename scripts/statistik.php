@@ -224,9 +224,6 @@ if (in_array($digizeitAdmin, $arrFe_groups)) {
     }
 }
 $resInst = $GLOBALS['TYPO3_DB']->exec_SELECTquery('fe1.uid as adminID, fe2.uid as institutionID, fe1.username, fe1.company, fe1.name', 'fe_users as fe1, fe_users as fe2', $where . ' fe1.pid="' . $sysInstitutionAdminPID . '" and fe2.pid="' . $sysInstitutionPID . '" and not fe2.disable and not fe2.deleted and not fe1.disable and not fe1.deleted and if(fe1.starttime,fe1.starttime<=UNIX_TIMESTAMP(),1) and if(fe1.endtime>0,fe1.endtime>=UNIX_TIMESTAMP(),1)', '', 'fe1.username,fe1.company,fe1.name');
-
-file_put_contents ('/srv/www/chroot/digizeit/digizeit/tmp/debug.log', 'fe1.uid as adminID, fe2.uid as institutionID, fe1.username, fe1.company, fe1.name , fe_users as fe1, fe_users as fe2 ,' . $where . ' fe1.pid="' . $sysInstitutionAdminPID . '" and fe2.pid="' . $sysInstitutionPID . '" and not fe2.disable and not fe2.deleted and not fe1.disable and not fe1.deleted and if(fe1.starttime,fe1.starttime<=UNIX_TIMESTAMP(),1) and if(fe1.endtime>0,fe1.endtime>=UNIX_TIMESTAMP(),1) ,' . 'fe1.username,fe1.company,fe1.name'."\n\n", FILE_APPEND);
-
 while ($arrInst = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($resInst)) {
     $institution[$arrInst['institutionID']]['username'] = trim($arrInst['username']);
     $institution[$arrInst['institutionID']]['company'] = trim($arrInst['company']) ? trim($arrInst['company']) : trim($arrInst['name']);
