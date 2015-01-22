@@ -12,6 +12,11 @@ temp.submenu {
             NO.additionalParams.cObject = COA
             NO.additionalParams.cObject {
  
+                3 = TEXT
+                3.data = GP:pid
+                3.if.isTrue.data = GP:pid
+                3.wrap = &pid=|
+
                 5 = TEXT
                 5.data = GP:PPN
                 5.if.isTrue.data = GP:PPN
@@ -51,6 +56,11 @@ temp.submenu {
             ACT.additionalParams.cObject = COA
             ACT.additionalParams.cObject {
  
+                3 = TEXT
+                3.data = GP:pid
+                3.if.isTrue.data = GP:pid
+                3.wrap = &pid=|
+
                 5 = TEXT
                 5.data = GP:PPN
                 5.if.isTrue.data = GP:PPN
