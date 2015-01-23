@@ -368,9 +368,9 @@
             <div style="clear: both;"></div>				
             <div id="tx-goobit3-img_pageturn">
                 <form action="{$action}?PPN={$ppn}&amp;DMDID={$dmdid}&amp;LOGID={$logid}&amp;PHYSID={$physid}#navi" id="tx-goobit3-img_form_bottom" method="post">
-                    <input type="hidden" name="PHYSID" value="{$physid}" />
+                    <input type="hidden" name="physid" value="{$physid}" />
                     <input type="hidden" name="USE" value="{$use}" />
-                    <input type="hidden" name="IDDOC" value="{$iddoc}" />
+                    <input type="hidden" name="pid" value="{$pid}" />
                     <!-- first page -->
                     <xsl:if test="$startbookphysid!=$physid">
                         <input class="form_input" src="{$startbookbutton}" name="startbookPHYSID" value="{$startbookphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].physid.value = this.value;
