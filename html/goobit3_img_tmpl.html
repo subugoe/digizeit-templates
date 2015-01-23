@@ -88,12 +88,6 @@
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
                                     <div class="maintitle_pdf">
-                                        <!--	
-                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
-                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
-                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
-                                        </form>
-                                        //-->
                                         <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
                                     </div>
                                 </xsl:when>
@@ -106,12 +100,6 @@
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
                                     <div class="maintitle_pdf">
-                                        <!--	
-                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
-                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
-                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
-                                        </form>
-                                        //-->
                                         <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
                                     </div>
                                 </xsl:when>
@@ -129,12 +117,6 @@
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
                                     <div class="maintitle_pdf">
-                                        <!--	
-                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
-                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
-                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
-                                        </form>
-                                        //-->
                                         <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
                                     </div>
                                 </xsl:when>
@@ -367,7 +349,7 @@
 
             <div style="clear: both;"></div>				
             <div id="tx-goobit3-img_pageturn">
-                <form action="{$action}?PPN={$ppn}&amp;DMDID={$dmdid}&amp;LOGID={$logid}&amp;PHYSID={$physid}#navi" id="tx-goobit3-img_form_bottom" method="post">
+                <form action="{$action}?pid={$pid}&amp;physid={$physid}#navi" id="tx-goobit3-img_form_bottom" method="post">
                     <input type="hidden" name="physid" value="{$physid}" />
                     <input type="hidden" name="USE" value="{$use}" />
                     <input type="hidden" name="pid" value="{$pid}" />
