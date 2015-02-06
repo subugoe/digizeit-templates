@@ -563,7 +563,7 @@
     
                     <xsl:choose>
                         <!-- Links GDZ Produktion-->
-                        <xsl:when test="starts-with($pid,'PPN')">
+                        <xsl:when test="starts-with($PID,'PPN')">
     
                             <xsl:for-each select="mods:identifier" >
                                 <xsl:choose>
@@ -629,7 +629,7 @@
                         </xsl:when>
     
                         <!-- Links - URN as PI -->
-                        <xsl:when test="starts-with($pid,'urn')">
+                        <xsl:when test="starts-with($PID,'urn')">
                             <xsl:for-each select="mods:identifier" >
                                 <xsl:choose>
                                     <xsl:when test="attribute::type='urn'">
@@ -638,10 +638,10 @@
                                                 <xsl:text>Links: </xsl:text>
                                             </strong></span>
                                             <span>
-                                                <a href="{$metsresolverurl}{$pid}" target="_blank" title="METS-Download"><img src="/fileadmin/layout/mets.png" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                <a href="{$metsresolverurl}{$PID}" target="_blank" title="METS-Download"><img src="/fileadmin/layout/mets.png" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
                                                 <xsl:choose>
                                                     <xsl:when test="$dfgv-link!=''">
-                                                        <a href="{$dfgv-link}{$pid}" target="_blank" title="DFG-Viewer"><img src="/fileadmin/layout/dfgv_icon1.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                        <a href="{$dfgv-link}{$PID}" target="_blank" title="DFG-Viewer"><img src="/fileadmin/layout/dfgv_icon1.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
                                                     </xsl:when>
                                                 </xsl:choose>
                                             </span>
@@ -663,10 +663,10 @@
                                                 <xsl:text>Links: </xsl:text>
                                             </strong></span>
                                             <span>
-                                                <a href="{$metsresolverurl}{$pid}" target="_blank" title="METS-Download"><img src="/fileadmin/layout/mets.png" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                <a href="{$metsresolverurl}{$PID}" target="_blank" title="METS-Download"><img src="/fileadmin/layout/mets.png" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
                                                 <xsl:choose>
                                                     <xsl:when test="$dfgv-link!=''">
-                                                        <a href="{$dfgv-link}{$pid}" target="_blank" title="DFG-Viewer"><img src="/fileadmin/layout/dfgv_icon1.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
+                                                        <a href="{$dfgv-link}{$PID}" target="_blank" title="DFG-Viewer"><img src="/fileadmin/layout/dfgv_icon1.gif" border="0"  /></a><img src="clear.gif" border="0" width="20px" />
                                                     </xsl:when>
                                                 </xsl:choose>
                                             </span>
