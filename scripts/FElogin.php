@@ -62,7 +62,8 @@ class user_FElogin {
             if(strpos(strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')),'id=139') || strpos(strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')),'mydigizeit')) {
                 $action = 'https://www.digizeitschriften.de/';
             } else {
-                $action = str_replace('http://','https://',strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')));
+                //$action = str_replace('http://','https://',strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')));
+                $action = str_replace('http://','https://',t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
             }
             $content = '
             <form action="'.$action.'" name="login" method="post">
