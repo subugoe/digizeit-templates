@@ -15,7 +15,7 @@ temp.submenu {
                 3 = TEXT
                 3.data = GP:PID
                 3.if.isTrue.data = GP:PID
-                3.wrap = &pid=|
+                3.wrap = &PID=|
 
                 5 = TEXT
                 5.data = GP:PPN
@@ -64,7 +64,7 @@ temp.submenu {
                 3 = TEXT
                 3.data = GP:PID
                 3.if.isTrue.data = GP:PID
-                3.wrap = &pid=|
+                3.wrap = &PID=|
 
                 5 = TEXT
                 5.data = GP:PPN
