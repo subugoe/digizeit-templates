@@ -13,8 +13,8 @@ temp.submenu {
             NO.additionalParams.cObject {
  
                 3 = TEXT
-                3.data = GP:pid
-                3.if.isTrue.data = GP:pid
+                3.data = GP:PID
+                3.if.isTrue.data = GP:PID
                 3.wrap = &pid=|
 
                 5 = TEXT
@@ -62,8 +62,8 @@ temp.submenu {
             ACT.additionalParams.cObject {
  
                 3 = TEXT
-                3.data = GP:pid
-                3.if.isTrue.data = GP:pid
+                3.data = GP:PID
+                3.if.isTrue.data = GP:PID
                 3.wrap = &pid=|
 
                 5 = TEXT
