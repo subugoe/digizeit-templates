@@ -34,7 +34,7 @@ class user_FElogin {
         //kein Frontenduser angemeldet
         if(!$GLOBALS['TSFE']->fe_user->user || $arrGP['logintype']=='logout') {
             $content = '
-            <form action="'.str_replace('http://','https://',strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'))).'" name="login" method="post" onSubmit="">
+            <form action="'.str_replace('http://','https://',t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')).'" name="login" method="post" onSubmit="">
                 <table id="logintable">
                     <tr>
                         <td><p id="introtxt">Login</p></td>
