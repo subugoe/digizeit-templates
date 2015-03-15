@@ -21,7 +21,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
-
+ignore_user_abort(true);
 set_time_limit(0);
 //error_reporting(E_ALL);
 error_reporting(0);
