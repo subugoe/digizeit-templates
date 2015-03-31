@@ -187,6 +187,10 @@ JO_SUB_OA = "Journals - Subscription and Open Access"
 ACL_free = "Open Access"
 ACL_gesamtabo = "Grant Access"
 
+DC_930.archaeology = "Archaeology"
+DC_930.archaeology_ACL_free = "Archaeology Open Access"
+DC_930.archaeology_ACL_gesamtabo = "Archaeology Grant Access"
+
 DC_020.librarianship = "Librarianship"
 DC_020.librarianship_ACL_free = "Librarianship Open Access"
 DC_020.librarianship_ACL_gesamtabo = "Librarianship Grant Access"
