@@ -167,7 +167,7 @@ class oailib {
                     }
                 }
             }
-            if(!in_array($arr['set'], $arrResult['header'][$i]['setSpec'])) {
+            if(isset($arr['set']) && !in_array($arr['set'], $arrResult['header'][$i]['setSpec'])) {
                 array_unshift($arrResult['header'][$i]['setSpec'], $arr['set']);
             }
             
