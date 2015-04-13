@@ -23,6 +23,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
+ignore_user_abort(true);
 define('__DZROOT__', realpath(__DIR__ . '/../../../../'));
 
 //file_put_contents(__DZROOT__.'/tmp/bla.log', json_encode($_COOKIE)."\n", FILE_APPEND);

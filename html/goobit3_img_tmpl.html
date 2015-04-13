@@ -88,6 +88,12 @@
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
                                     <div class="maintitle_pdf">
+                                        <!--	
+                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
+                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
+                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                        </form>
+                                        //-->
                                         <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
                                     </div>
                                 </xsl:when>
@@ -100,6 +106,12 @@
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
                                     <div class="maintitle_pdf">
+                                        <!--	
+                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
+                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
+                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                        </form>
+                                        //-->
                                         <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
                                     </div>
                                 </xsl:when>
@@ -117,6 +129,12 @@
                             <xsl:choose>
                                 <xsl:when test="$pdflink">
                                     <div class="maintitle_pdf">
+                                        <!--	
+                                        <form action="dms/gcs-wrapper" method="post" name="pdfform">
+                                           <input type="hidden" name="gcsurl" value="{$pdflink}" />
+                                           <a href="#" onClick="pdfform.submit(); return false;" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
+                                        </form>
+                                        //-->
                                         <a href="{$pdflink}" class="maintitle_pdf"><img class="sitepdf" src="/fileadmin/layout/pdficon_big.png" alt="PDF" title="PDF" /></a>
                                     </div>
                                 </xsl:when>
@@ -216,10 +234,10 @@
 
         <xsl:template match="/mets:div">
             <div id="tx-goobit3-img_pageturn">
-                <form action="{$action}?PID={$PID}&amp;physid={$physid}#navi" id="tx-goobit3-img_form" method="post">
-                    <input type="hidden" name="physid" value="{$physid}" />
+                <form action="{$action}?PPN={$ppn}&amp;DMDID={$dmdid}&amp;LOGID={$logid}&amp;PHYSID={$physid}#navi" id="tx-goobit3-img_form" method="post">
+                    <input type="hidden" name="PHYSID" value="{$physid}" />
                     <input type="hidden" name="USE" value="{$use}" />
-                    <input type="hidden" name="PID" value="{$PID}" />
+                    <input type="hidden" name="IDDOC" value="{$iddoc}" />
                     <input type="hidden" name="ROTATE" value="{$rotate}" />
                     <!--  rotateleft -->
                     <div><br/>
@@ -260,7 +278,7 @@
                     <!-- first page -->
                     <div><br/>
                         <xsl:if test="$startbookphysid!=$physid">
-                            <input class="form_input" src="{$startbookbutton}" name="startbookPHYSID" value="{$startbookphysid}" onclick="document.forms['tx-goobit3-img_form'].physid.value = this.value;
+                            <input class="form_input" src="{$startbookbutton}" name="startbookPHYSID" value="{$startbookphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
                                     document.forms['tx-goobit3-img_form'].submit();" type="image" title="{$startbooktype}" />
                         </xsl:if>
                         <xsl:if test="$startbookphysid=$physid">
@@ -270,7 +288,7 @@
                     <!--  previous struct -->
                     <div><br/>
                         <xsl:if test="$startphysid!=$physid">
-                            <input class="form_input" src="{$startbutton}" name="startPHYSID" value="{$startphysid}" onclick="document.forms['tx-goobit3-img_form'].physid.value = this.value;
+                            <input class="form_input" src="{$startbutton}" name="startPHYSID" value="{$startphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
                                     document.forms['tx-goobit3-img_form'].submit();" type="image" title="{$starttype}" />
                         </xsl:if>
                         <xsl:if test="$startphysid=$physid">
@@ -280,7 +298,7 @@
                     <!--  previous page -->
                     <div><br/>
                         <xsl:if test="$backphysid!=$physid">
-                            <input class="form_input" src="{$backbutton}" name="backPHYSID" value="{$backphysid}" onclick="document.forms['tx-goobit3-img_form'].physid.value = this.value;
+                            <input class="form_input" src="{$backbutton}" name="backPHYSID" value="{$backphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
                                         document.forms['tx-goobit3-img_form'].submit();" type="image"   title="previous page" />
                         </xsl:if>
                         <xsl:if test="$backphysid=$physid">
@@ -289,7 +307,7 @@
                     </div>
                     <!--  pageturner -->
                     <div>Image : Page<br/>
-                        <select class="form_select" name="selectPHYSID" onchange="document.forms['tx-goobit3-img_form'].physid.value = this.value;
+                        <select class="form_select" name="selectPHYSID" onchange="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
                                 document.forms['tx-goobit3-img_form'].submit();">
                             <!--  <option disabled="disabled">Image : Page</option> -->
                             <xsl:for-each select="mets:div[@TYPE='page']">	   	  	         	
@@ -305,14 +323,14 @@
                         </select>
                     </div>
                     <div><br/>
-                        <input class="form_input" src="{$gotobutton}" onclick="document.forms['tx-goobit3-img_form'].physid.value = document.forms['tx-goobit3-img_form'].selectPHYSID.value;
+                        <input class="form_input" src="{$gotobutton}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = document.forms['tx-goobit3-img_form'].selectPHYSID.value;
                                                 document.forms['tx-goobit3-img_form'].submit();" type="image"   title="goto page"  />
                     </div>
                     <!--  after pageturner -->
                     <!--  next page -->
                     <div><br/>
                         <xsl:if test="$forwardphysid!=$physid">
-                            <input class="form_input" src="{$forwardbutton}" name="forwardPHYSID" value="{$forwardphysid}" onclick="document.forms['tx-goobit3-img_form'].physid.value = this.value;
+                            <input class="form_input" src="{$forwardbutton}" name="forwardPHYSID" value="{$forwardphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
                                     document.forms['tx-goobit3-img_form'].submit();" type="image"  title="next page" />
                         </xsl:if>
                         <xsl:if test="$forwardphysid=$physid">
@@ -322,7 +340,7 @@
                     <!--  next struct -->
                     <div><br/>
                         <xsl:if test="$endphysid!=$physid">
-                            <input class="form_input" src="{$endbutton}" name="endPHYSID" value="{$endphysid}" onclick="document.forms['tx-goobit3-img_form'].physid.value = this.value;
+                            <input class="form_input" src="{$endbutton}" name="endPHYSID" value="{$endphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
                                     document.forms['tx-goobit3-img_form'].submit();" type="image" title="{$endtype}" />
                         </xsl:if>
                         <xsl:if test="$endphysid=$physid">
@@ -332,7 +350,7 @@
                     <!-- last page -->
                     <div><br/>
                         <xsl:if test="$endbookphysid!=$physid">
-                            <input class="form_input" src="{$endbookbutton}" name="endbookPHYSID" value="{$endbookphysid}" onclick="document.forms['tx-goobit3-img_form'].physid.value = this.value;
+                            <input class="form_input" src="{$endbookbutton}" name="endbookPHYSID" value="{$endbookphysid}" onclick="document.forms['tx-goobit3-img_form'].PHYSID.value = this.value;
                                     document.forms['tx-goobit3-img_form'].submit();" type="image" title="{$endbooktype}" />
                         </xsl:if>
                         <xsl:if test="$endbookphysid=$physid">
@@ -349,13 +367,13 @@
 
             <div style="clear: both;"></div>				
             <div id="tx-goobit3-img_pageturn">
-                <form action="{$action}?PID={$PID}&amp;physid={$physid}#navi" id="tx-goobit3-img_form_bottom" method="post">
-                    <input type="hidden" name="physid" value="{$physid}" />
+                <form action="{$action}?PPN={$ppn}&amp;DMDID={$dmdid}&amp;LOGID={$logid}&amp;PHYSID={$physid}#navi" id="tx-goobit3-img_form_bottom" method="post">
+                    <input type="hidden" name="PHYSID" value="{$physid}" />
                     <input type="hidden" name="USE" value="{$use}" />
-                    <input type="hidden" name="PID" value="{$PID}" />
+                    <input type="hidden" name="IDDOC" value="{$iddoc}" />
                     <!-- first page -->
                     <xsl:if test="$startbookphysid!=$physid">
-                        <input class="form_input" src="{$startbookbutton}" name="startbookPHYSID" value="{$startbookphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].physid.value = this.value;
+                        <input class="form_input" src="{$startbookbutton}" name="startbookPHYSID" value="{$startbookphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
                                                 document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" title="{$startbooktype}" />
                     </xsl:if>
                     <xsl:if test="$startbookphysid=$physid">
@@ -363,7 +381,7 @@
                     </xsl:if>
                     <!--  previous struct -->
                     <xsl:if test="$startphysid!=$physid">
-                        <input class="form_input" src="{$startbutton}" name="startPHYSID" value="{$startphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].physid.value = this.value;
+                        <input class="form_input" src="{$startbutton}" name="startPHYSID" value="{$startphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
                                                 document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" title="{$starttype}" />
                     </xsl:if>
                     <xsl:if test="$startphysid=$physid">
@@ -371,7 +389,7 @@
                     </xsl:if>
                     <!--  previous page -->
                     <xsl:if test="$backphysid!=$physid">
-                        <input class="form_input" src="{$backbutton}" name="backPHYSID" value="{$backphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].physid.value = this.value;
+                        <input class="form_input" src="{$backbutton}" name="backPHYSID" value="{$backphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
                                                         document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" />
                     </xsl:if>
                     <xsl:if test="$backphysid=$physid">
@@ -380,7 +398,7 @@
                     <!--  after pageturner -->
                     <!--  next page -->
                     <xsl:if test="$forwardphysid!=$physid">
-                        <input class="form_input" src="{$forwardbutton}" name="forwardPHYSID" value="{$forwardphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].physid.value = this.value;
+                        <input class="form_input" src="{$forwardbutton}" name="forwardPHYSID" value="{$forwardphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
                                                 document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" />
                     </xsl:if>
                     <xsl:if test="$forwardphysid=$physid">
@@ -388,7 +406,7 @@
                     </xsl:if>
                     <!--  next struct -->
                     <xsl:if test="$endphysid!=$physid">
-                        <input class="form_input" src="{$endbutton}" name="endPHYSID" value="{$endphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].physid.value = this.value;
+                        <input class="form_input" src="{$endbutton}" name="endPHYSID" value="{$endphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
                                                         document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" title="{$endtype}" />
                     </xsl:if>
                     <xsl:if test="$endphysid=$physid">
@@ -396,7 +414,7 @@
                     </xsl:if>
                     <!-- last page -->
                     <xsl:if test="$endbookphysid!=$physid">
-                        <input class="form_input" src="{$endbookbutton}" name="endbookPHYSID" value="{$endbookphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].physid.value = this.value;
+                        <input class="form_input" src="{$endbookbutton}" name="endbookPHYSID" value="{$endbookphysid}" onclick="document.forms['tx-goobit3-img_form_bottom'].PHYSID.value = this.value;
                                                         document.forms['tx-goobit3-img_form_bottom'].submit();" type="image" title="{$endbooktype}" />
                     </xsl:if>
                     <xsl:if test="$endbookphysid=$physid">

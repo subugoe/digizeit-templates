@@ -34,7 +34,7 @@ class user_FElogin {
         //kein Frontenduser angemeldet
         if(!$GLOBALS['TSFE']->fe_user->user || $arrGP['logintype']=='logout') {
             $content = '
-            <form action="'.str_replace('http://','https://',t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')).'" name="login" method="post" onSubmit="">
+            <form action="'.str_replace('http://','https://',strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'))).'" name="login" method="post" onSubmit="">
                 <table id="logintable">
                     <tr>
                         <td><p id="introtxt">Login</p></td>
@@ -62,8 +62,7 @@ class user_FElogin {
             if(strpos(strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')),'id=139') || strpos(strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')),'mydigizeit')) {
                 $action = 'https://www.digizeitschriften.de/';
             } else {
-                //$action = str_replace('http://','https://',strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')));
-                $action = str_replace('http://','https://',t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
+                $action = str_replace('http://','https://',strtolower(t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')));
             }
             $content = '
             <form action="'.$action.'" name="login" method="post">
