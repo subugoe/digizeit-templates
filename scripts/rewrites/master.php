@@ -60,8 +60,13 @@ if(strpos($arrTest[0],'200')!==false) {
     }
  */
     $URL = $URL1;
+//    header('location: ' . $URL);
+//    exit();
 } else {
     $URL = $URL2;
+//    header('Content-type: image/tiff');
+//    echo(file_get_contents($URL));
+//    exit();
 }
         
 //debug
